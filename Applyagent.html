@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<link href="css/Mdate.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/iScroll.js"></script>
+		<script type="text/javascript" src="js/Mdate.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			.m-celltitle{
+				color: #333;
+				font-size: 0.3rem;
+				white-space: nowrap;
+				padding: 10px;
+			}
+			.cell-select{
+				color:#333333;
+				font-size: 0.38rem;
+			}
+			.cell-textarea{
+				font-size: 0.38rem;
+			}
+			.cell-left{
+				width: 29%;
+				font-size: .38rem;
+			}
+			.upborder{
+				border: 1px solid #CCCCCC;
+				width: 1.5rem;
+				height: 1.5rem;
+				margin-right: 5px;
+				margin-bottom: 10px;
+				display: flex;
+				align-items: center;         /* 垂直居中 */
+				justify-content: center;    /* 水平居中 */
+				position: relative;
+			}
+			.upcell{
+				text-align: left;
+				padding: 0.2rem;
+				-webkit-justify-content:flex-start;
+				justify-content:flex-start;
+				-webkit-box-pack:start;
+				flex-wrap: wrap;
+			}
+			.m-cell{
+				margin-bottom: 0;
+			}
+			.img_click1,.img_click2{
+				cursor: pointer
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="#" onclick="self.location=document.referrer;" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">申请代理</span>
+			</div>
+		</header>
+
+		<div class="m-cell" style="margin-bottom: 0;display: none;" id="superior">
+			<div class="cell-item">
+				<div class="cell-left">邀请代理：</div>
+				<div class="cell-right"><input id="parentname" type="text" class="cell-input" readonly="readonly" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">手机号：</div>
+				<div class="cell-right"><input id="parentmobile" readonly="readonly" type="number" pattern="[0-9]*" class="cell-input"
+					 placeholder="请输入手机号" autocomplete="off" /></div>
+			</div>
+		</div>
+		<div style="padding: 13px;font-size: 0.36rem;">
+			填写内容成为代理
+		</div>
+		<div class="m-cell">
+			<div class="cell-item">
+				<div class="cell-left">代理等级：</div>
+				<label class="cell-right cell-arrow">
+					<select class="cell-select" id="level">
+
+					</select>
+				</label>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">名字：</div>
+				<div class="cell-right"><input type="text" id="name" class="cell-input" placeholder="请输入名字" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">联系电话：</div>
+				<div class="cell-right"><input type="text" id="mobile" class="cell-input" placeholder="请输入联系电话" /></div>
+			</div>
+			<!-- <div class="cell-item">
+				<div class="cell-left">验证码：</div>
+				<div class="cell-right">
+					<input type="text" id="captcha" class="cell-input" placeholder="请输入验证码" />
+					<span class="C39666" id="sendcode">获取验证码</span>
+				</div>
+			</div> -->
+			<div class="cell-item">
+				<div class="cell-left">密码：</div>
+				<div class="cell-right">
+					<input type="password" id="password" class="cell-input" placeholder="请输入密码" />
+
+				</div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">确认密码：</div>
+				<div class="cell-right">
+					<input type="password" id="password2" class="cell-input" placeholder="请输入确认密码" />
+					<span class="red" style="display: none;">密码不一致</span>
+				</div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">微信号：</div>
+				<div class="cell-right"><input type="text" id="wx" class="cell-input" placeholder="请输入微信号" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">身份证号：</div>
+				<div class="cell-right"><input type="text" id="id_card" class="cell-input" placeholder="请输入身份证号" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">打款方式：</div>
+				<div class="cell-right">
+					<label class="cell-right cell-arrow">
+						<select class="cell-select" id="pay_type">
+							<option value="1">支付宝</option>
+							<option value="2">银行卡</option>
+						</select>
+					</label>
+				</div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">打款金额：</div>
+				<div class="cell-right"><input readonly="readonly" id="pay_money" type="text" class="cell-input" placeholder="请输入打款金额" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">打款账号：</div>
+				<div class="cell-right"><input id="bank_account" type="text" class="cell-input" placeholder="请输入打款账号" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">打款日期：</div>
+				<div class="cell-right"><input id="pay_time" type="text" class="cell-input" placeholder="请输入打款日期" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">头像：</div>
+				<div id="avatar_cell" class="cell-right upcell" style="">
+					<a class="upborder img_click1">
+						<img style="width: 0.5rem;height: 0.5rem;" src="img/upfile.png">
+						<input type="file" name="avatar_images" accept='image/*' style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />
+					</a>
+
+				</div>
+
+
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">打款凭证：</div>
+				<div id="certificate_cell" class="cell-right upcell" style="">
+					<a class="upborder" style="position: relative;">
+						<img style="width: 0.5rem;height: 0.5rem;" src="img/upfile.png">
+						<input type="file" name="certificate_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />
+					</a>
+
+				</div>
+
+
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">备注：</div>
+				<div class="cell-right">
+					<textarea class="cell-textarea" placeholder="备注信息"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="applayagent_bottom">
+			<p>请打款到：</p>
+			<p>支付宝账号：<span id="ali_account"></span></p>
+			<p>支付宝实名：<span id="ali_name"></span></p>
+			<p>如有问题可联系微信客服：<span id="wx_service"></span></p>
+			<input id="upagent" type="button" class="btn" value="确认" />
+		</div>
+
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+			var pay_info = {
+				ali_account: '',
+				ali_name: '',
+				wx_service: '',
+				bank_account: '',
+				bank_username: ''
+			}
+			var parent_info = {
+				nickname: '',
+				mobile: ''
+			}
+			//上传文件
+			function uploadfile(type) {
+				//let token = userinfo.token;
+				var formData = new FormData();
+				if (type == 1) {
+					formData.append("file", $("#avatar_cell").children("a:last-child").find("input[name='avatar_images']")[0].files[0]);
+				} else if (type == 2) {
+					formData.append("file", $("#certificate_cell").children("a:last-child").find("input[name='certificate_images']")[0]
+						.files[0]);
+				}
+				// formData.append("token", token);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/Common/upload',
+					data: formData,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							if (type == 1) {
+								var dom = $("#avatar_cell").children("a:last-child");
+								dom.find('img').attr('src', http_url + res.data.url + '');
+								dom.find('img').css('width', '100%');
+								dom.find('img').css('height', '100%');
+								dom.removeAttr('onclick');
+								$("#avatar_cell").children("a:last-child").find("input[name='avatar_images']").val('');
+								let html = "<a class='upborder img_click1'>";
+								html += "<img  style='width: 0.5rem;height: 0.5rem;'  src='img/upfile.png'>";
+								html +=
+									'<input type="file" name="avatar_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />'
+
+								html += "</a>";
+								$("#avatar_cell").append(html);
+							} else if (type == 2) {
+								var dom2 = $("#certificate_cell").children("a:last-child");
+								dom2.find('img').attr('src', http_url + res.data.url + '');
+								dom2.find('img').css('width', '100%');
+								dom2.find('img').css('height', '100%');
+								dom2.removeAttr('onclick');
+								$("#certificate_cell").children("a:last-child").find("input[name='certificate_images']").val('');
+								let html2 = "<a class='upborder img_click2' >";
+								html2 += "<img  style='width: 0.5rem;height: 0.5rem;'  src='img/upfile.png'>";
+								html2 +=
+									'<input type="file" name="certificate_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />'
+								html2 += "</a>";
+								$("#certificate_cell").append(html2);
+							}
+							// $("#avatar_cell").children("a:last-child").find("input[name='avatar_images']").change(function() {
+							// 	uploadfile(1)
+							// });
+							// $("#certificate_cell").children("a:last-child").find("input[name='certificate_images']").change(function() {
+							// 	uploadfile(2)
+							// });
+
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					}
+				})
+			}
+
+			function getapply_info() {
+				let user_id = getQueryString('user_id');
+				$.ajax({
+					type: "get",
+					url: ajaxUrl + '/User/apply_info',
+					data: {
+						user_id: user_id
+					},
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							pay_info.ali_account = res.data.pay_info.ali_account;
+							pay_info.ali_name = res.data.pay_info.ali_name;
+							pay_info.wx_service = res.data.pay_info.wx_service;
+							pay_info.bank_account = res.data.pay_info.bank_account;
+							pay_info.bank_username = res.data.pay_info.bank_username;
+							parent_info.nickname = res.data.parent_info.nickname;
+							parent_info.mobile = res.data.parent_info.mobile;
+							$("#ali_account").text(pay_info.ali_account);
+							$("#ali_name").text(pay_info.ali_name);
+							$("#wx_service").text(pay_info.wx_service);
+							$("#parentname").val(parent_info.nickname);
+							$("#parentmobile").val(parent_info.mobile);
+							let html = "";
+							$("#level").empty();
+							for (let i = 0; i < res.data.level_info.length; i++) {
+								if (i == 0) {
+									html += "<option selected title='" + res.data.level_info[i].total_money + "' value='" + res.data.level_info[
+										i].id + "'>" + res.data.level_info[i].nickname + "</option>"
+									$("#pay_money").val(res.data.level_info[i].total_money)
+								} else {
+									html += "<option title='" + res.data.level_info[i].total_money + "' value='" + res.data.level_info[i].id +
+										"'>" + res.data.level_info[i].nickname + "</option>"
+								}
+							}
+							$("#level").append(html);
+
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取代理申请基本失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
+			function UpApplayagent() {
+				let user_id = getQueryString('user_id');
+				var error = checkvalue();
+				if (error == "") {
+					let formData = new FormData();
+					if (getQueryString('user_id') != null && getQueryString('user_id') != "") {
+						formData.append("superior_id", user_id);
+					}
+
+					formData.append("agency_id", $("#level").val());
+					formData.append("name", $("#name").val());
+					formData.append("mobile", $("#mobile").val());
+					formData.append("captcha", $("#captcha").val());
+					formData.append("password", $("#password").val());
+					formData.append("wx", $("#wx").val());
+					formData.append("id_card", $("#id_card").val());
+					formData.append("pay_type", $("#pay_type").val());
+					formData.append("pay_money", $("#pay_money").val());
+					formData.append("bank_account", $("#bank_account").val());
+					formData.append("pay_time", $("#pay_time").val());
+
+					let avatarurl = $("#avatar_cell").find('a').eq(0).find("img").attr("src");
+					for (let i = 1; i < $("#avatar_cell").find('a').length - 1; i++) {
+						avatarurl += "," + $("#avatar_cell").find('a').eq(i).find("img").attr("src")
+					}
+					let certificateurl = $("#certificate_cell").find('a').eq(0).find("img").attr("src");
+					for (let i = 1; i < $("#certificate_cell").find('a').length - 1; i++) {
+						certificateurl += "," + $("#certificate_cell").find('a').eq(i).find("img").attr("src")
+					}
+
+					formData.append("avatar", avatarurl);
+					formData.append("pay_certificate_images", certificateurl);
+
+					$.ajax({
+						type: "post",
+						url: ajaxUrl + '/User/apply_agent',
+						data: formData,
+						cache: false,
+						processData: false,
+						contentType: false,
+						dataType: "json",
+						success: function(res) {
+							if (res.code == 1) {
+								dialog.toast(res.msg, 'none', 1000);
+								location.href='LoginIndex.html'
+							} else {
+								dialog.toast(res.msg, 'none', 1000);
+							}
+						},
+						error: function(err) {
+							dialog.toast('申请代理失败，服务异常！', 'none', 1000);
+						}
+					})
+
+				} else {
+					dialog.toast(error, 'none', 1000);
+				}
+
+
+			}
+
+			function checkvalue() {
+				var message = [];
+				if ($("#name").val() == "" || $("#name").val() == undefined) {
+					message.push("请输入名字");
+				}
+				if ($("#mobile").val() == "" || $("#mobile").val() == undefined) {
+					message.push("请输入联系电话");
+				}
+				//if ($("#captcha").val() == "" || $("#captcha").val() == undefined) {
+				//	message.push("请输入验证码");
+				//}
+				if ($("#password").val() == "" || $("#password").val() == undefined) {
+					message.push("请输入密码");
+				}
+				if ($("#wx").val() == "" || $("#wx").val() == undefined) {
+					message.push("请输入微信号");
+				}
+				if ($("#id_card").val() == "" || $("#id_card").val() == undefined) {
+					message.push("请输入身份证号");
+				}
+				if ($("#bank_account").val() == "" || $("#bank_account").val() == undefined) {
+					message.push("请输入支付宝账号");
+				}
+				if ($("#pay_time").val() == "" || $("#pay_time").val() == undefined) {
+					message.push("请输入打款日期");
+				}
+				if ($("#avatar_cell").find('a').length == 1 && $("#avatar_cell").find('a img').attr("src") == "img/upfile.png") {
+					message.push("请上传头像");
+				}
+				if ($("#certificate_cell").find('a').length == 1 && $("#certificate_cell").find('a img').attr("src") ==
+					"img/upfile.png") {
+					message.push("请上传打款凭证");
+				}
+				if (message.length > 0)
+					return message.join("，\n");
+				else
+					return message.join("");
+			}
+			var countdown = 60;
+
+			function settime(obj) { //发送验证码倒计时
+				if (countdown == 0) {
+					obj.attr('disabled', false);
+					//obj.removeattr("disabled"); 
+					obj.text("获取验证码");
+					countdown = 60;
+					return;
+				} else {
+					//obj.attr('disabled',true);
+					obj.text("重新发送(" + countdown + ")");
+					countdown--;
+				}
+				setTimeout(function() {
+					settime(obj)
+				}, 1000)
+			}
+			$(function() {
+				initTimeSelect("pay_time")
+				if (getQueryString('user_id') != null && getQueryString('user_id') != "") {
+					getapply_info();
+					$("#superior").show();
+				}
+
+
+				$("#avatar_cell").on('change', "input[name='avatar_images']", function() {
+					uploadfile(1)
+				})
+				$("#certificate_cell").on('change', "input[name='certificate_images']", function() {
+					uploadfile(2)
+				})
+
+				$("#level").change(function() {
+					$("#pay_money").val($("#level option:selected").prop("title"))
+
+				});
+				$("#upagent").click(function() {
+					UpApplayagent();
+				})
+
+				$("#password").bind('input propertychange', function() {
+					if ($("#password2").val() != null && $("#password2").val() != '') {
+						if ($("#password2").val() != $("#password").val()) {
+							$(".red").show()
+						} else {
+							$(".red").hide()
+						}
+					}
+
+				})
+				$("#password2").bind('input propertychange', function() {
+					if ($("#password2").val() != $("#password").val()) {
+						$(".red").show()
+					} else {
+						$(".red").hide()
+					}
+				})
+				$("#sendcode").bind('click', function() {
+					sendCode($("#mobile").val());
+					settime($("#sendcode"))
+				});
+				//$(".img_click1")
+				// $("#avatar_cell").children("a:last-child").on('click',function(){
+				// 	var u = navigator.userAgent;
+				// 	var ua = navigator.userAgent.toLowerCase();
+				// 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+				// 	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+				// 	 if(ua.match(/MicroMessenger/i)=="micromessenger"&&isAndroid) {
+				// 		 $('#avatar_images').click()
+				// 	 }else if(ua.match(/MicroMessenger/i)=="micromessenger"&&isiOS){
+				// 		$('#avatar_images').click().click()
+				// 	}else if(isAndroid){
+				// 		$('#avatar_images').click()
+				// 	}else if(isiOS){
+				// 		$('#avatar_images').click().click()
+				// 	}
+				// 	//$('#avatar_images').click()
+				// })
+				//$(".img_click2")
+				// $("#certificate_cell").children("a:last-child").on('click',function(){
+				// 	var u = navigator.userAgent;
+				// 	var ua = navigator.userAgent.toLowerCase();
+				// 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+				// 	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+				// 	 if(ua.match(/MicroMessenger/i)=="micromessenger"&&isAndroid) {
+				// 		 $('#certificate_images').click()
+				// 	 }else if(ua.match(/MicroMessenger/i)=="micromessenger"&&isiOS){
+				// 		$('#certificate_images').click().click()
+				// 	}else if(isAndroid){
+				// 		$('#certificate_images').click()
+				// 	}else if(isiOS){
+				// 		$('#certificate_images').click().click()
+				// 	}
+				// 	//$('#certificate_images').click()
+				// })
+			});
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			.grids-item:after{
+				border: none;
+			}
+			.m-grids-3 .grids-item:not(:nth-child(3n)):before{
+				border: none;
+			}
+			.m-grids-3 .grids-item:not(:nth-child(3n)) .grids-txt{
+				border-right: 1px solid #D9D9D9;
+				font-size: .35rem;
+				padding: 0 .05rem;
+			}
+			.grids-txt p:first-child{
+				font-weight:bold;
+				margin-bottom: 0.15rem;
+			}
+			.grids-txt{
+				font-size: .35rem;
+				padding: 0 .05rem;
+			}
+			.wallet_item{
+				font-size: .35rem;
+			}
+			.tab-panel .tab-panel-item{
+				padding: 0;
+			}
+			.tab-nav-item.tab-active{
+				color: #C39666;
+			}
+			.tab-nav:after{
+				border:none;
+			}
+			#O_ListContent li{
+				background: white;
+				margin-bottom: .1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="g-flexview">
+			<header class="m-navbar">
+				<a href="MyInfo.html" class="navbar-item">
+					<i class="back-ico"></i>
+				</a>
+				<div class="navbar-center">
+					<span class="navbar-title">我的钱包</span>
+				</div>
+			</header>
+			<div class="mywallet_top">
+				<div class="m-grids-3">
+					<a href="#" class="grids-item">
+						<div class="grids-txt">
+							<p id="money"></p>
+							<p>余额</p>
+						</div>
+					</a>
+
+					<a href="#" class="grids-item">
+						<div class="grids-txt">
+							<p id="goods_payment">0</p>
+							<p>货款</p>
+						</div>
+					</a>
+
+					<a href="#" class="grids-item">
+						<div class="grids-txt">
+							<p id="margin"></p>
+							<p>保证金</p>
+						</div>
+					</a>
+
+				</div>
+			</div>
+			<div class="mywallet_content">
+				<div id="J_Tab" class="m-tab">
+					<ul class="tab-nav">
+						<li class="tab-nav-item tab-active"><a href="javascript:;">余额</a></li>
+						<li class="tab-nav-item"><a href="javascript:;">货款</a></li>
+					</ul>
+					<div class="tab-panel">
+
+						<div class="tab-panel-item tab-active" style="background-color: #F5F5F5;">
+
+							<ul id="wallet1">
+							</ul>
+						</div>
+
+						<div class="tab-panel-item" style="background-color: #F5F5F5;">
+
+							<ul id="wallet2">
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<section class="g-scrollview" id="O_List">
+				<div id="O_ListContent">
+					<ul>
+					</ul>
+				</div>
+			</section>
+		</section>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+			var page = 1,
+				page2 = 1,
+				pageSize = 5;
+			var token = userinfo.token;
+			var user_id = userinfo.user_id;
+			var $tab = $('#J_Tab');
+
+			$tab.tab({
+				nav: '.tab-nav-item',
+				panel: '.tab-panel-item',
+				activeClass: 'tab-active'
+			});
+
+			$tab.find('.tab-nav-item').on('opened.ydui.tab', function(e) {
+				$(".J_InfiniteScrollTag").remove();
+
+				$(".list-donetip").remove();
+				$('#O_ListContent ul').empty()
+				page = 1, page2 = 1
+				getWalletList(e.index + 1)
+			});
+
+			function getWalletList(type) {
+				$('#O_List').infiniteScroll({
+					binder: '#O_List',
+					pageSize: pageSize,
+					initLoad: true,
+					backposition: true,
+					jumpLink: '.O_Link',
+					loadListFn: function() {
+						var def = $.Deferred();
+						
+						loadMore(function(listArr) {
+							if (type == 1) {
+								listArr.page = page;
+
+								var html = appendhtml(listArr);
+								$('#O_ListContent ul').append(html);
+								def.resolve(listArr, page);
+								++page;
+							} else {
+								listArr.page = page2;
+
+								var html = appendhtml(listArr);
+								$('#O_ListContent ul').append(html);
+								def.resolve(listArr, page2);
+								++page2;
+							}
+
+						}, type);
+						return def.promise();
+					}
+				});
+			}
+			var loadMore = function(callback, type) {
+				var formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("money_type", type);
+				if (type == 1) {
+					formdata.append("page", page);
+				} else {
+					formdata.append("page", page2);
+				}
+				formdata.append("count", pageSize);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/user/wallet',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(ret) {
+						if (ret.code == 1) {
+							$("#money").text(ret.data.money_info.money);
+							$("#goods_payment").text(ret.data.money_info.goods_payment);
+							$("#margin").text(ret.data.money_info.margin);
+							setTimeout(function() {
+								typeof callback == 'function' && callback(ret.data.money_log);
+							}, 500);
+						}
+
+					},
+					error: function(err) {
+						dialog.toast('获取订单列表失败，服务异常！', 'none', 1000);
+					}
+				});
+			};
+
+			function appendhtml(list) {
+				var html = "";
+				for (let i = 0; i < list.length; i++) {
+					let des = list[i].desc == null ? '' : list[i].desc;
+					html += "<li>";
+					html += "<div class='wallet_item'>";
+					html += "<div class='wallet_cell1'>";
+					html += "<div>类型：<span>" + list[i].memo + "</span></div>";
+					html += "</div>";
+					html += "<div class='wallet_cell1'>";
+					html += "<div>描述：<span>" + des + "</span></div>";
+					html += "</div>";
+					html += "<div class='wallet_cell2'>";
+					html += "<div class='full_left'>金额：";
+					if (list[i].type == 1) {
+						html += "+￥";
+					} else {
+						html += "-￥";
+					}
+					html += "<span>" + list[i].money + "</span>";
+					html += "</div>";
+					html += "<div class='full_right'>" + timestampToTime(list[i].createtime) + "</div>";
+					html += "<div style='clear: both;'></div>";
+					html += "</div></div></li>";
+				}
+				return html;
+			}
+
+
+			function getWalletInfo(type) {
+				var formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("money_type", type);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/user/wallet',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+
+							if (type == 1) {
+								$("#money").text(res.data.money_info.money);
+								$("#goods_payment").text(res.data.money_info.goods_payment);
+								$("#margin").text(res.data.money_info.margin);
+								let html = "";
+								for (let i = 0; i < res.data.money_log.length; i++) {
+									let des = res.data.money_log[i].desc == null ? '' : res.data.money_log[i].desc;
+									html += "<li>";
+									html += "<div class='wallet_item'>";
+									html += "<div class='wallet_cell1'>";
+									html += "<div>类型：<span>" + res.data.money_log[i].memo + "</span></div>";
+									html += "</div>";
+									html += "<div class='wallet_cell1'>";
+									html += "<div>描述：<span>" + des + "</span></div>";
+									html += "</div>";
+									html += "<div class='wallet_cell2'>";
+									html += "<div class='full_left'>金额：";
+									if (res.data.money_log[i].type == 1) {
+										html += "+￥";
+									} else {
+										html += "-￥";
+									}
+									html += "<span>" + res.data.money_log[i].money + "</span>";
+									html += "</div>";
+									html += "<div class='full_right'>" + timestampToTime(res.data.money_log[i].createtime) + "</div>";
+									html += "<div style='clear: both;'></div>";
+									html += "</div></div></li>";
+								}
+								$("#wallet1").empty();
+								$("#wallet1").append(html);
+							} else {
+								$("#money").text(res.data.money_info.money);
+								$("#goods_payment").text(res.data.money_info.goods_payment);
+								$("#margin").text(res.data.money_info.margin);
+								let html = "";
+								for (let i = 0; i < res.data.money_log.length; i++) {
+									let des = res.data.money_log[i].desc == null ? '' : res.data.money_log[i].desc;
+									html += "<li>";
+									html += "<div class='wallet_item'>";
+									html += "<div class='wallet_cell1'>";
+									html += "<div>类型：<span>" + res.data.money_log[i].memo + "</span></div>";
+									html += "</div>";
+									html += "<div class='wallet_cell1'>";
+									html += "<div>描述：<span>" + des + "</span></div>";
+									html += "</div>";
+									html += "<div class='wallet_cell2'>";
+									html += "<div class='full_left'>金额：";
+									if (res.data.money_log[i].type == 1) {
+										html += "+￥";
+									} else {
+										html += "-￥";
+									}
+									html += "<span>" + res.data.money_log[i].money + "</span>";
+									html += "</div>";
+									html += "<div class='full_right'>" + timestampToTime(res.data.money_log[i].createtime) + "</div>";
+									html += "<div style='clear: both;'></div>";
+									html += "</div></div></li>";
+								}
+								$("#wallet2").empty();
+								$("#wallet2").append(html);
+							}
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+
+					},
+					error: function(err) {
+						dialog.toast('我的钱包获取信息失败，服务异常！', 'none', 1000);
+					}
+				})
+				return true;
+			}
+
+			$(function() {
+				//getWalletInfo(1);
+				getWalletList(1)
+			})
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,339 @@
+﻿.refreshText,.refreshText2,.refreshText3,.refreshText4 {
+	position: absolute;
+	font-size: .38rem;
+	display: none;
+	width: 100%;
+	line-height: 40px;
+	text-align: center;
+	left: 0;
+	top: 0;
+	color: #686868;
+	background-color: #F5F5F5;
+}
+
+* {
+	-webkit-tap-highlight-color: transparent;
+	/*手机端点击标签背景色 */
+	font-family: PingFangSC-Regular, PingFang SC !important;
+}
+
+.C39666 {
+	color: #C39666 !important;
+	;
+}
+
+.full_left {
+	float: left;
+}
+
+.full_right {
+	float: right;
+}
+
+.red {
+	color: #f23030 !important;
+}
+
+.BCBCBC {
+	color: #BCBCBC !important;
+}
+
+.F7F8F8 {
+	color: #F7F8F8 !important;
+}
+
+.bg_F7F8F8 {
+	background-color: #F7F8F8 !important;
+}
+
+/* 苹方-简 常规体 */
+.PingFangSC-Regular {
+	font-family: "PingFangSC-Regular, sans-serif" !important;
+}
+
+/* 苹方-简 中黑体 */
+.PingFangSC-Medium {
+	font-family: "PingFangSC-Medium, sans-serif" !important;
+	;
+}
+
+.PingFangSC-Semibold {
+	font-family: PingFangSC-Semibold, PingFang SC !important;
+}
+
+/* 登录页 */
+.login-div {
+	width: 85%;
+	margin-top: 30%;
+	margin-left: 7.5%;
+	padding: 5%;
+	border-radius: 5%;
+}
+
+.login-div h3 {
+	text-align: center;
+	padding-bottom: 5%;
+	font-size: 2.3rem;
+}
+
+.login-div input[type='button'] {
+	margin-top: 10%;
+	font-size: 2rem;
+}
+
+.forget_pwd {
+	margin-top: 30%;
+	text-align: center;
+	font-size: 2.2rem;
+}
+
+.tabbar-item {
+	color: #999999;
+}
+
+.tabbar-item.tabbar-active {
+	color: #000000
+}
+
+.list-end {
+	font-size: 13px;
+	text-align: center;
+	padding-top: 15px;
+	color: #CCCCCC;
+}
+
+.list-end span {
+	padding: 0.05rem;
+	font-size: .34rem;
+}
+
+.tabbar-item .badge {
+	left: 60%;
+	padding: 2px 4.5px;
+	top: 0.25rem;
+	background-color: #3F3F3F;
+	color: white
+}
+
+.applayagent_bottom {
+	width: 100%;
+	font-size: 0.39rem;
+	padding: 0.3rem;
+	line-height: 0.5rem;
+}
+
+.applayagent_bottom input {
+	color: #F9F9F9;
+	font-family: PingFangSC-Medium, PingFang SC;
+	font-size: 0.43rem;
+	background: linear-gradient(180deg, rgba(211, 187, 160, 1) 0%, rgba(138, 101, 66, 1) 100%);
+	width: 90%;
+	height: 1rem;
+	margin-top: 10px;
+	margin-left: 5%;
+	border-radius: 5px;
+}
+
+/* 我的消息 */
+.myinfo_content1 {
+	height: 35%;
+	background-color: #FFFFFF !important;
+	margin-bottom: 5%;
+	display: flex;
+	padding-top: 0.2rem;
+	justify-content: center;
+	/* 水平居中 */
+	position: relative;
+}
+
+.myinfo_content2 {
+	height: 40%;
+	background: #FFFFFF !important;
+}
+
+.myinfo_top_content {
+	height: 75%;
+	width: 92%;
+	display: flex;
+	align-items: center;
+	/* 垂直居中 */
+	justify-content: center;
+	/* 水平居中 */
+	background: linear-gradient(180deg, rgba(211, 187, 160, 1) 0%, rgba(138, 101, 66, 1) 100%);
+	box-shadow: 0px 2px 9px 0px rgba(167, 136, 104, 1);
+	border-radius: 6px;
+}
+
+.myinfo_c1_item {
+	width: 93%;
+	height: 80%;
+	display: flex;
+	align-items: center;
+	/* 垂直居中 */
+}
+
+.myinfo_c1_item1 {
+	width: 90%;
+	height: 50%;
+	border-right: 1px solid #FFFFFF;
+	display: flex;
+	align-items: center;
+	/* 垂直居中 */
+}
+
+.myinfo_avatar {
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 1px solid transparent;
+	border-radius: 50%;
+	margin-right: 5px;
+}
+
+.myinfo_avatar img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.myinfo_item1_base {
+	height: 1.5rem;
+	color: #FFFFFF;
+	width: auto;
+}
+
+.myinfo_item1_base h2 {
+	font-size: 0.5rem;
+	font-weight: normal;
+}
+
+.myinfo_item1_base p {
+	height: 1rem;
+	display: flex;
+	align-items: center;
+	/* 垂直居中 */
+}
+
+.myinfo_item1_base span {
+	margin-right: 5px;
+}
+
+.myinfo_item1_base input {
+	height: 0.5rem;
+	line-height: 0.1rem;
+	width: 1.5rem;
+	border-radius: 0.3rem;
+	color: #FFFFFF;
+	padding: 0;
+	background: linear-gradient(180deg, rgba(152, 120, 85, 1) 0%, rgba(197, 169, 124, 1) 49%, rgba(240, 219, 168, 1) 100%);
+	font-size: .32rem;
+}
+
+.myinfo_c1_item2 {
+	width: 35%;
+	height: 60%;
+	text-align: center;
+	color: #FFFFFF;
+	padding-top: 0.2rem;
+	font-size: .35rem;
+}
+
+.myinfo_c1_item2 p {
+	height: 0.45rem;
+
+}
+
+.myinfo_c1_item2 input {
+	height: 0.45rem;
+	line-height: 0.1rem;
+	width: 1rem;
+	border-radius: 0.3rem;
+	color: #333333;
+	padding: 0;
+	background: rgba(247, 248, 248, 1);
+	font-size: .35rem;
+}
+
+.myinfo_content1_item2 {
+	width: 90%;
+	height: 17%;
+	position: absolute;
+	bottom: 0;
+
+}
+
+.myinfo_content1_item2>.full_left {
+	font-size: 0.43rem;
+}
+
+.myinfo_content1_item2>.full_right {
+	font-size: 0.4rem;
+	line-height: 0.6rem;
+	color: #A6A6A6;
+}
+
+.myinfo_content2 {
+	padding-top: 3%;
+}
+
+.myinfo_content2 table {
+	width: 90%;
+	height: 70%;
+	margin: auto;
+}
+
+.myinfo_content2 table td {
+	width: 25%;
+	padding: 2%;
+}
+
+.myinfo_content2 table td img {
+	width: 0.8rem;
+	height: 0.8rem;
+	margin: auto;
+}
+
+.myinfo_content2 table td p {
+	font-size: 0.25rem;
+	padding-top: 0.1rem;
+}
+
+.myinfo_content2 input {
+	width: 90%;
+	margin-left: 5%;
+	color: #FFFFFF;
+	background: linear-gradient(180deg, rgba(211, 187, 160, 1) 0%, rgba(138, 101, 66, 1) 100%);
+	height: .8rem;
+	font-size: .35rem;
+}
+
+.mywallet_top {
+	width: 96%;
+	margin-top: 0.3rem;
+	margin-left: 2%;
+	margin-bottom: 0.3rem;
+}
+
+.mywallet_content {
+	background-color: #FFFFFF;
+	width: 100%;
+}
+
+.mywallet_content ul {
+	background: #F5F5F5;
+}
+
+.mywallet_content li {
+	background-color: #FFFFFF;
+	margin-bottom: 0.2rem;
+}
+
+.wallet_item {
+	font-size: 0.28rem;
+	height: 2.1rem;
+	line-height: 0.55rem;
+	padding: 0.3rem 0.31rem;
+}
+
+.wallet_cell2 .full_left span {
+	color: #C39666;
+}

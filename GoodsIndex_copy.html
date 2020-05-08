@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<!-- <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script> -->
+		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+ -->
+		<style>
+			header{
+				height: 7% !important;
+			}
+			#J_Tab{
+				height: auto;
+			}
+			.mescroll {
+				position: relative;
+				bottom: 0;
+				top: 0;
+				height: 100%	
+			}
+			.tab-nav-item:not(:last-child):after{
+				border: none;
+			}
+			.tab-panel .tab-panel-item{
+				padding: 0;
+				height: 100%;
+			}
+			.tab-nav-item.tab-active{
+				color: #C39666;
+			}
+			#sentimentup{
+				position: absolute;
+				top: 0;
+				font-size: 0.2rem;
+				color: #BCBCBC;
+				height: 50%;
+				line-height: 33px;
+			}
+			#sentimentdown{
+				position: absolute;
+				font-size: 0.2rem;
+				color: #BCBCBC;
+				height: 50%;
+				bottom: 0;
+				line-height: 13px;
+			}
+			#priceup{
+				position: absolute;
+				top: 0;
+				font-size: 0.2rem;
+				color: #BCBCBC;
+				height: 50%;
+				line-height: 33px;
+			}
+			#pricedown{
+				position: absolute;
+				font-size: 0.2rem;
+				color: #BCBCBC;
+				height: 50%;
+				bottom: 0;
+				line-height: 13px;
+			}
+			#goodstype{
+				position: absolute;
+				font-size: 0.31rem;
+				color: #BCBCBC;
+				height: 100%;
+			}
+			#J_ActionSheet{
+				background-color: white;
+			}
+			.type_content{
+				width: 100%;
+				height: 94%;
+				padding-top: 2%;
+				overflow: hidden;
+				overflow-y: scroll;
+			}
+			.m-gridstitle:after{
+				border-bottom: none;
+			}
+			.m-gridstitle{
+				background-color: white;
+				font-family:PingFangSC-Medium,PingFang SC;
+				color: #333333;
+				font-size: 0.36rem;
+				font-weight: 600;
+			}
+			.m-grids-2:before,.m-grids-3:before,.grids-item:after{
+				border-bottom: none;
+			}
+			.m-grids-2 .grids-item:not(:nth-child(2n)):before,.m-grids-3 .grids-item:not(:nth-child(3n)):before{
+				border-right:none;
+			}
+			.grids-item{
+				padding: 0.07rem 0.2rem;
+				font-size: 0.25rem;
+				font-family:PingFangSC-Regular,PingFang SC;
+				font-weight:400;
+				color:rgba(51,51,51,1);
+			}
+			.grids-txt{
+				background-color: #F6F7FA;
+				padding: 8px 3px;
+				border-radius: 4px 4px 4px 4px;
+				box-sizing:border-box;
+				font-size: .34rem;
+			}
+			.grids-txt  input{
+				width: 100%;
+				height: 100%;
+				border: none;
+				text-align: center;
+				font-size: 0.35rem;
+			}
+			/* WebKit browsers */
+			input:focus::-webkit-input-placeholder { color:transparent; }
+			
+			/* Mozilla Firefox 4 to 18 */
+			input:focus:-moz-placeholder { color:transparent; }
+			
+			/* Mozilla Firefox 19+ */
+			input:focus::-moz-placeholder { color:transparent; }
+			
+			/* Internet Explorer 10+ */
+			input:focus:-ms-input-placeholder { color:transparent; }
+			.style_nav{
+				margin: 0.1rem auto;
+				width: 100%;
+				color: #333333;				
+			}
+			.style_nav ul{
+				display: none;
+				width: 94%;
+				margin: auto;
+				cursor: pointer;
+				list-style:none
+			}
+			.style_nav ul li{
+				font-size: 10px;
+				width: 100%;
+				text-align: center;
+				list-style:none;
+				line-height: 0.5rem;
+				font-size: .31rem
+			}
+			.style_fat{
+				width: 94%;
+				padding: 0.15rem 0.2rem;
+				font-size: 0.34rem;
+				color: #4c4c4c;
+				text-align: center;
+				cursor: pointer;
+				margin: auto;
+				background-color: #F6F7FA;
+				border-radius: 4px;
+				margin-bottom: 5px;
+			}
+			.i_jia{
+				margin-left: 4px;
+				font-size: 0.25rem;
+				padding: 0 0.05rem;
+				border: 1px solid #333333;
+				border-radius: 4px;
+			}
+			.i_jian{
+				margin-left: 4px;
+				font-size: 0.25rem;
+				padding: 0 0.08rem;
+				border: 1px solid #333333;
+				border-radius: 4px;
+			}
+			.m-actionsheet{
+				top: -86%;
+			}
+			.type_btns{
+				width: 100%;
+				height: 6%;
+				line-height: 270%;
+				font-size: 0.29rem;
+			}
+			.type_btn_cancel{
+				width: 50%;
+				height: 100%;
+				float: left;
+			}
+			.type_btn_sub{
+				width: 50%;
+				height: 100%;
+				float: right;
+				color: white;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.border_select{
+				border: 1px solid #BDA184;
+				padding: 7px 2px;
+			}
+			#modellist .style_nav ul li{
+				padding: 0 !important;
+			}
+			.type_btns{
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
+			.type_btns a{
+				width:49%
+			}
+			#type_Sub{
+				background: linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+				color: #FFFFFF;
+				border-radius: 0;
+			}
+			#search_div .cell-left{
+				width: 90%;
+			}
+			#search_div .cell-right{
+				min-height: 0.75rem;
+				padding: 0;
+			}
+			#search_div .cell-right a{
+				margin: auto;
+				font-size: 0.4rem;
+			}
+			
+			.list-theme1 .list-item{
+				height: 5.1rem;
+			}
+			.list-img{
+				height: 3.5rem;
+				background: #FFFFFF;
+			}
+			.list-img img{
+				height: 3.5rem;
+			}
+			.list-price{
+				color: #D1AF8B;
+			}
+			.list-del-price1{
+				padding-left: .06rem;
+				font-size: .31rem;
+				margin-left: .02rem;
+				position: relative;
+				color: #8C8C8C;
+			}
+		</style>
+
+	</head>
+	<body>
+	<section class="g-flexview">
+		<header class="m-navbar">
+			<div class="navbar-center">
+				<span class="navbar-title">商城</span>
+			</div>
+		</header>
+			
+
+		<div class="m-cell" style="margin-bottom: 0;">
+		    <div id="search_div" class="cell-item">
+		       
+		        <div class="cell-left" ><input style="height: 0.5rem;" id="search" type="text"  class="cell-input" placeholder="搜索商品" autocomplete="off" /></div>
+				 <div class="cell-right"> <a id="search_btn"  class="icon-search"></a></div>
+			</div>
+			</div>
+		<div id="J_Tab" class="m-tab">
+			<ul class="tab-nav">
+				<li class="tab-nav-item tab-active"><a href="javascript:;">最新</a></li>
+				<li class="tab-nav-item">
+					<a href="javascript:;" style="position: relative;">
+						人气
+						<i id="sentimentup" name="typesort" class="alicon aliconfont alicon-caret-up"></i>
+						<i id="sentimentdown" name="typesort" class="alicon aliconfont alicon-xiajiantou"></i>
+					</a>
+
+				</li>
+				<li class="tab-nav-item"><a href="javascript:;" style="position: relative;">
+						价格
+						<i id="priceup" name="typesort" onclick="" class="alicon aliconfont alicon-caret-up"></i>
+						<i id="pricedown" name="typesort" onclick="" class="alicon aliconfont alicon-xiajiantou"></i>
+					</a>
+				</li>
+				<li class="tab-nav-item"><a href="javascript:;" id="J_ShowActionSheet" style="position: relative;">
+						分类
+						<i id="goodstype" class="alicon aliconfont alicon-chanpinfenleishu"></i>
+					</a>
+				</li>
+			</ul>
+			<div class="tab-panel" style="height: 0">
+				<div class="tab-panel-item tab-active" style="height: 100%;">
+				</div>
+				<div class="tab-panel-item">
+				</div>
+				<div class="tab-panel-item">
+				</div>
+				<div class="tab-panel-item">
+				</div>
+
+				<div class="m-actionsheet" id="J_ActionSheet" style="height: 93%;">
+					<div class="type_content">
+						<div id="modellist" style="display: none;">
+							<div class="m-gridstitle">款式</div>
+							<div class="style_nav">
+							</div>
+						</div>
+						<div id="brandlist" style="display: none;">
+							<div class="m-gridstitle">品牌</div>
+							<ul class="m-grids-3"></ul>
+						</div>
+
+						<div id="stylelist" style="display: none;">
+							<div class="m-gridstitle">活动</div>
+							<ul class="m-grids-3"></ul>
+						</div>
+
+						<div>
+							<div class="m-gridstitle">价格</div>
+							<ul class="m-grids-2">
+								<li class="grids-item">
+									<div class="grids-txt">
+										<input id="price_low" type="text" placeholder="最低价" value="" />
+									</div>
+								</li>
+
+								<li class="grids-item">
+									<div class="grids-txt">
+										<input id="price_hei" type="text" placeholder="最高价" value="" />
+									</div>
+								</li>
+								<span style="color: #333333;position: absolute;top: 35%;left: 48%;">—</span>
+							</ul>
+							<ul id="pricelist" style="display: none;" class="m-grids-3">
+							</ul>
+						</div>
+
+						
+						<div class="type_btns">
+							<a href="javascript:;" class="btn" id="type_Cancel">重置</a>
+							<a href="javascript:;" class="btn" id="type_Sub">确定</a>
+							<div style="clear: both;"></div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+		
+		<section class="g-scrollview" id="J_List">
+			
+			<div id="J_ListContent" class="m-list list-theme1">
+				
+			</div>
+		</section>
+		<!-- <div id="goodsindex"  style="height: 74%;"> -->
+		<!-- <div id="goodsindex"  style="height: 74%;">
+			
+			
+		</div> -->
+		
+
+		<footer class="m-tabbar">
+			<a href="#" onclick="window.location.href='GoodsIndex.html'" class="tabbar-item  tabbar-active">
+				<span class="tabbar-icon">
+					<img src="img/icon/1.png">
+				</span>
+				<span class="tabbar-txt">商品</span>
+			</a>
+			<a href="#" onclick="window.location.href='CartList.html'" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/2_1.png">
+				</span>
+				<span class="tabbar-txt">购物车</span>
+			</a>
+			<a href="#" onclick="window.location.href='MessageList.html'" id="tabbar_message" style="position: relative;" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/3_1.png">
+				</span>
+				<span class="badge" style="display: none;" id="badge_message"></span>
+				<span class="tabbar-txt">消息</span>
+			</a>
+			<a href="#" onclick="window.location.href='MyInfo.html'" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/4_1.png">
+				</span>
+				<span class="tabbar-txt">我的</span>
+			</a>
+
+		</footer>
+		</section>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+			var token = userinfo.token;
+			var user_id = userinfo.user_id;
+
+			//$("#J_List").on('click.ydui.infinitescroll', '.J_Link', function (e) {console.log(123)})
+			
+			function initcontent(){
+				var page = 1, pageSize = 10;
+				$('#J_List').infiniteScroll({
+					binder: '#J_List',
+					pageSize: pageSize,
+					initLoad: true,
+					backposition: true,
+					jumpLink: '.J_Link',
+					loadListFn: function () {
+						var def = $.Deferred();
+						// var pageNum = page.num; // 页码, 默认从1开始 如何修改从0开始 ?
+						// var pageSize = page.size; // 页长, 默认每页10条
+						let formdata = new FormData();
+						formdata.append("token", token);
+						formdata.append("user_id", user_id);
+						formdata.append("page", page);
+						formdata.append("count", pageSize);
+						
+						if($("#J_Tab ul").find('.tab-active').index()==0){
+							formdata.append("is_new", 1);
+						}else if($("#J_Tab ul").find('.tab-active').index()==1){
+							let sentiment =$("#J_Tab ul").find('.tab-active').find('.C39666').index()==0?'asc':'desc';
+							formdata.append("sentiment", sentiment);
+						}else if($("#J_Tab ul").find('.tab-active').index()==2){
+							let sentiment =$("#J_Tab ul").find('.tab-active').find('.C39666').index()==0?'asc':'desc';
+							formdata.append("price", sentiment);
+						}else if($("#J_Tab ul").find('.tab-active').index()==3){
+							if($("#brandlist ul").find('.border_select').length>0){
+								formdata.append("brand_id", $("#brandlist ul").find('.border_select').attr('title'));
+							}
+							if($("#pricelist").find('.border_select').length>0){
+								formdata.append("price_interval", $("#pricelist").find('.border_select').text());
+							}
+							if($("#price_low").val()!=''&&$("#price_low").val()!=undefined){
+								let price_interval=$("#price_low").val()+'-'+$("#price_hei").val();
+								formdata.append("price_interval", price_interval);
+							}
+							if($("#modellist ul").find('.border_select').length>0){
+								formdata.append("style_id", $("#modellist ul").find('.border_select').attr('title'));
+							}
+						}
+						if($("#search").val()!=''||$("#search").val()!=undefined){
+							formdata.append("search", $("#search").val());
+						}
+						$(".list-loading").remove();
+						$(".list-donetip").remove();
+						$.ajax({
+							type: "post",
+							url: ajaxUrl + '/goods/goods_list',
+							data: formdata,
+							cache: false,
+							processData: false,
+							contentType: false,
+							dataType: "json",
+							success: function(res) {
+								if(res.code==1){
+									let html = "";
+									var data=res.data
+									for (let i = 0; i < data.length; i++) {
+										html += "<a href='GoodsDetail.html?Id=" + data[i].goods_id + "'  class='J_Link list-item' data-page='" + page + "' >";
+										// html += "<a href='#'  class='J_Link list-item' data-page='" + page + "' >";
+										
+										html+=" <div class='list-img'>"
+										html += "<img src='" + data[i].cover_image + "' data-url='" + data[i].cover_image + "'>";
+										html += "</div>";
+										html += "<div class='list-mes'>";
+										html += "<h3 class='list-title'>" + data[i].name + "</h3>";
+										html += "<div class='list-mes-item'>";
+										html += "<div>";
+										html += "<span class='list-price'><em>¥</em>" + data[i].lprice + "</span>";
+										html += "</div>";
+										html += "<div>";
+										html += "<span class='list-del-price'>¥" + data[i].price + "</span>";
+										html += "</div>";
+										html += "</div>";
+										html += "<div class='list-mes-item'>";
+										html += "<div></div>";
+										html += "<div>";
+										html += "<span class='list-del-price1'>¥" + data[i].tag_price + "</span>";
+										html += "</div>";
+										html += "</div>";
+										html += "</div>";
+										html += "</a>";
+									}
+									$('#J_ListContent').append(html);
+									if(res.data.length>0){
+										def.resolve(res.data,page);
+									}else{
+										def.resolve([],page);
+									}
+								}else{
+									dialog.toast(res.msg, 'none', 1000);
+									def.resolve([],page);
+								}
+								++page;
+							},
+							error: function(e) {
+								//联网失败的回调,隐藏下拉刷新和上拉加载的状态
+								dialog.toast('获取商品失败，服务异常！', 'none', 1000);
+							}
+						});
+						return def.promise();
+					},
+					/**
+					 * 当前从详情页返回列表页时调用此方法
+					 * @param listData 该次所需加载的数据集合
+					 * @param retPage 该次加载的页码
+					 */
+					loadStorageListFn: function (listData, retPage) {
+						var def = $.Deferred();
+				
+						page = retPage;
+				
+						var html = '';
+						listData.forEach(function (val) {
+							var data=val.list;
+							for (let i = 0; i < data.length; i++) {
+								html += "<a href='GoodsDetail.html?Id=" + data[i].goods_id + "'  class='J_Link list-item' data-page='" + val.page + "' >";
+								// html += "<a href='#'  class='J_Link list-item' data-page='" + page + "' >";
+								
+								html+=" <div class='list-img'>"
+								html += "<img src='" + data[i].cover_image + "' data-url='" + data[i].cover_image + "'>";
+								html += "</div>";
+								html += "<div class='list-mes'>";
+								html += "<h3 class='list-title'>" + data[i].name + "</h3>";
+								html += "<div class='list-mes-item'>";
+								html += "<div>";
+								html += "<span class='list-price'><em>¥</em>" + data[i].lprice + "</span>";
+								html += "</div>";
+								html += "<div>";
+								html += "<span class='list-del-price'>¥" + data[i].price + "</span>";
+								html += "</div>";
+								html += "</div>";
+								html += "<div class='list-mes-item'>";
+								html += "<div></div>";
+								html += "<div>";
+								html += "<span class='list-del-price1'>¥" + data[i].tag_price + "</span>";
+								html += "</div>";
+								html += "</div>";
+								html += "</div>";
+								html += "</a>";
+							}
+							
+						});
+						$('#J_ListContent').append(html);
+						
+						def.resolve();
+						return def.promise();
+					}
+				});
+			}
+			
+
+
+			var $as = $('#J_ActionSheet');
+
+			$('#J_ShowActionSheet').on('click', function() {
+				$as.actionSheet('open');
+				document.body.addEventListener('touchmove', bodyScroll, false);
+				$('body').css({
+					'position': 'fixed',
+					"width": "100%"
+				});
+			});
+
+			$('#J_Cancel').on('click', function() {
+				$as.actionSheet('close');
+				document.body.removeEventListener('touchmove', bodyScroll, false);
+				$("body").removeAttr("style");
+			});
+
+			function bodyScroll(event) {
+				event.preventDefault();
+			}
+			/* 自定义事件 */
+			$as.on('open.ydui.actionsheet', function() {
+				
+			}).on('close.ydui.actionsheet', function() {
+				
+			});
+
+			function getTypeInfo() {
+				$.ajax({
+					type: "get",
+					url: ajaxUrl + '/goods/cate_list',
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							res.data.forEach((item, index, array) => {
+								addTypeInfo(item)
+								initlistclick();
+							})
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取未读消息总数失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
+			function addTypeInfo(item) {
+				switch (item.cat_name) {
+					case "品牌":
+						let html = ""
+						item.cat_data.forEach((item, index, array) => {
+							html += "<li class='grids-item'>";
+							html += "<div class='grids-txt' title='" + item.brand_id + "' >" + item.name + "</div>";
+							html += "</li>";
+						})
+						$("#brandlist").show()
+						$("#brandlist ul").append(html)
+						break;
+					case "活动":
+							let html4 = ""
+							item.cat_data.forEach((item, index, array) => {
+								html4 += "<li class='grids-item'>";
+								html4 += "<div class='grids-txt' title='" + item.style_id + "'>" + item.name + "</div>";
+								html4 += "</li>";
+							})
+							$("#stylelist").show();
+							$("#stylelist ul").append(html4)
+							break;
+					case "价格":
+						let html2 = ""
+						item.cat_data.forEach((item, index, array) => {
+							html2 += "<li class='grids-item'>";
+							html2 += "<div class='grids-txt' title='" + item.price_id + "'>" + item.name + "</div>";
+							html2 += "</li>";
+						})
+						$("#pricelist").show();
+						$("#pricelist").append(html2)
+						break;
+					case "款式":
+						let html3 = "";
+						item.cat_data.forEach((item) => {
+							html3 += "<div class='style_fat'>" + item.name + "<span class='i_jia'>+<span></div>";
+							html3 += "<ul>";
+							item.child.forEach((e) => {
+								html3 += "<li title='" + e.style_id + "'>" + e.name + "</li>";
+							})
+							html3 += "</ul>";
+						})
+						$("#modellist").show();
+						$("#modellist .style_nav").append(html3);
+						break;
+				}
+			}
+
+			function initlistclick() {
+				$(".style_fat").on("click", function() {
+					var child_elem = $(this).children("span");
+					if (child_elem.attr("class") == "i_jia") {
+						child_elem.removeClass("i_jia").addClass("i_jian");
+						child_elem.text("-");
+					} else if (child_elem.attr("class") == "i_jian") {
+						child_elem.removeClass("i_jian").addClass("i_jia");
+						child_elem.text("+");
+					}
+					$(this).next("ul").slideToggle(300).siblings("ul").slideUp(500)
+				})
+
+				$("#brandlist li div").unbind("click").bind("click", function(e) {	
+					if ($(this).hasClass("border_select")) {
+						$(this).removeClass("border_select");
+					} else {
+						$(this).addClass("border_select");
+					}
+					$(this).parent().siblings().each(function() {
+						$(this).find("div").removeClass("border_select");
+					})
+				})
+				$("#pricelist li div").unbind("click").click(function() {
+					$("#price_low").val('');
+					$("#price_hei").val('');
+					if ($(this).hasClass("border_select")) {
+						$(this).removeClass("border_select");
+					} else {
+						$(this).addClass("border_select");
+					}
+					$(this).parent().siblings().each(function() {
+						$(this).find("div").removeClass("border_select");
+					})
+				})
+				$("#modellist .style_nav ul li").unbind("click").click(function() {
+					if ($(this).hasClass("border_select")) {
+						$(this).removeClass("border_select");
+					} else {
+						$(this).addClass("border_select");
+					}
+					$(this).parent().siblings().each(function() {
+						$(this).find("div").removeClass("border_select");
+					})
+				});
+			}
+			function reloadcontent(){
+				$("#J_ListContent").empty();
+				$(".J_InfiniteScrollTag").remove();
+				$(".list-loading").remove();
+				$(".list-donetip").remove();
+				initcontent();
+			}
+			
+			
+			
+			
+			  !function () {
+				getTypeInfo();
+				initcontent();
+				//MescrollSet("goodsindex");
+				var $tab = $('#J_Tab');
+				
+				$tab.tab({
+					nav: '.tab-nav-item',
+					panel: '.tab-panel-item',
+					activeClass: 'tab-active'
+				});
+				$tab.find('.tab-nav-item').on('opened.ydui.tab', function (e) {
+				        if(e.index==1){
+							$("i[name='typesort']").css('color','#BCBCBC');
+							$("#sentimentup").addClass('C39666');
+							$("#sentimentdown").removeClass('C39666');
+							$("#priceup").removeClass('C39666');
+							$("#pricedown").removeClass('C39666');
+							reloadcontent();
+						}else if(e.index==2){
+							$("i[name='typesort']").css('color','#BCBCBC');
+							$("#priceup").addClass('C39666');
+							$("#pricedown").removeClass('C39666');
+							$("#sentimentup").removeClass('C39666');
+							$("#sentimentdown").removeClass('C39666');
+							reloadcontent();
+						}else if(e.index==0){
+							$("i[name='typesort']").css('color','#BCBCBC');
+							$("#priceup").addClass('C39666');
+							$("#pricedown").removeClass('C39666');
+							$("#sentimentup").removeClass('C39666');
+							$("#sentimentdown").removeClass('C39666');
+							reloadcontent();
+						}else {
+							$("#priceup").removeClass('C39666');
+							$("#pricedown").removeClass('C39666');
+							$("#sentimentup").removeClass('C39666');
+							$("#sentimentdown").removeClass('C39666');
+							
+						}	
+						
+				});
+				$("#sentimentdown").click(function(){
+					$("#sentimentdown").addClass('C39666');
+					$("#sentimentup").removeClass('C39666');
+					$("#sentimentup").css('color','#BCBCBC');
+					$("#priceup").removeClass('C39666');
+					$("#pricedown").removeClass('C39666');
+					if($("#J_Tab ul").find('.tab-active').index()==1){
+						reloadcontent();
+					}
+					
+				})
+				$("#sentimentup").click(function(){
+					$("#sentimentup").addClass('C39666');
+					$("#sentimentdown").removeClass('C39666');
+					$("#sentimentdown").css('color','#BCBCBC');
+					$("#priceup").removeClass('C39666');
+					$("#pricedown").removeClass('C39666');
+					if($("#J_Tab ul").find('.tab-active').index()==1){
+						reloadcontent();
+					}
+				})
+				$("#priceup").click(function(){
+					$("#priceup").addClass('C39666');
+					$("#pricedown").removeClass('C39666');
+					$("#pricedown").css('color','#BCBCBC');
+					$("#sentimentup").removeClass('C39666');
+					$("#sentimentdown").removeClass('C39666');
+					if($("#J_Tab ul").find('.tab-active').index()==2){
+						reloadcontent();
+					}
+				})
+				$("#pricedown").click(function(){
+					$("#pricedown").addClass('C39666');
+					$("#priceup").removeClass('C39666');
+					$("#priceup").css('color','#BCBCBC');
+					$("#sentimentup").removeClass('C39666');
+					$("#sentimentdown").removeClass('C39666');
+					if($("#J_Tab ul").find('.tab-active').index()==2){
+						reloadcontent();
+					}
+				})
+				$(".style_fat").on("click", function() {
+					var child_elem = $(this).children("span");
+					if (child_elem.attr("class") == "i_jia") {
+						child_elem.removeClass("i_jia").addClass("i_jian");
+						child_elem.text("-");
+					} else if (child_elem.attr("class") == "i_jian") {
+						child_elem.removeClass("i_jian").addClass("i_jia");
+						child_elem.text("+");
+					}
+					$(this).next("ul").slideToggle(300).siblings("ul").slideUp(500)
+				})
+				$(".m-grids-3 li div").click(function() {
+					if ($(this).hasClass("border_select")) {
+						$(this).removeClass("border_select");
+					} else {
+						$(this).addClass("border_select");
+					}
+					$(this).parent().siblings().each(function() {
+						$(this).find("div").removeClass("border_select");
+					})
+				});
+				$("#price_low").bind('input propertychange',function(){
+					$("#pricelist li div").removeClass("border_select");
+				})
+				$("#price_hei").bind('input propertychange',function(){
+					$("#pricelist li div").removeClass("border_select");
+				})
+				$("#type_Cancel").click(function(){
+					$("#J_ActionSheet .grids-item .grids-txt").removeClass("border_select");
+					$("#price_low").val('');
+					$("#price_hei").val('');
+					$("#modellist ul li").removeClass("border_select");
+				});
+				$('#type_Sub').on('click', function () {
+					if($("#price_low").val()!=''){
+						if($("#price_hei").val()==''||$("#price_hei").val()==undefined){
+							dialog.toast('请输入最高价', 'none', 1000);
+							return;
+						}
+					}
+					if($("#price_hei").val()!=''){
+						if($("#price_low").val()==''||$("#price_low").val()==undefined){
+							dialog.toast('输入最低价', 'none', 1000);
+							return;
+						}
+					}
+				        $as.actionSheet('close');
+						reloadcontent();
+				});
+				$("#search_btn").on('click', function (){
+					reloadcontent();
+				})
+				
+			}()
+			
+			
+			
+			
+			
+			
+		
+		</script>
+	</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			.address_li{
+				height: 2.3rem;
+				background: #FFFFFF;
+				margin-bottom: .1rem;
+			}
+			.address_d1{
+				width: 95%;
+				height: 1.48rem;
+				margin: auto;
+				border-bottom: 1px solid #EEEEEE;
+				text-align: left;
+				font-size: .3rem;
+				line-height: .5rem;
+				padding-top: .3rem;
+				padding-left: .3rem;
+				position: relative;
+				font-size: .38rem;
+			}
+			.address_p2{
+				color: #666666;
+			}
+			.address_d2{
+				padding-top: .2rem;
+				padding-left: .4rem;
+				font-size: .3rem;
+			}
+			.address_s1{
+				float: left;
+			}
+			.address_s2{
+				float: right;
+				padding-right: .3rem;
+			}
+			.address_i1{
+				width: .35rem;
+				display: inline-block;
+				margin-right: .1rem;
+			}
+			.address_p2{
+				display: inline-block;
+			}
+			.address_e4{
+				margin-right: .2rem;
+				font-size: .38rem;
+			}
+			.add_new{
+				width: 100%;
+				height: 1.5rem;
+				position: fixed;
+				bottom: 0;
+			}
+			.add_new a{
+				width: 90%;
+				height: .9rem;
+				margin-left: 5%;
+				font-size: .35rem;
+				line-height: .9rem;
+				color: #FFFFFF;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.case_address{
+				display:none;
+				width: .4rem;
+				position: absolute;
+				right: .2rem;
+				top:40%;
+			}
+			#select_add{
+				display: none;
+				font-size: .38rem;
+			}
+			.address_e3{
+				font-size: .38rem;
+			}
+			.address_e5{
+				font-size: .38rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a id="history" href="javascript:history.back();" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">我的地址</span>
+			</div>
+			<a id='select_add' href="#" class="navbar-item">
+				确定
+			</a>
+		</header>
+		<div>
+			<ul class="address_ul">
+				
+			</ul>
+		</div>
+		
+		<div class='add_new'>
+			<a id="new_sub" href="javascript:;" class="btn">新建地址</a>
+		</div>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+
+			var dialog = window.YDUI.dialog;
+			
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+			$("#new_sub").click(function(){
+				if(getQueryString('from')=='orplace'){
+					location.href='newAddress.html?from=orplace';
+				}else if(getQueryString('type')=='case'){
+					location.href='newAddress.html?type=case';
+				}else{
+					location.href='newAddress.html';
+				}
+			})
+			
+			function getAddress(){
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/address/user_address',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							initAddress(res.data)
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取地址列表失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			function initAddress(data){
+				let html='';
+				for(let i=0;i<data.length;i++){
+					html+="<li class='address_li' name='address_"+data[i].address_id+"'>";
+					html+="<div class='address_d1'>";
+					html+="<p><em class='address_e1'>"+data[i].consignee+"</em> <em class='address_e2'>"+data[i].mobile+"</em></p>";
+					html+="<p class='address_p2'>"+data[i].areaName+"</p>";
+					if(data[i].is_default==1){
+						html+="<img class='case_address case_select' src='img/icon/cart_selected.png'>";
+					}else{
+						html+="<img class='case_address' src='img/icon/cart_noselect.png'>";						
+					}
+
+					html+="</div>";
+					html+="<div class='address_d2'>";
+					html+="<span class='address_s1'>";
+					if(data[i].is_default==1){
+						html+="<img class='address_i1' src='img/icon/address_select.png' />";
+						html+="<em class='address_e3'>默认地址</em>";
+					}
+					html+="</span>";
+					html+="<span class='address_s2'>";
+					html+="<img class='address_i1' src='img/icon/address_edit.png' />";
+					html+="<em class='address_e4' onclick='edit("+data[i].address_id+")'>编辑</em>";
+					html+="<img class='address_i1' src='img/icon/address_del.png' />";
+					html+="<span class='address_e5'>删除</span>";
+					html+="</span><div style='clear:both'></div>";
+					html+="</div>";
+					html+="</li>";		
+				}
+				$(".address_ul").empty();
+				$(".address_ul").append(html);
+				initaction();
+			}
+			function edit(id){
+				location.href="editAddress.html?id="+id;
+			}
+			function initaction(){
+				$(".address_e5").unbind('click').bind('click',function(){
+					var delid= $(this).parent().parent().parent().attr('name');
+					delAddress(delid.replace('address_',''));
+				});
+				
+				
+				if(getQueryString('from')=='orplace'){
+					$("#select_add").css('display','flex');
+					$(".case_address").show();
+				}else if(getQueryString('type')=='case'){
+					$("#select_add").css('display','flex');
+					$(".case_address").show();
+					$("#history").attr('href','OrderPlace.html?from=gd');
+				}else{
+					$("#select_add").hide();
+					$(".case_address").hide();
+					$("#history").attr('href','MyInfo.html');
+				}
+				$(".case_address").unbind('click').bind('click',function(){
+					if($(this).hasClass('.case_select')){
+						dialog.toast('必须选中一个地址', 'none', 1000);
+					}else{
+						$(this).addClass('case_select');
+						$(this).attr('src','img/icon/cart_selected.png')
+						$(this).parent().parent().siblings().each(function() {
+							$(this).find('.address_d1 img').removeClass('case_select');
+							$(this).find('.address_d1 img').attr('src','img/icon/cart_noselect.png')
+						})
+					}
+				});
+				$("#select_add").unbind('click').bind('click',function(){
+					if($('.address_ul').find('.case_select').length==0){
+						dialog.toast('必须选中一个地址', 'none', 1000);
+						return;
+					}
+					var name=$(".case_select").siblings().find('.address_e1').text();
+					var mobile=$(".case_select").siblings().find('.address_e2').text()
+					var address=$(".case_select").parent().find('.address_p2').text();
+					var add_id=$(".case_select").parent().parent().attr('name').replace('address_','');
+					console.log(name+","+mobile+","+address+","+add_id);
+					location.href='OrderPlace.html?name='+encodeUnicode(name)+'&mobile='+mobile+'&add='+encodeUnicode(address)+'&aid='+add_id;
+				})
+			}
+			function delAddress(id){
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("address_id", id);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/address/del_address',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							$("li[name='address_"+id+"']").remove();
+							dialog.toast(res.msg, 'none', 1000);
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('删除地址失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			$(function() {
+				getAddress();
+				
+			})
+		</script>
+
+
+	</body>
+</html>

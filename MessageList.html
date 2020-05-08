@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+
+			}
+			.tab-panel{
+				background: #F5F5F5;
+			}
+			.tab-nav-item:not(:last-child):after{
+				border-right: none;
+			}
+			.tab-nav-item.tab-active:before{
+				background-color: #C39666;
+			}
+			.tab-nav-item a{
+				font-family:PingFangSC-Medium,PingFang SC;
+				color:rgba(51,51,51,1);
+			}
+			.g-view:before{
+				height: 0;
+			}
+			.g-view:after{
+				height: 0;
+			}
+			.g-view{
+				height: auto;
+			}
+			.tab-panel,#J_Tab{
+				height: 100%;
+			}
+			.badge-isread:after{
+				border-color: #C39666 !important;
+			}
+			.badge-isread{
+				background-color: #C39666 !important;
+			}
+			.badge{
+				margin-left: 2px;
+			}
+			#tipstype1{
+				display: none;
+			}
+			#tipstype2{
+				display: none;
+			}
+			.tab-panel-item{
+				height: 100%;
+				background-color: #F5F5F5;
+				padding: 0 !important;
+			}
+	
+			.list-item ul li{
+				margin-bottom: 0.2rem;
+				padding: 0.28rem;
+				line-height: 0.5rem;
+				font-size: .34rem;
+			}
+				
+			.list-h2{
+				float: left;
+			}
+			
+			.list-time{
+				float: right;
+			}
+			.bg-F1ECE6{
+				background-color: #F1ECE6 !important;
+			}
+			.bg-FFFFFF{
+				background-color: #FFFFFF !important;
+			}
+			.item2_left{
+				float: left;
+				width: 70%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.item2_right{
+				float: right;
+				width: 30%;
+				text-align: right;
+				font-size: 14px;
+			}
+			#messageList2 hr{
+				color: #CCCCCC;
+				border: 0;
+				height: 1px;
+				border-bottom: 1px solid;
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+			.m-tabbar{
+				position: fixed;
+				bottom: 0;
+			}
+			.badge{
+				padding: 2px 7px;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="g-flexview">
+		<header class="m-navbar">
+			<div class="navbar-center">
+				<span class="navbar-title">我的消息</span>
+			</div>
+		</header>
+		<div class="g-scrollview">
+		<div class="g-view">
+			<div id="J_Tab" class="m-tab">
+				<ul class="tab-nav">
+					<li class="tab-nav-item tab-active"><a href="javascript:;">代理消息<span class="badge badge-isread" id="tipstype1">0</span></a></li>
+					<li class="tab-nav-item"><a href="javascript:;">公司消息<span class="badge" id="tipstype2">0</span></a></li>
+
+				</ul>
+				<div class="tab-panel">
+					
+					<div class="tab-panel-item tab-active">
+						<div class="list-item">
+							<ul id="messageList">
+								
+							</ul>
+							<div class="list-end">
+								<span>——</span>
+								<span>没有更多数据了</span>
+								<span>——</span>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="tab-panel-item">
+						<div class="list-item">
+							<ul id="messageList2">
+
+
+							</ul>
+							<div class="list-end">
+								<span>——</span>
+								<span>没有更多数据了</span>
+								<span>——</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		</div>
+		<footer class="m-tabbar">
+			<a href="#" onclick="window.location.href='GoodsIndex.html'" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/1_1.png">
+				</span>
+				<span class="tabbar-txt">商品</span>
+			</a>
+			<a href="#" onclick="window.location.href='CartList.html'" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/2_1.png">
+				</span>
+				<span class="tabbar-txt">购物车</span>
+			</a>
+			<a href="#" onclick="window.location.href='MessageList.html'" id="tabbar_message" style="position: relative;"  class="tabbar-item tabbar-active">
+				<span class="tabbar-icon">
+					<img src="img/icon/3.png">
+				</span>
+				 <span class="badge" style="display: none;" id="badge_message">2</span>
+				<span  class="tabbar-txt">消息</span>
+			</a>
+			<a href="#" onclick="window.location.href='MyInfo.html'" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/4_1.png">
+				</span>
+				<span class="tabbar-txt">我的</span>
+			</a>
+
+		</footer>
+		</section>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var $tab = $('#J_Tab');
+			var dialog = window.YDUI.dialog;
+			$tab.tab({
+				nav: '.tab-nav-item',
+				panel: '.tab-panel-item',
+				activeClass: 'tab-active'
+			});
+			$tab.find('.tab-nav-item').on('opened.ydui.tab', function(e) {
+				if (e.index == 0) {
+					$("#tipstype2").removeClass("badge-isread");
+					$("#tipstype1").addClass("badge-isread");
+					getmessinfo(1);
+				} else {
+					$("#tipstype1").removeClass("badge-isread");
+					$("#tipstype2").addClass("badge-isread");
+					getmessinfo(2);
+				}
+			});
+			//var userinfo= JSON.parse($.cookie('userinfo'));
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+
+			function getmessnum() {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/message/message_num',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							if (res.data.type_1_num > 0) {
+								$("#tipstype1").show();
+								$("#tipstype1").text(res.data.type_1_num);
+							} else {
+								$("#tipstype1").hide();
+							}
+							if (res.data.type_2_num > 0) {
+								$("#tipstype2").show();
+								$("#tipstype2").text(res.data.type_2_num);
+							} else {
+								$("#tipstype2").hide();
+							}
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取未读消息数失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
+			function getmessinfo(type) {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("message_category", type)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/message/message_list',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							if (res.data.length > 0) {
+								if (type == 1) {
+									let html = "";
+									var data = res.data;
+									for (let i = 0; i < res.data.length; i++) {
+										if (data[i].is_read == 1) {
+											html += "<li class='bg-FFFFFF'>";
+										} else {
+											html += "<li class='bg-F1ECE6'>";
+										}
+										html += "<a href='MessageDetail.html?Id="+data[i].id+"'>"
+										html += "<div>";
+										html += "<h2 class='list-h2'>" + data[i].message_title + "</h2>";
+										html += "<span class='list-time'>" + timestampToTime(data[i].createtime) + "</span>";
+										html += "<div style='clear: both;'></div>";
+										html += "</div>";
+										html += "<div class='list-span'>";
+										html += "" + data[i].message_content + "";
+										html += "</div>";
+										html += "</a>";
+										html += "</li>";
+									}
+									$("#messageList").empty();
+									$("#messageList").append(html);
+								} else if(type == 2) {
+									let html2 = "";
+									var data = res.data;
+									$("#messageList2").empty();
+									for (let i = 0; i < res.data.length; i++) {
+										if (data[i].is_read == 1) {
+											html2 += "<li class='bg-FFFFFF'>";
+										} else {
+											html2 += "<li class='bg-F1ECE6'>";
+										}
+										html2 += "<a href='MessageDetail.html?Id="+data[i].id+"'>"
+										html2 += "<div>";
+										html2 += "<h2 class='list-h2'>" + data[i].message_title + "</h2>";
+										html2 += "<span class='list-time'>" + timestampToTime(data[i].createtime) + "</span>";
+										html2 += "<div style='clear: both;'></div>";
+										html2 += "</div>";
+										html2 += "<div class='list-span'>";
+										html2 += "" + data[i].message_content + "";
+										html2 += "</div>";
+										html2 += "</a>";
+										html2 += "</li>";
+									}
+									
+									$("#messageList2").append(html2);
+								}
+
+							}else{
+								if (type == 1) {
+									$("#messageList").empty();
+								}else{
+									$("#messageList2").empty();
+								}
+							}
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取消息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			
+			$(function() {
+				getmessnum();
+				getmessinfo(1);
+				
+			})
+		</script>
+
+
+	</body>
+</html>

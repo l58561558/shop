@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			#goods_content{
+				margin-top: .2rem;
+			}
+			.list-theme4 .list-item .list-img{
+				width: 1.6rem;
+				padding: .9rem 0;
+			}
+			.list-theme4 .list-item .list-mes{
+				padding-top: .1rem;
+			}
+			.list-theme4 .list-item .list-mes .list-title{
+				font-size: .4rem;
+			}
+			.list-price{
+				color: #000000;
+				font-size: .35rem;
+			}
+			.list_spec_name{
+				margin-top: .2rem;
+				line-height: .6rem;
+				padding:0 .25rem ;
+				width: 50%;
+				background: #F7F7F7;
+				font-size: .35rem;
+			}
+			.m-cell{
+				margin-top: .1rem;
+				margin-bottom: .1rem;
+			}
+			.m-cell:after{
+				border: none;
+			}
+			#saveOrder{
+				height: 1rem;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.m-tabbar{
+				padding: 0;
+				color: #333333;
+			}
+			#bottom_num{
+				padding-left: .2rem;
+				font-size: .3rem;
+				-webkit-align-items: flex-start;
+				-ms-flex-align: start;
+				align-items: flex-start;
+			}
+			#bottom_price{
+				font-size: .4rem;
+				color: #333333;
+			}
+			#saveOrder{
+				color: #FFFFFF;
+				font-size: .4rem;
+			}
+			#confirm_div{
+				display: none;
+			}
+			#confirm{
+				margin-left: 5%;
+				width: 90%;
+				height: .8rem;
+				margin-top: .2rem;
+				color: white;
+				font-size: .3rem;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.cell-left{
+				font-size: .38rem;
+			}
+			.cell-right{
+				font-size: .38rem;
+			}
+			.list_num{
+				font-size: .35rem;
+			}
+			.refund,.cancelrefund,.show{
+				font-size: .35rem;
+				border: 1px solid #C39666;
+				background-color: #c39666;
+				color: white;
+				border-radius: .2rem;
+				padding: .01rem .1rem;
+			}
+			.cancelrefund{
+				float: right;
+			}
+			.show{
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="g-flexview">
+			<header class="m-navbar">
+				<a href="RefundOrderList.html"  class="navbar-item">
+					<i class="back-ico"></i>
+				</a>
+				<div class="navbar-center">
+					<span class="navbar-title">订单详情</span>
+				</div>
+			</header>
+			<div class="g-scrollview">
+				<div class="m-cell" style="margin-top: 0;margin-bottom:0">
+					  <div class="cell-item">
+					        <div class="cell-left">订单明细</div>
+					        <div class="cell-right"></div>
+					    </div>
+				</div>
+				<div id="goods_content">
+					<article class="m-list list-theme4">
+
+					</article>
+				</div>
+				<div class="m-cell">
+					<div class="cell-item">
+						<div class="cell-left">订单编号：</div>
+						<div class="cell-right" id='order_sn'></div>
+					</div>
+					<div class="cell-item">
+						<div class="cell-left">下单时间</div>
+						<div class="cell-right" id='createtime'></div>
+					</div>
+					<div class="cell-item">
+						<div class="cell-left">状态</div>
+						<div class="cell-right" id='status'></div>
+					</div>
+					<div class="cell-item">
+						<div class="cell-left">商品数量</div>
+						<div class="cell-right" id='goods_num'></div>
+					</div>
+					<div class="cell-item">
+						<div class="cell-left">订单金额</div>
+						<div class="cell-right" id='total_amount'></div>
+					</div>
+				</div>
+				
+				<div id="confirm_div" style="width: 100%;">
+					<input id="confirm" type="button" class="btn" value="确定收货">
+				</div>
+			</div>
+		</section>
+
+
+
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+
+			var token = userinfo.token;
+			var user_id = userinfo.user_id;
+			var isrefund=false;
+				
+			function initorder(order_id) {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("order_id", order_id);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/order_desc',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							
+							$('#order_sn').text(res.data.order_sn);
+							$('#createtime').text(timestampToTime(res.data.createtime));
+							if(res.data.refund_type>0){
+								isrefund=true;
+								if(res.data.refund_type==1){
+									$('#status').text('仅退款');
+								}else if(res.data.refund_type==2){
+									$('#status').text('退货退款');
+								}
+							}else{
+								if(res.data.status==1){
+									$('#status').text('待发货');
+								}else if(res.data.status==2){
+									$('#status').text('待收货');
+								}else if(res.data.status==3){
+									$('#status').text('已完成');
+								}
+							}
+							addGoodsContent(res.data.goods_data[0]);
+							$('#goods_num').text(res.data.goods_num);
+							$('#total_amount').text(res.data.total_amount);
+							
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取商品详情失败，服务异常！', 'none', 1000);
+					}
+				})
+				
+			}
+			function addGoodsContent(data){
+				let html="";
+				html+="<a href='GoodsDetail.html?Id="+data.goods_id+"' class='list-item'>";
+				html+="<div class='list-img'>";
+				html+="<img src='"+data.image+"' />";
+				html+="</div>";
+				html+="<div class='list-mes'>";
+				html+="<div class='list-mes-item'>";
+				html+="<div>";
+				html+="<h3 class='list-title'>"+data.goods_name+"</h3>";
+				html+="</div>";
+				html+="<div><span class='list-price'><em>¥</em>"+data.price+"</span></div>";	
+				html+="</div>";		
+				html+="<div class='list-mes-item'>";	
+				html+="<div></div>";
+				html+="<div class='list_num'>x"+data.goods_num+"</div>";		
+				html+="</div>";	
+				html+="<div class='list-mes-item'>";		
+				html+="<div class='list_spec_name'>"+data.spec_key_name+"</div>";
+				if(!isrefund){
+					html+="<div><div class='refund' title='?id="+data.order_goods_id+"&orderid="+getQueryString('id')+"&status=-2'>申请退货/退款</div></div>";
+				}
+				html+="</div>";		
+				html+="</div>";		
+				html+="</a>";
+				$("#goods_content article").empty();
+				$("#goods_content article").append(html);
+				$(".show").unbind('click').bind('click',function(e){
+					e.preventDefault();
+					if($(this).attr('title')!=undefined){
+						let url=$(this).attr('title');
+						location.href='RefundGoods.html'+url;
+					}
+				})
+				$(".refund").unbind('click').bind('click',function(e){
+					e.preventDefault();
+					if($(this).attr('title')!=undefined){
+						let url=$(this).attr('title');
+						location.href='RefundGoods.html'+url;
+					}
+				})
+				$(".cancelrefund").unbind('click').bind('click',function(e){
+					e.preventDefault();
+					var refund_order_id=$(this).attr('title');
+					CancelRefund(refund_order_id);
+				})
+			}
+			function confirm_receipt(){
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("order_id", order_id);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/confirm_receipt',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast(res.msg, 'none', 1000);
+							location.reload()
+							
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('确认收货失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			
+			
+			$(function() {
+
+				if (getQueryString('id')) {
+					initorder(getQueryString('id'))
+				}
+				$(".refund").unbind('click').bind('click',function(e){				
+					e.preventDefault();
+					if($(this).attr('title')!=undefined){
+						let url=$(this).attr('title');
+						location.href='RefundGoods.html'+url;
+					}
+				});
+				$("#confirm").unbind("click").bind("click",function(){
+					confirm_receipt()
+				});
+				$(".cancelrefund").unbind("click").bind("click",function(){
+					e.preventDefault();
+					var refund_order_id=$(this).attr('title');
+					CancelRefund(refund_order_id);
+				})
+			})
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<link rel="stylesheet" href="css/mobileselect.css" />
+		<script type="text/javascript" src="js/mobileselect.min.js"></script>
+		<script type="text/javascript" src="js/selectdate.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			
+			.tab-nav-item a{
+				font-family:PingFangSC-Medium,PingFang SC;
+				color:rgba(51,51,51,1);
+			}
+			.tab-panel-item{
+				height: 100%;
+				background-color: #F5F5F5;
+				padding: 0 !important;
+			}
+			.tab-panel{
+				background: #F5F5F5;
+			}
+			#type1{
+				padding-top: .2rem;
+			}
+			.m-cell{
+				width: 96%;
+				margin-left: 2%;
+				margin-top: .2rem;
+				border-radius: .1rem;
+				margin-bottom: .2rem;
+			}
+			
+			#type1 .t1_a2 .cell-right{
+				min-height: .8rem;
+			}
+			#type1 .m-cell:after{
+				border: none;
+			}
+			.t1_a1{
+				height: 1.8rem;
+			}
+			.t1_a1 img{
+				width: 1rem;
+				height: 1rem;
+				border-radius: .5rem;
+				margin-right: .2rem;
+				border: 1px #C39666 solid;
+			}
+			.t1_a2{
+				font-size: .2rem;
+			}
+			.t1_a2 .cell-left{
+				font-size: .22rem;
+				color: #C39666;
+			}
+			.t1_a2 .cell-right{
+				font-size: .22rem;
+				color: #C39666;
+			}
+			#type2 .t1_a2 .cell-right{
+				min-height: .8rem;
+			}
+			#select_2{
+				margin-top: .2rem;
+				width: 2rem;
+				height: .7rem;
+				text-align: left;
+				padding-left: .25rem;
+				padding-top: .1rem;
+				padding-bottom: .1rem;
+				line-height: .5rem;
+				border-radius: .3rem;
+				margin-left: 2%;
+				background-color: white;
+				font-size: .4rem;
+			}
+			#selectdate{
+				position: absolute;
+				width: .23rem;
+				height: .12rem;
+				left:1.3rem;
+				top: .32rem;
+			}
+			.re{
+				transform: rotate(180deg);
+				ms-transform: rotate(180deg); /* IE 9 */
+				moz-transform: rotate(180deg); /* Firefox */
+				webkit-transform: rotate(180deg); /* Safari and Chrome */
+				o-transform: rotate(180deg); /* Opera */
+			}
+			.m-grids-2 .grids-item:not(:nth-child(2n)):before{
+				    top: 15%;
+				    height: 70%;
+			}
+			.child_con{
+				margin-left: .2rem;
+				line-height: .45rem;
+			}
+			.grids-txt{
+				font-size: .4rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="MyInfo.html" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">我的代理</span>
+			</div>
+		</header>
+		<div id="J_Tab">
+			<div class="tab-panel">
+				<div style="width: 100%;position: relative;">
+					<div style="" id="select_2">本月</div>
+						<img id="selectdate" src="img/icon/cart_down.png">
+				</div>
+				<div style="width: 100%;margin-top: .2rem;">
+					<div class="m-grids-2" style="width: 90%;margin-left: 5%;">
+						<a href="#" class="grids-item">
+							<div class="grids-txt">
+								<p style="font-weight:bold;" id="team_money"></p>
+								<p style="color: #9B9B9B;margin-top: .1rem;">总销售额</p>
+							</div>
+						</a>
+						<a href="#" class="grids-item">
+							<div class="grids-txt">
+								<p style="font-weight:bold;" id="discount"></p>
+								<p style="color: #9B9B9B;margin-top: .1rem;">销售折扣</p>
+							</div>
+						</a>
+					</div>
+				</div>
+				
+				<div id='type1'>
+					<ul id="type1_ul">
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+
+			var token = userinfo.token;
+			var user_id = userinfo.user_id;
+			
+			function getinfo(type) {
+				var formData = new FormData();
+				formData.append("token", token);
+				formData.append("user_id", getQueryString("userid"));
+				let date=$("#select_2").html();
+				if(date=="本月"){
+					var nYear = myDate.getFullYear();
+					var nMonth = myDate.getMonth();
+					let d=nYear+'-'+nMonth;
+					formData.append("date", d);
+				}else{
+					formData.append("date", date);
+				}
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/user/agency_child_list',
+					data: formData,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							let html = "";
+							$("#team_money").text(res.data.team_money);
+							$("#discount").text(res.data.discount);
+							let data = res.data.agency_data;
+							for (let i = 0; i < data.length; i++) {
+								html += "<li>";
+								html += '<div class="m-cell type1_list"><a class="cell-item t1_a1" href="javascript:;">';
+								html += '<div class="cell-left">';
+								html += '<img src="'+data[i].avatar+'">';
+								html += '<div class="child_con">';
+								html += '<p>姓名：'+data[i].nickname+'</p>';
+								html += '<p>级别：'+data[i].level_name+'</p>';
+								html += '<p>业绩：&#165;'+data[i].team_money+'</p>';
+								html += "</div>";
+								html += "</div>";
+								html += "<div class='cell-right'></div>";
+								html += "</a>";
+								html += "</div>";
+								html += "</li>";
+							}
+							$("#type1_ul").empty();
+							$("#type1_ul").append(html);
+							
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					}
+				})
+			}
+			 var myDate = new Date();
+			     var tYear = myDate.getFullYear();
+				 
+			     var tMonth = myDate.getMonth();
+			    $.selectDateSimple("#select_2",{
+			        start:tYear-10,
+			        end:tYear+10,
+			        select:[tYear,tMonth]
+			    },function (data) {
+					$("#selectdate").removeClass('re');
+					getinfo();
+			        $("#select_2").html(data.year+"-"+data.month);
+			    });
+				$("#select_2").bind("click",function(){
+					$("#selectdate").addClass('re')
+				})
+				$(".grayLayer").bind("click",function(){
+					$("#selectdate").removeClass('re')
+				})
+				
+			$(function() {
+				getinfo();
+				
+				
+			})
+		</script>
+
+
+	</body>
+</html>

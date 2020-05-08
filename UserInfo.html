@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui2.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			#avatar{
+				width: 1rem;
+				height: 1rem;
+				border: 1px solid transparent;
+				border-radius: .5rem;
+				margin-right: .3rem;
+			}
+			.cell_avatar{
+				height: 1.6rem !important;
+			}
+			.cell-item{
+				height: .9rem;
+			}
+			.cell-right{
+				min-height: .9rem;
+			}
+			.cell-left{
+				font-size: .38rem;
+			}
+			.cell-right{
+				font-size: .38rem;
+			}
+			.actionsheet-item{
+				font-size: .38rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="MyInfo.html" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">个人信息</span>
+			</div>
+		</header>
+		<div class="m-cell">
+		    <div class="cell-item cell_avatar">
+		        <div class="cell-left">我的头像设置：</div>
+		        <div class="cell-right cell-arrow" id="J_ShowActionSheet"><img id="avatar" /></div>
+		    </div>
+			<div class="cell-item">
+				<div class="cell-left">用户昵称</div>
+				<div class="cell-right cell-arrow" id='nickname'></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">修改密码</div>
+				<div class="cell-right cell-arrow" id="findpwd" ></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">我的地址</div>
+				<div class="cell-right cell-arrow"  onclick="location.href='Myaddress.html'"></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">上级手机号</div>
+				<div class="cell-right" id="superior_mobile"></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">推荐人手机号</div>
+				<div class="cell-right" id="inviter_mobile"></div>
+			</div>
+		</div>
+		
+		
+		<div class="m-actionsheet" id="J_ActionSheet">
+		    <a href="#" id="caram_a"  class="actionsheet-item">拍摄
+			<input style="opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;width: 100%;height: 100%;" type='file' id='caram_file' accept="image/*" capture="camera" />
+			</a>
+		    <a href="#" id="folder_a"  class="actionsheet-item">从相册选择
+			<input style="opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;width: 100%;height: 100%;" type='file' id='folder_file' />
+			</a>
+		   
+		    <a href="javascript:;" class="actionsheet-action" id="J_Cancel">取消</a>
+		</div>
+		
+		
+		<script type="text/javascript" src="js/ydui2.js"></script>
+		<script>
+
+			var dialog = window.YDUI.dialog;
+			
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+			var $as = $('#J_ActionSheet');
+			
+			    $('#J_ShowActionSheet').on('click', function () {
+			        $as.actionSheet('open');
+			    });
+			
+			    $('#J_Cancel').on('click', function () {
+			        $as.actionSheet('close');
+			    });
+			
+			    /* 自定义事件 */
+			    $as.on('open.ydui.actionsheet', function () {
+			        //console.log('打开了');
+			    }).on('close.ydui.actionsheet', function () {
+			        //console.log('关闭了');
+			    });
+				//上传文件
+				function uploadfile(type) {
+					var formData = new FormData();
+					if (type == 1) {
+						formData.append("file", $("#caram_file")[0].files[0]);
+					} else if (type == 2) {
+						formData.append("file", $("#folder_file")[0].files[0]);
+					}
+					//formData.append("token", token);
+					$.ajax({
+						type: "post",
+						url: ajaxUrl + '/Common/upload',
+						data: formData,
+						cache: false,
+						processData: false,
+						contentType: false,
+						dataType: "json",
+						success: function(res) {
+							if (res.code == 1) {
+								if (type == 1) {
+									$("#caram_file").val('');
+								} else if (type == 2) {
+									$("#folder_file").val('');
+								}
+								upuserInfo(res.data.url);
+								
+							} else {
+								dialog.toast(res.msg, 'none', 1000);
+							}
+						}
+					})
+				}
+			function upuserInfo(avatar){
+				var formData = new FormData();
+				formData.append("token", token);
+				formData.append("avatar", avatar);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/user/profile',
+					data: formData,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast(res.msg, 'none', 1000);
+							window.location.reload();
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					}
+				})
+			}
+				
+			function getuserInfo() {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/user/get_user_info',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							$("#nickname").text(res.data.nickname);
+							$("#avatar").attr('src',res.data.avatar);
+							$("#superior_mobile").text(res.data.superior_mobile);
+							$("#inviter_mobile").text(res.data.inviter_mobile)
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取个人信息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			$(function() {
+				getuserInfo();
+				$("#caram_file").change(function(){
+					uploadfile(1)
+				});
+				$("#folder_file").change(function(){
+					uploadfile(2)
+				});
+				$("#nickname").unbind('click').bind('click',function(){
+					location.href='UpnickName.html';
+				})
+				// $("#caram_a").on('click touchstart',function(){
+				// 	var u = navigator.userAgent;
+				// 	var ua = navigator.userAgent.toLowerCase();
+				// 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+				// 	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+				// 	 if(ua.match(/MicroMessenger/i)=="micromessenger"&&isAndroid) {
+				// 		 $('#caram_file').click()
+				// 	 }else if(ua.match(/MicroMessenger/i)=="micromessenger"&&isiOS){
+				// 		$('#caram_file').click().click()
+				// 	}else if(isAndroid){
+				// 		$('#caram_file').click()
+				// 	}else if(isiOS){
+				// 		$('#caram_file').click().click()
+				// 	}
+				// 	//$('#caram_file').click();
+				// })
+				// $("#folder_a").on('click touchstart',function(){
+				// 	var u = navigator.userAgent;
+				// 	var ua = navigator.userAgent.toLowerCase();
+				// 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+				// 	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+				// 	 if(ua.match(/MicroMessenger/i)=="micromessenger"&&isAndroid) {
+				// 		 $('#folder_file').click()
+				// 	 }else if(ua.match(/MicroMessenger/i)=="micromessenger"&&isiOS){
+				// 		$('#folder_file').click().click()
+				// 	}else if(isAndroid){
+				// 		$('#folder_file').click()
+				// 	}else if(isiOS){
+				// 		$('#folder_file').click().click()
+				// 	}
+				// 	//$('#folder_file').click();
+				// })
+				$("#findpwd").unbind('click').bind('click',function(){
+					location.href='Findpwd.html?mobile='+userinfo.mobile
+				})
+				
+				
+			})
+		</script>
+
+
+	</body>
+</html>

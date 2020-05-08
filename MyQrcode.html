@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			.qr_content{
+				background: #A78868;
+				width: 100%;
+				height:calc(100% - 0.9rem);
+			}
+			#qrcode{
+				text-align: center;
+				padding-top: 3rem;
+				
+			}
+			#qrcode img{
+				margin: auto;
+				width: 4rem;
+				height: 4rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="MyInfo.html" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">我要推广</span>
+			</div>
+		</header>
+		<div class="qr_content">
+			<div  id="qrcode">
+				
+			</div>
+		</div>
+		
+		
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+
+			var dialog = window.YDUI.dialog;
+			
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+
+			function gethost(){
+				var h="";
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/user/get_http_host',
+					async:false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							h= res.data;
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取域名失败，服务异常！', 'none', 1000);
+					}
+				});
+				return h;
+			}
+			
+			function GetImg(host) {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				var url="/Applyagent.html";
+				formdata.append("url",url)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/user/get_qrcode',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							$('#qrcode').qrcode(res.data)
+							//$("#qrcode img").attr('src',res.data)
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取我的推广二维码失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			
+			$(function() {
+				 var host=gethost();
+				 GetImg(host) ;
+			})
+		</script>
+
+
+	</body>
+</html>

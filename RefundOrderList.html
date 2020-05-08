@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<link rel="stylesheet" href="css/mobileselect.css" />
+		<script type="text/javascript" src="js/mobileselect.min.js"></script>
+		<script type="text/javascript" src="js/selectdate.js"></script>
+		<style>
+			body{
+				height: 100%;
+
+			}
+			.tab-nav-item:not(:last-child):after{
+				border-right: none;
+			}
+			.tab-nav-item.tab-active:before{
+				background-color: #C39666;
+			}
+			.tab-nav-item a{
+				font-family:PingFangSC-Medium,PingFang SC;
+				color:rgba(51,51,51,1);
+			}
+
+			.tab-panel-item{
+				height: 100%;
+				background-color: #F5F5F5;
+				padding: 0 !important;
+			}
+			.m-cell{
+				margin-bottom: .15rem;
+			}
+			.m-cell:after{
+				border: none;
+				color: #333333 !important;
+			}
+			.cell-item:not(:last-child):after{
+				border: none;
+			}
+			.cell-left{
+				font-size: .35rem;
+				color: #333333 !important;
+				font-family:PingFangSC-Regular,PingFang SC;
+			}
+			.cell-right{
+				font-size: .36rem;
+				min-height: .6rem;
+				color: #333333;
+				padding-right: 0;
+				font-family:PingFangSC-Regular,PingFang SC;
+			}
+			.list-theme4{
+				background: #F5F5F5;
+				padding: 0;
+				color: #333333 !important;
+				font-family:PingFangSC-Regular,PingFang SC;
+			}
+			.list-theme4 .list-item .list-mes .list-title{
+				color: #333333 !important;
+				font-size: .38rem;
+				font-family:PingFangSC-Regular,PingFang SC;
+			}
+			.cell-item{
+				padding-left: .28rem;
+				padding-right: .28rem;
+			}
+			.list-theme4 .list-item{
+				    padding: 7px 0 0px 0;
+			}
+			.list-item{
+				width: 100%;
+				height: auto;
+			}
+			
+			.list-theme4 .list-item .list-img{
+				width: 1.6rem;
+				padding: .8rem 0;
+			}
+			.list-img img{
+				width: 1.5rem;
+			}
+			.list-mes-item .list-price{				
+				color: #333333;
+				font-size: .34rem;
+				font-weight: 545;
+			}
+			.list-speckeyname{
+				background: #F7F7F7;
+				color: #999999;
+				padding-left: .15rem;
+				padding-right: .15rem;
+				padding-top: .05rem;
+				padding-bottom: .05rem;
+				font-size: .32rem;
+				font-family:PingFangSC-Regular,PingFang SC;
+			}
+			.border_bottom{
+				border-bottom:1px solid #EEEEEE;
+			}
+			._mr{
+				margin-right: .1rem;
+			}
+			#select_2{
+				margin-top: .2rem;
+				width: 2rem;
+				height: .7rem;
+				text-align: left;
+				padding-left: .25rem;
+				padding-top: .1rem;
+				padding-bottom: .1rem;
+				line-height: .5rem;
+				border-radius: .3rem;
+				margin-left: 2%;
+				background-color: white;
+				font-size: .4rem;
+			}
+			#selectdate{
+				position: absolute;
+				width: .23rem;
+				height: .12rem;
+				left:1.3rem;
+				top: .32rem;
+			}
+			#seldate:after{
+				border: none;
+			}
+			.m-grids-3 .grids-item:not(:nth-child(3n)):before{
+				border:none;
+			}
+			.grids-item{
+				padding: .1rem 0;
+				
+			}
+			.grids-txt p{
+				font-size: .35rem;
+			}
+			.grids-item:after,.m-grids-3:before{
+				border: none;
+			}
+			#h2_total{
+				font-size: .38rem;
+			}
+			#h2_total:after{
+				border-bottom: none;
+			}
+			.btn-c3{
+				    background: #c39666;
+				    padding: .05rem;
+				    color: white;
+				    border-radius: .1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="g-flexview">
+
+			<header class="m-navbar">
+				<a href="MyInfo.html" class="navbar-item">
+					<i class="back-ico"></i>
+				</a>
+				<div class="navbar-center">
+					<span class="navbar-title">售后订单</span>
+				</div>
+			</header>
+		<section class="g-scrollview" id="O_List">
+			<div id="O_ListContent">
+				<article class="m-list list-theme4">
+					<ul>
+		
+		
+					</ul>
+		
+				</article>
+			</div>
+		</section>
+			
+
+				
+			
+
+
+		</section>
+
+		<script type="text/javascript" src="js/ydui.js"></script>
+
+		<script>
+			var dialog = window.YDUI.dialog;
+
+			var token = userinfo.token;
+			var user_id = userinfo.user_id;
+
+			var page = 1,
+				pageSize = 5;
+
+			var loadMore = function(callback) {
+				var date = $("#select_date").html();
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("page", page);
+				formdata.append("count", pageSize);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/refund_order_list',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(ret) {
+						$(".list-loading").remove();
+						$(".list-donetip").remove();
+						
+						setTimeout(function() {
+							typeof callback == 'function' && callback(ret.data);
+						}, 500);
+					},
+					error: function(err) {
+						dialog.toast('获取订单列表失败，服务异常！', 'none', 1000);
+					}
+				});
+			};
+
+			function LoadHtml(data) {
+				
+				let html = "";
+				for (let i = 0; i < data.length; i++) {
+					html += "<li>";
+					if(data[i].status>-2){
+						html += "<a href='RefundGoods.html?id=" + data[i].order_goods_id + "&orderid="+data[i].id+"&status="+data[i].status+"&iso="+data[i].refund_type+"' class='O_Link' data-page='" + data.page + "'>";
+					}else{
+						html += "<a href='ReOrderDetail.html?id="+ data[i].order_id +"' class='O_Link' data-page='" + data.page + "'>";
+					}
+					html += "<div class='m-cell'>";
+					html += "<div class='cell-item'>";
+					html += "<div class='cell-left border_bottom'>编号：" + data[i].order_sn + "</div>";
+					if (data[i].status == -3) {
+						html += "<div class='cell-right border_bottom C39666'>失效</div>";
+					} else if (data[i].status == -2) {
+						html += "<div class='cell-right border_bottom C39666'>已取消</div>";
+					}else if (data[i].status == -1) {
+						html += "<div class='cell-right border_bottom C39666'>审核未通过</div>";
+					}else if (data[i].status == 0) {
+						html += "<div class='cell-right border_bottom C39666'>等待审核</div>";
+					}else if (data[i].status == 1) {
+						html += "<div class='cell-right border_bottom C39666'>寄回商品</div>";
+					}else if (data[i].status == 2) {
+						html += "<div class='cell-right border_bottom C39666'>系统审核</div>";
+					}else if (data[i].status == 3) {
+						html += "<div class='cell-right border_bottom C39666'>退款完成</div>";
+					}
+					html += "</div>";
+					html += "<div class='cell-item'>";
+					html += "<div class='list-item border_bottom'>";
+					html += "<div class='list-img'>";
+					html += "<img src='" + data[i].goods_data.image + "' >";
+					html += "</div>";
+					
+					html += "<div class='list-mes'>";
+					html += "<div class='list-mes-item'>";
+					html += "<div>";
+					html += "<h3 class='list-title'>" + data[i].goods_data.goods_name + "</h3>";
+					html += "</div>";
+					html += "<div><span class='list-price'><em>¥</em>" + data[i].goods_data.price + "</span></div>";
+					html += "</div>";
+					html += "<div class='list-mes-item'>";
+					html += "<div>";
+					html += "<div class='list-speckeyname'>";
+					html += data[i].goods_data.spec_key_name;
+					html += "</div>";
+					html += "</div>";
+					html += "<div style='font-size:.36rem'>x" + data[i].goods_data.goods_num + "</div>";
+					html += "</div>";
+					html += "</div>";
+					html += "</div>";
+					html += "</div>";
+					html += "<div class='cell-item'>";
+					html += "<div class='cell-left'></div>"
+					html += "<div class='cell-right'>";
+					html += "共" + data[i].goods_num + "件商品 合计:&nbsp;<em>¥</em><span style='font-weight:550'>" + data[i].order_price;
+					html += "</span></div>";
+					html += "</div>";
+					html += "</a>";
+					html += "<div class='cell-item'>";
+					html += "<div class='cell-right'>";
+					if(data[i].status==0){
+						html += "<a title='"+data[i].id+"' name='cancelrefund' class='btn-c3'>取消退货</a>";
+					}
+					html += "</div>";
+					html += "</div>";
+					html += "</div>";
+					html += "</li>";
+
+				}
+				return html;
+			}
+			function LoadHtml1(data) {
+				
+				let html = "";
+				for (let i = 0; i < data.length; i++) {
+					html += "<li>";
+					if(data[i].status>-2){
+						html += "<a href='RefundGoods.html?id=" + data[i].order_goods_id + "&orderid="+data[i].id+"&status="+data[i].status+"&iso="+data[i].refund_type+"' class='O_Link' data-page='" + data.page + "'>";
+					}else{
+						html += "<a href='ReOrderDetail.html?id="+ data[i].order_id +"' class='O_Link' data-page='" + data.page + "'>";
+					}html += "<div class='m-cell'>";
+					html += "<div class='cell-item'>";
+					html += "<div class='cell-left border_bottom'>编号：" + data[i].order_sn + "</div>";
+					if (data[i].status == -3) {
+						html += "<div class='cell-right border_bottom C39666'>失效</div>";
+					} else if (data[i].status == -2) {
+						html += "<div class='cell-right border_bottom C39666'>已取消</div>";
+					}else if (data[i].status == -1) {
+						html += "<div class='cell-right border_bottom C39666'>审核未通过</div>";
+					}else if (data[i].status == 0) {
+						html += "<div class='cell-right border_bottom C39666'>等待审核</div>";
+					}else if (data[i].status == 1) {
+						html += "<div class='cell-right border_bottom C39666'>寄回商品</div>";
+					}else if (data[i].status == 2) {
+						html += "<div class='cell-right border_bottom C39666'>系统审核</div>";
+					}else if (data[i].status == 3) {
+						html += "<div class='cell-right border_bottom C39666'>退款完成</div>";
+					}
+					html += "</div>";
+					html += "<div class='cell-item'>";
+					html += "<div class='list-item border_bottom'>";
+					html += "<div class='list-img'>";
+					html += "<img src='" + data[i].goods_data.image + "' >";
+					html += "</div>";
+					
+					html += "<div class='list-mes'>";
+					html += "<div class='list-mes-item'>";
+					html += "<div>";
+					html += "<h3 class='list-title'>" + data[i].goods_data.goods_name + "</h3>";
+					html += "</div>";
+					html += "<div><span class='list-price'><em>¥</em>" + data[i].goods_data.price + "</span></div>";
+					html += "</div>";
+					html += "<div class='list-mes-item'>";
+					html += "<div>";
+					html += "<div class='list-speckeyname'>";
+					html += data[i].goods_data.spec_key_name;
+					html += "</div>";
+					html += "</div>";
+					html += "<div style='font-size:.36rem'>x" + data[i].goods_data.goods_num + "</div>";
+					html += "</div>";
+					html += "</div>";
+					html += "</div>";
+					html += "</div>";
+					html += "<div class='cell-item'>";
+					html += "<div class='cell-left'></div>"
+					html += "<div class='cell-right'>";
+					html += "共" + data[i].goods_num + "件商品 合计:&nbsp;<em>¥</em><span style='font-weight:550'>" + data[i].order_price;
+					html += "</span></div>";
+					html += "</div>";
+					html += "</a>";
+					html += "<div class='cell-item'>";
+					html += "<div class='cell-right'>";
+					if(data[i].status==0){
+						html += "<a title='"+data[i].id+"' onclick='CancelRefund("+data[i].id+")' name='cancelrefund' class='btn-c3'>取消退货</a>";
+					}
+					html += "</div>";
+					html += "</div>";
+					html += "</div>";
+					html += "</li>";
+
+				}
+				return html;
+			}
+			function initData() {
+
+				$('#O_List').infiniteScroll({
+					binder: '#O_List',
+					pageSize: pageSize,
+					initLoad: true,
+					backposition: true,
+					jumpLink: '.O_Link',
+					loadListFn: function() {
+						var def = $.Deferred();
+						loadMore(function(listArr) {
+							listArr.page = page;
+							var html = LoadHtml1(listArr);
+							$('#O_ListContent ul').append(html);
+							def.resolve(listArr,page);
+							++page;
+						});
+						return def.promise();
+					},
+					loadStorageListFn: function(ret, retPage) {
+						var def = $.Deferred();
+						page = retPage;
+						var html = '';
+						ret.forEach(function(val) {
+							var list = val.list;
+							list.page = val.page;
+							html += LoadHtml(list);
+						});
+						$('#O_ListContent ul').append(html);
+						def.resolve();
+						return def.promise();
+					}
+				});
+			}
+
+			function CancelRefund(refund_order_id){
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("refund_order_id", refund_order_id);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/cancel_refund',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast(res.msg, 'none', 1000);
+							location.reload()
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('取消失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			
+			!function (){
+				initData();
+				
+			}()
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+		/* 	.m-tabbar{
+				position: fixed;
+				bottom: 0;
+			} */
+			.cart_li{
+				height: 2.8rem;
+				background: #FFFFFF;
+				border-bottom: 1px solid #F0F0F0;
+
+			}
+			.cart_l1{
+				width: 10%;
+				height: 100%;
+				float: left;
+				
+			}
+			.cart_l1 img{
+				width: 0.5rem;
+				margin: auto;
+				margin-top: 1.15rem;
+			}
+			.cart_l2{
+				width: 90%;
+				height: 100%;
+				float: right;
+			}
+			.cart_l3{
+				width: 73%;
+				height: 100%;
+				float: left;
+			}
+			.cart_l3 .full_left{
+				width: 1.8rem;
+				float: left;
+			}
+			.cart_l3 img{
+				padding-top: 0.4rem;
+				width:1.8rem;
+				height: 1.8rem;
+			}
+			.cart_l4{
+				width: 27%;
+				height: 100%;
+				float: right;	
+				display: flex;
+				align-items: flex-end;         /* 垂直居中 */
+				justify-content: center;    /* 水平居中 */
+				padding-bottom: 0.3rem;
+			}
+			.l3_content{
+				font-size: 0.32rem;
+				padding-top:0.4rem;
+				padding-left: 0.05rem;
+				white-space: normal;
+				word-break: break-all;
+				word-wrap: break-word;
+				width: 3rem;
+			}
+			.l3_content p{
+				margin-bottom: 0.06rem;
+				font-family:PingFangSC-Regular,PingFang SC;
+				font-weight:400;
+				color:rgba(51,51,51,1);
+			}
+			.l3_content div{
+				margin-bottom: 0.06rem;
+				font-family:PingFangSC-Regular,PingFang SC;
+				font-weight:400;
+				color:rgba(51,51,51,1);
+				background: #F7F7F7;
+				padding: 0.02rem 0.1rem;
+				border: 1px solid #F7F7F7;
+				border-radius: 0.2rem;
+			}
+			.l3_content div>img{
+				display: inline-block;
+				padding: 0;
+				margin-left: 0.2rem;
+				width: 0.3rem;
+			}
+			.l3_content span{
+				color: #000000;
+				font-size: 0.31rem;
+			}
+			.m-spinner > input{
+				width: 0.55rem;
+			}
+			.cart_select{
+				position: relative;
+			}
+			.cart_select dl{
+				position: absolute;
+				display: none;
+				top: 0.45rem;
+				right: 0;
+				background: #F7F7F7;
+				text-align: left;
+				border-radius: 0.15rem;
+				padding-left: 0.1rem;
+			}
+			.rotate_180{
+				transform: :rotateX(180deg);
+				-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+				-o-transform:rotate(180deg); 
+				-ms-transform:rotate(180deg); 	/* IE 9 */
+				-moz-transform:rotate(180deg); 	/* Firefox */
+				transition-duration:0.15s;
+				transition-timing-function:ease
+			}
+			
+			.cart_c2{
+				display: flex;
+				height: 1rem;
+				background: #FFFFFF;
+				width: 100%;
+			}
+			.cart_c2_d1{
+				width: 12%;
+				display: flex;
+				align-items: center;         /* 垂直居中 */
+				justify-content: center;    /* 水平居中 */
+			}
+			.cart_c2_d2{
+				width: 53%;
+				padding-right: 0.15rem;
+				display: flex;
+				align-items: center;         /* 垂直居中 */
+				justify-content: flex-end;    /* 水平居中 */
+			}
+			.cart_c2_d2 span{
+				font-size: 0.4rem;
+			}
+			.cart_c2_d3{
+				width:35% ;
+			}
+			.cart_c2_d3 a{
+				width: 100%;
+				height: 100%;
+				line-height: 1rem;
+				color: #FFFFFF;
+				font-size: 0.4rem;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.cart_c2_d1 img{
+				width:0.5rem;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<section class="g-flexview">
+		<header class="m-navbar">
+			<a href="#" onclick="self.location=document.referrer;" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">购物车</span>
+			</div>
+			<a href="#" onclick="DelGoods()" style="font-size: .38rem;" class="navbar-item">
+				管理
+			</a>
+		</header>
+		
+		<section class="g-scrollview">
+			<div id="cartcont">
+				
+				<ul id='cart_ul'>
+					<!-- <li class="cart_li" name='cart_1'>
+						<div class="cart_l1">
+							<img class='s1' src="img/icon/cart_selected.png" />
+						</div>
+						<div class="cart_l2">
+							<div class="cart_l3">
+								<div class="full_left">
+									<img src="http://img1.shikee.com/try/2016/06/21/10172020923917672923.jpg_180x180.jpg" data-url="http://img1.shikee.com/try/2016/06/21/10172020923917672923.jpg_180x180.jpg">
+								</div>
+								<div class="full_left l3_content">
+									<p>123</p>
+									<div class="cart_select" style="position: relative;">
+										1222223
+										<img src="img/icon/cart_down.png">
+										<dl>
+											<dd>12222223</dd>
+											<dd>12222223</dd>
+											<dd>12222223</dd>
+										</dl>
+									</div>
+									<span><em>¥</em><em class='lprice'>34.7</em></span>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+							<div class="cart_l4">
+								<span class="m-spinner">
+								    <a href="javascript:;" class="J_Del"></a>
+								    <input type="text" class="J_Input" value="1" placeholder=""/>
+								    <a href="javascript:;" class="J_Add"></a>
+								</span>
+							</div>
+							<div style="clear: both;"></div>
+						</div>
+						<div style="clear: both;"></div>
+					</li> -->
+
+				</ul>
+			</div>
+
+		</section>
+		<footer class="m-tabbar">
+		<div class="cart_c2" id="Del_goods">
+			<div class="cart_c2_d1">
+				<img src="img/icon/cart_noselect.png" />
+			</div>
+			<div class="cart_c2_d2" style="position: relative;">
+				<span style="position: absolute;left: 0;">全选</span>
+				<span>总计：￥<em id='count_price'></em></span>
+			</div>
+			<div class="cart_c2_d3">
+				<a id="del_cart" href="#" style="background: #D52D2D;display: none;" class="btn">删&nbsp;&nbsp;除</a>
+				<a id="sub_cart" href="#" class="btn">结&nbsp;&nbsp;算(<em id="count_num">0</em>)</a>
+			</div>
+		</div>
+		</footer>
+		<footer class="m-tabbar">
+			<a href="#" onclick="window.location.href='GoodsIndex.html'" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/1_1.png">
+				</span>
+				<span class="tabbar-txt">商品</span>
+			</a>
+			<a href="#" onclick="window.location.href='CartList.html'" class="tabbar-item tabbar-active">
+				<span class="tabbar-icon">
+					<img src="img/icon/2.png">
+				</span>
+				<span class="tabbar-txt">购物车</span>
+			</a>
+			<a href="#" id="tabbar_message" onclick="window.location.href='MessageList.html'" style="position: relative;" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/3_1.png">
+				</span>
+				<span class="badge" style="display: none;" id="badge_message">2</span>
+				<span class="tabbar-txt">消息</span>
+			</a>
+			<a href="#" onclick="window.location.href='MyInfo.html'" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/4_1.png">
+				</span>
+				<span class="tabbar-txt">我的</span>
+			</a>
+		</footer>
+		</section>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+
+			var token = userinfo.token;
+			var user_id = userinfo.user_id;
+		
+			 // $('.m-spinner').spinner({
+				// 	input: '.J_Input',
+				// 	add: '.J_Add',
+				// 	minus: '.J_Del',
+				// 	callback: function (value, $ele) {
+				// 		console.log(value);
+				// 		console.log($ele);
+				// 		checkCount();
+				// 	}
+				// });
+			function getCartInfo() {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/cart/cart_list',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							initCart(res.data);
+							initaction();
+							checkCount();
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取购物车信息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
+			function initCart(data) {
+				let html = "";
+				for (let i = 0; i < data.length; i++) {
+					html += "<li class='cart_li' name='cart_" + data[i].cart_id + "'>";
+					html += "<div class='cart_l1'>";
+					html += "<img  src='img/icon/cart_noselect.png' />";
+					html += "</div>";
+					html += "<div class='cart_l2'>";
+					html += "<div class='cart_l3'>";
+					html += "<div class='full_left'>";
+					html += "<img src='" + data[i].cover_image + "' data-url='" + data[i].cover_image + "'>";
+					html += "</div>";
+					html += "<div class='full_right l3_content'>";
+					html += "<p>" + data[i].name + "</p>";
+					html += "<div class='cart_select'>";
+					html += "" + data[i].spec_name + "";
+					
+					html += "</div>";
+					html += "<span><em>¥</em><em class='lprice'>" + data[i].lprice + "</em></span>";
+					html += "</div>";
+					html += "<div style='clear: both;'></div>";
+					html += "</div>";
+					html += "<div class='cart_l4'>";
+					html += "<span class='m-spinner'>";
+					html += "<a href='javascript:;' class='J_Del'></a>";
+					html += "<input type='text' class='J_Input' placeholder='' value='" + data[i].num + "'/>";
+					html += "<a href='javascript:;' class='J_Add'></a>";
+					html += "</span>";
+					html += "</div>";
+					html += "<div style='clear: both;'></div>";
+					html += "</div>";
+					html += "<div style='clear: both;'></div>";
+					html += "</li>";
+				}
+				$("#cart_ul").empty();
+				$("#cart_ul").append(html);
+				$('.m-spinner').spinner({
+					input: '.J_Input',
+					add: '.J_Add',
+					minus: '.J_Del',
+					callback: function (value, $ele) {
+						let cartId=$ele.parent().parent().parent().parent().attr('name').replace('cart_','')
+						UpCartAmount(value,cartId)
+						checkCount();
+					}
+				});
+			}
+			function UpCartAmount(va,cartId){
+				
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("cart_id", cartId);
+				formdata.append("num", va);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/cart/edit_cart_goods_num',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('购物车修改数量失败，服务异常！', 'none', 1000);
+					}
+				})
+				
+			}
+			
+			
+			
+			
+			
+			function DelGoods(){
+				$("#sub_cart").hide();
+				$(".cart_c2_d2 span").hide();
+				$("#del_cart").show();
+			}
+			function DelCartGoods(){
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				var cart_id=''
+				for(let i=0;i<$("#cart_ul").find('li').length;i++){
+					if($("#cart_ul").find('li').eq(i).find('.cart_l1 img').hasClass('s1')){
+						cart_id+=','+$("#cart_ul").find('li').eq(i).attr('name').replace('cart_','');
+					}
+				}
+				if (cart_id.substr(0,1)==',') cart_id=cart_id.substr(1);
+				if(cart_id==""||cart_id==null){
+					dialog.toast("请选择一种商品", 'none', 1000);
+					return;
+				}
+				formdata.append("cart_ids", cart_id);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/cart/del_cart_goods',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast(res.msg, 'none', 1000);
+							getCartInfo();
+							checkCount();
+							$("#sub_cart").show();
+							$(".cart_c2_d2 span").show();
+							$("#del_cart").hide();
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('购物车下单失败，服务异常！', 'none', 1000);
+					}
+				})
+				
+				
+				
+			}
+			
+			
+			
+			function checkCount(){
+				let count=0;
+				let count_pri=0;
+				for(let i=0;i<$("#cart_ul").find('li').length;i++){
+					if($("#cart_ul").find('li').eq(i).find('.cart_l1 img').hasClass('s1')){
+						count+=	$("#cart_ul").find('li').eq(i).find('input').val()*1;
+						let c1=accMul($("#cart_ul").find('li').eq(i).find('input').val(),1)
+						let p1=accMul($("#cart_ul").find('li').eq(i).find('.lprice').text(),1)
+						count_pri=add(count_pri,accMul(c1,p1));
+					}
+				}
+				
+				$("#count_price").text(count_pri);
+				$("#count_num").text(count);
+			}
+
+			function initaction(){
+				$(".cart_select").unbind("click").bind("click", function() {
+					if ($(this).find('dl').css('display') == 'block') {
+						var w1 = $(this).outerWidth();
+						$(this).find('img').removeClass('rotate_180');
+						$(this).find('dl').css('width', w1);
+						$(this).find('dl').hide();
+					} else {
+						var w1 = $(this).outerWidth();
+						$(this).find('img').addClass('rotate_180');
+						$(this).find('dl').css('width', w1);
+						$(this).find('dl').show();
+					}
+				});
+				$(".cart_l1 img").unbind("click").bind("click", function() {
+					if ($(this).hasClass('s1')) {
+						$(this).removeClass('s1');
+						$(this).attr('src', 'img/icon/cart_noselect.png')
+					} else {
+						$(this).addClass('s1');
+						$(this).attr('src', 'img/icon/cart_selected.png')
+					}
+					checkCount();
+				});
+				$(".cart_c2_d1 img").unbind("click").bind("click", function() {
+					if($(this).hasClass('s2')){
+						$(this).removeClass('s2');
+						$(this).attr('src', 'img/icon/cart_noselect.png')
+						$(".cart_l1 img").removeClass('s1');
+						$(".cart_l1 img").attr('src', 'img/icon/cart_noselect.png')
+					}else{
+						$(this).addClass('s2');
+						$(this).attr('src', 'img/icon/cart_selected.png')
+						$(".cart_l1 img").addClass('s1');
+						$(".cart_l1 img").attr('src', 'img/icon/cart_selected.png')	
+					}
+					checkCount();
+				})
+			}
+			function subChart(){
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				var cart_id=''
+				for(let i=0;i<$("#cart_ul").find('li').length;i++){
+					if($("#cart_ul").find('li').eq(i).find('.cart_l1 img').hasClass('s1')){
+						cart_id+=','+$("#cart_ul").find('li').eq(i).attr('name').replace('cart_','')
+					}
+				}
+				if (cart_id.substr(0,1)==',') cart_id=cart_id.substr(1);
+				
+				formdata.append("cart_id", cart_id);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/cart_confirm_order',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							$.cookie('orderdata',JSON.stringify(res.data));
+							location.href='OrderPlace.html?cartid='+cart_id;
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('购物车下单失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			
+			
+			
+			$(function() {
+				getCartInfo();
+				// var h1=$(".m-tabbar").outerHeight();
+				// $(".cart_c2").css('position','fixed');
+				// $(".cart_c2").css('bottom',h1);
+				
+				$("#sub_cart").unbind("click").bind("click", function() {
+					if($("#count_num").text()==0){
+						dialog.toast('至少选择一种商品', 'none', 1000);
+					}else{
+						subChart();
+					}
+				})
+				$(".cart_select").unbind("click").bind("click", function() {
+					if ($(this).find('dl').css('display') == 'block') {
+						var w1 = $(this).outerWidth();
+						$(this).find('img').removeClass('rotate_180');
+
+						$(this).find('dl').css('width', w1);
+						$(this).find('dl').hide();
+					} else {
+						var w1 = $(this).outerWidth();
+						$(this).find('img').addClass('rotate_180');
+						$(this).find('dl').css('width', w1);
+						$(this).find('dl').show();
+					}
+				});
+				$(".cart_l1 img").unbind("click").bind("click", function() {
+					if ($(this).hasClass('s1')) {
+						$(this).removeClass('s1');
+						$(this).attr('src', 'img/icon/cart_noselect.png')
+					} else {
+						$(this).addClass('s1');
+						$(this).attr('src', 'img/icon/cart_selected.png')
+					}
+					checkCount();
+				});
+
+				$(".cart_c2_d1 img").unbind("click").bind("click", function() {
+					if($(this).hasClass('s2')){
+						$(this).removeClass('s2');
+						$(this).attr('src', 'img/icon/cart_noselect.png')
+						$(".cart_l1 img").removeClass('s1');
+						$(".cart_l1 img").attr('src', 'img/icon/cart_noselect.png')
+					}else{
+						$(this).addClass('s2');
+						$(this).attr('src', 'img/icon/cart_selected.png')
+						$(".cart_l1 img").addClass('s1');
+						$(".cart_l1 img").attr('src', 'img/icon/cart_selected.png')	
+					}
+					checkCount();
+				});
+				$("#del_cart").unbind('click').bind('click',function(){
+					DelCartGoods();
+				})
+
+			})
+		</script>
+
+
+	</body>
+</html>

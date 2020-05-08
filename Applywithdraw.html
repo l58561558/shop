@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			#applywithdraw{
+				width: 90%;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);;
+				color: #FFFFFF;
+				height: 1rem;
+				font-size: 0.43rem;
+				margin-left: 5%;
+			}
+			.navbar-item{
+				font-size: .34rem;
+			}
+			.cell-left{
+				font-size: .4rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			    <a href="MyInfo.html" class="navbar-item" >
+			        <i class="back-ico"></i>
+			    </a>
+		    <div class="navbar-center">
+		        <span class="navbar-title">余额提现</span>
+		    </div>
+			<a href="WithdrawList.html" class="navbar-item">
+			       提现记录
+			</a>
+		</header>
+		<div class="m-cell">
+			<div class="cell-item">
+				<div class="cell-left">银行名称：</div>
+				<div class="cell-right"><input id="bank_name" type="text"  class="cell-input" placeholder="请输入银行名称"  /></div>
+			</div>
+		   <div class="cell-item">
+				<div class="cell-left">支行名称：</div>
+				<div class="cell-right"><input id="branch_name" type="text"  class="cell-input" placeholder="请输入支行名称"  /></div>
+		   </div>
+		   <div class="cell-item">
+		   				<div class="cell-left">开户姓名：</div>
+		   				<div class="cell-right"><input id="name" type="text"  class="cell-input" placeholder="请输入开户姓名"  /></div>
+		   </div>
+		   <div class="cell-item">
+		   				<div class="cell-left">卡号：</div>
+		   				<div class="cell-right"><input id="bank_account" type="text"  class="cell-input" placeholder="请输入卡号"  /></div>
+		   </div>
+		   <div class="cell-item">
+		   				<div class="cell-left">金额：</div>
+		   				<div class="cell-right"><input id="money" type="text"  class="cell-input" placeholder="请输入金额"  /></div>
+		   </div>
+		</div>
+		<div style="width: 100%;">
+			<input id="applywithdraw" type="button" class="btn" value="确认提现">
+		</div>
+		
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			
+			var dialog = window.YDUI.dialog;
+			function checkvalue(){
+				var message = [];
+				if ($("#bank_name").val() == "" || $("#bank_name").val() == undefined) {
+				            message.push("请输入银行名称");
+				}
+				if ($("#branch_name").val() == "" || $("#branch_name").val() == undefined) {
+				            message.push("请输入支行名称");
+				}
+				if ($("#name").val() == "" || $("#name").val() == undefined) {
+				            message.push("请输入开户姓名");
+				}
+				if ($("#bank_account").val() == "" || $("#bank_account").val() == undefined) {
+				            message.push("请输入银行卡号");
+				}
+				if ($("#money").val() == "" || $("#money").val() == undefined) {
+				            message.push("请输入提现金额");
+				}
+				if (message.length > 0)
+				           return message.join("，\n");
+				       else
+				           return message.join("");
+				
+			}
+			
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+			
+			function Applywithdraw(){
+				var error = checkvalue();
+				if (error == "") {
+					let formdata = new FormData();
+					formdata.append("token", token);
+					formdata.append("user_id", user_id);
+					formdata.append("bank_name", $("#bank_name").val());
+					formdata.append("branch_name", $("#branch_name").val());
+					formdata.append("name", $("#name").val());
+					formdata.append("bank_account", $("#bank_account").val());
+					formdata.append("money", $("#money").val());
+					$.ajax({
+						type: "post",
+						url: ajaxUrl + '/User/withdraw_apply',
+						data: formdata,
+						cache: false,
+						processData: false,
+						contentType: false,
+						dataType: "json",
+						success: function(res) {
+							if (res.code == 1) {
+								dialog.toast(res.msg, 'none', 1000);
+								location.href="MyInfo.html"
+							} else {
+								dialog.toast(res.msg, 'none', 1000);
+							}
+						},
+						error: function(err) {
+							dialog.toast('提现失败，服务异常！', 'none', 1000);
+						}
+					})
+				}else{
+					dialog.toast(error, 'none', 1000);
+				}
+			}
+			
+
+			$(function() {
+				$("#applywithdraw").click(function(){
+					Applywithdraw()
+				})
+			})
+		</script>
+
+
+	</body>
+</html>

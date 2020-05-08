@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+				background: #F8F8F8;
+			}
+			.tab-nav-item:not(:last-child):after{
+				border-right: none;
+			}
+			.tab-nav-item.tab-active:before{
+				background-color: #C39666;
+			}
+			.tab-nav-item a{
+				font-family:PingFangSC-Medium,PingFang SC;
+				color:rgba(51,51,51,1);
+			}
+			.r_bg{
+				height: 3.5rem;
+				text-align: center;
+				line-height: .75rem;
+				padding: .5rem;
+				color: #FFFFFF;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.r_title{
+				font-size: .35rem;
+			}
+			#goods_payment{
+				font-size: .6rem;
+			}
+			#recharge{
+				height: .5rem;
+				line-height: .5rem;
+				width: 1.5rem;
+				border-radius: .25rem;
+				background: #FFFFFF;
+				color: #333333;
+			}
+			.tab-panel{
+				background: #F8F8F8;
+			}
+			.tab-panel .tab-panel-item{
+				padding: 0;
+			}
+			.list-mes-item{
+				margin-bottom: .2rem;
+				font-size: .34rem;
+			}
+			.list-mes{
+				width: 100%;
+				padding-top: .15rem;
+				padding-bottom: .06rem;
+				padding-left: 5%;
+				padding-right: 5%;
+				margin-bottom: .15rem;
+			}
+			.list-price{
+				color: #C39666;
+			}
+			.border_b{
+				padding-bottom: .08rem;
+				border-bottom: 1px solid #EEEEEE;
+				margin-bottom: .1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="Applywithdraw.html"  class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">提现记录</span>
+			</div>
+		</header>
+		
+		<div id="J_Tab" class="m-tab">
+		    <ul class="tab-nav">
+		        <li class="tab-nav-item tab-active"><a href="javascript:;">全部</a></li>
+		        <li class="tab-nav-item"><a href="javascript:;">待审核</a></li>
+		        <li class="tab-nav-item"><a href="javascript:;">已完成</a></li>
+		        <li class="tab-nav-item"><a href="javascript:;">未通过</a></li>
+		    </ul>
+		    <div class="tab-panel">
+		        <div class="tab-panel-item tab-active" id='type1'>
+					<!-- <div class="list-mes">
+						<div class="list-mes-item border_b">
+							<div></div>
+							<div>2019-10-08  10:45:34</div>
+						</div>
+						<div class="list-mes-item">
+							<div>
+								<h3 class="list-title">支付宝账号：123456</h3>
+							</div>
+							<div><span class="list-price"><em>¥</em>34.7</span></div>
+						</div>
+						<div class="list-mes-item">
+							<div>
+								打款日期：2019-02-15
+							</div>
+							<div>已完成</div>
+						</div>
+					</div> -->
+				</div>
+		        <div class="tab-panel-item" id='type2'>
+					
+				</div>
+		        <div class="tab-panel-item" id='type3'>
+					
+				</div>
+		        <div class="tab-panel-item" id='type4'>
+					
+				</div>
+		    </div>
+		</div>
+		
+		
+		
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+
+			var dialog = window.YDUI.dialog;
+			
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+			
+			var $tab = $('#J_Tab');
+
+			$tab.tab({
+				nav: '.tab-nav-item',
+				panel: '.tab-panel-item',
+				activeClass: 'tab-active'
+			});
+
+			
+
+			$tab.find('.tab-nav-item').on('opened.ydui.tab', function (e) {
+				if(e.index==0){
+					getWithdrawList(-2)
+				}else if(e.index==1){
+					getWithdrawList(0)
+				}else if(e.index==2){
+					getWithdrawList(1)
+				}else if(e.index==3){
+					getWithdrawList(-1)
+				}				
+			});
+			
+			
+			function getWithdrawList(type){
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("status", type);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/User/withdraw_list',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							let html=addList(res.data);
+							if(type==-2){
+								$("#type1").empty();
+								$("#type1").append(html);
+							}else if(type==0){
+								$("#type2").empty();
+								$("#type2").append(html);
+							}else if(type==1){
+								$("#type3").empty();
+								$("#type3").append(html);
+							}else if(type==-1){
+								$("#type4").empty();
+								$("#type4").append(html);
+							}
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取贷款充值记录失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			function addList(data){
+				let html="";
+				for(let i=0;i<data.length;i++){
+					html+="<div class='list-mes'>";
+					html+="<div class='list-mes-item'>";
+					html+="<div>";
+					html+="<h3 class='list-title'>账号："+data[i].bank_account+"</h3>";
+					html+="</div>";
+					html+="<div><span class='list-price'><em>¥</em>"+data[i].money+"</span></div>";
+					html+="</div>";
+					html+="<div class='list-mes-item'>";
+					html+="<div>";
+					html+="<div>"+timestampToTime(data[i].createtime)+"</div>";
+					html+="</div>";
+					if(data[i].status==0){
+						html+="<div>待审核</div>";
+					}else if(data[i].status==1){
+						html+="<div>成功</div>";
+					}else if(data[i].status==-1){
+						html+="<div>未通过</div>";
+					}
+					html+="</div>";
+					html+="</div>";
+				}
+				return html;
+			}
+			
+			$(function() {
+				getWithdrawList(-2);
+				$("#recharge").unbind('click').bind('click',function(){
+					location.href='RechargeApply.html'
+				})
+			})
+		</script>
+
+
+	</body>
+</html>

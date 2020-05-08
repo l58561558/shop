@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		
+		<style>
+			body{
+				height: 100%;
+			}
+			.is_default{
+				width: .32rem;
+				height: .32rem;
+				border: 1px solid #333333;
+				margin-right: .2rem;
+				position: relative;
+			}
+			.is_default i{
+				width: .32rem;
+				height: .32rem;
+				position: absolute;
+				top:-.05rem;
+				font-size: .32rem;
+			}
+			#sub_address{
+				width: 90%;
+				font-size: .35rem;
+				margin-left: 5%;
+				line-height: .9rem;
+				height: .9rem;
+				color: #FFFFFF;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.cell-left{
+				font-size: .38rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="#" id='back'  class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">新增地址</span>
+			</div>
+		</header>
+		<div>
+			<div class="m-cell">
+			    <div class="cell-item">
+			        <div class="cell-left">收货姓名：</div>
+			        <div class="cell-right"><input id="consignee" type="text" class="cell-input" placeholder="请输入您的收货人姓名" /></div>
+			    </div>
+				<div class="cell-item">
+				    <div class="cell-left">手机号码：</div>
+				    <div class="cell-right"><input id="mobile" type="text" class="cell-input" placeholder="请输入您的手机号码" /></div>
+				</div>
+			    <div class="cell-item">
+			        <div class="cell-left">选择区域：</div>
+			        <div class="cell-right"><input id='J_Address' type="text" class="cell-input" placeholder="请选择省市区" /></div>
+			    </div>
+				<div class="cell-item">
+				    <div class="cell-left">详细地址：</div>
+				    <div class="cell-right"><input id="address" type="text" class="cell-input" placeholder="请输入您的详细地址" /></div>
+				</div>
+				<div class="cell-item">
+				        <div class="cell-left">
+							<a class='is_default'><i class="icon-checkoff"></i></a>
+						</div>
+				        <div class="cell-right" style="-webkit-justify-content: flex-start;-ms-flex-pack: start;justify-content: flex-start;font-size: .34rem;">设为默认地址</div>
+				</div>
+			</div>
+		</div>
+		<div style="width: 100%;position: fixed;bottom: .4rem;">
+			<a class="btn" id="sub_address" href="#">保&nbsp;&nbsp;&nbsp;&nbsp;存</a>		
+		</div>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+
+			var dialog = window.YDUI.dialog;
+			
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+			var citys=[];
+			
+			function GetAddress(){
+					$.ajax({
+							type: "get",
+							url: ajaxUrl + "/address/get_area_list",
+							data: {
+								token: token
+							},
+							dataType: "json",
+							success: function(res) {
+								if(res.code==1){
+									 initcity(res.data)
+								}else{
+									dialog.toast(res.msg, 'none', 1000);
+								}
+							},
+							error:function(err){
+								dialog.toast("获取地址失败，服务异常", 'none', 1000);
+							}
+					})
+			}
+			function initcity(data){
+				for(let i=0;i<data.length;i++){
+					let c1={n:'',c:''};
+					let arr1=[];
+					c1.n=data[i].name+','+data[i].id;
+					for(let j=0;j<data[i].child.length;j++){
+						let c2={a:'',n:''};
+						let arr2=[];
+						c2.n=data[i].child[j].name+','+data[i].child[j].id;
+						for(let k=0;k<data[i].child[j].child.length;k++){
+							arr2.push(data[i].child[j].child[k].name+','+data[i].child[j].child[k].id);
+						}
+						c2.a=arr2;
+						arr1.push(c2);
+					}
+					c1.c=arr1;
+					citys.push(c1);
+				}
+				if (typeof define === "function") {
+					define(citys)
+				} else {
+					window.YDUI_CITYS = citys
+				}
+				var $address = $('#J_Address');
+				    $address.citySelect();
+				    $address.unbind("click").bind("click", function(){
+				        $address.citySelect('open');
+				    });
+				    $address.on('done.ydui.cityselect', function (ret) {
+				        /* 省：ret.provance */
+				        /* 市：ret.city */
+				        /* 县：ret.area */
+				        $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+						$(this).attr('title',ret.pid+','+ret.cid+','+ret.aid)
+				    });
+			}
+			var dialog = window.YDUI.dialog;
+			function Checkdata(){
+				var check=true;
+				if($("#consignee").val()==null|| $("#consignee").val()==""){
+					dialog.toast("请输入收货姓名", 'none', 1000);
+					check=false;
+					return check;
+				}
+				if($("#mobile").val()==null|| $("#mobile").val()==""){
+					dialog.toast("请输入您的手机号码", 'none', 1000);
+					check=false;
+					return check;
+				}
+				if($("#J_Address").val()==null|| $("#J_Address").val()==""){
+					dialog.toast("请选择省市区", 'none', 1000);
+					check=false;
+					return check;
+				}
+			
+				return check;
+			}	
+			function saveAddress(){
+				if(!Checkdata()) return;
+				var formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id)
+				formdata.append("consignee", $("#consignee").val());
+				formdata.append("mobile", $("#mobile").val());
+				formdata.append("province_id", $("#J_Address").attr('title').split(',')[0]);
+				formdata.append("city_id", $("#J_Address").attr('title').split(',')[1]);
+				formdata.append("area_id", $("#J_Address").attr('title').split(',')[2]);
+				formdata.append("address", $("#address").val());
+				var isdefault=$(".is_default").find('i').length>0?1:0;
+				formdata.append("is_default", isdefault);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/address/save_address',
+					data: formdata,
+					cache: false, 
+					processData: false, 
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast(res.msg, 'none', 1000);
+							if(getQueryString('from')=='orplace'){
+								location.href='Myaddress.html?from=orplace';
+							}else{
+								window.location.href = document.referrer;
+							}
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('修改失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			$(function() {
+				GetAddress();
+				$(".is_default").unbind("click").bind("click", function(){
+					if($(".is_default").find('i').length>0){
+						$(".is_default").find('i').remove();
+					}else{
+						$(".is_default").append('<i class="icon-checkoff"></i>')
+					}
+				})
+				$("#sub_address").unbind("click").bind("click", function(){
+					saveAddress();	
+				});
+				$("#back").unbind("click").bind("click",function(){
+					if(getQueryString('from')=='orplace'){
+						location.href='Myaddress.html?from=orplace';
+					}else{
+						if(getQueryString('type')=='case'){
+							location.href='Myaddress.html?type=case';
+						}
+						window.location.href = document.referrer;
+					}
+				})
+			})
+		</script>
+
+
+	</body>
+</html>

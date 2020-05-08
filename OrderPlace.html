@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			#address_d1{
+				height: 1.4rem;
+				width: 100%;
+			}
+			#address_d1 .navbar-item{
+				height: 100%;
+				min-width: 10%;
+				flex: 0 0 25%;
+			}
+			#address_d1 .navbar-center{
+				height: 100%;
+				margin-left: 15%;
+				width: 80%;
+				display: block;
+				padding-top: .2rem;
+				line-height: .5rem;
+				font-size: .34rem;
+			}
+			#address_d1 .navbar-center span{
+				text-align: left;
+			}
+			.icon-location{
+				font-size: 0.5rem;
+			}
+			#address_p2{
+				white-space:nowrap;
+				overflow:hidden;
+				text-overflow:ellipsis;
+				color: #666666;
+			}
+			#goods_content{
+				margin-top: .2rem;
+			}
+			.list-theme4 .list-item .list-img{
+				width: 1.6rem;
+				padding: .9rem 0;
+			}
+			.list-theme4 .list-item .list-mes{
+				padding-top: .1rem;
+			}
+			.list-theme4 .list-item .list-mes .list-title{
+				font-size: .4rem;
+			}
+			.list-price{
+				color: #000000;
+				font-size: .4rem;
+			}
+			.list_spec_name{
+				margin-top: .2rem;
+				line-height: .4rem;
+				padding:0 .25rem ;
+				height: .4rem;
+				background: #F7F7F7;
+			}
+			.m-cell{
+				margin-top: .1rem;
+				margin-bottom: .1rem;
+			}
+			.m-cell:after{
+				border: none;
+			}
+			#saveOrder{
+				height: 1rem;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.m-tabbar{
+				padding: 0;
+				color: #333333;
+			}
+			#bottom_num{
+				padding-left: .2rem;
+				font-size: .36rem;
+				-webkit-align-items: flex-start;
+				-ms-flex-align: start;
+				align-items: flex-start;
+				line-height: .9rem;
+			}
+			#bottom_price{
+				font-size: .4rem;
+				color: #333333;
+			}
+			#saveOrder{
+				color: #FFFFFF;
+				font-size: .4rem;
+				padding-right: .4rem;
+			}
+			#address_d3 p{
+				font-size: .34rem;
+				line-height: .95rem;
+			}
+			#address_d1 img{
+				width: .5rem;
+			}
+			.list-mes-item{
+				font-size: .38rem;
+			}
+			.cell-left,.cell-right{
+				font-size: .38rem;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="g-flexview">
+			<header class="m-navbar">
+				<a href="#" onclick="javascript:history.back();" class="navbar-item">
+					<i class="back-ico"></i>
+				</a>
+				<div class="navbar-center">
+					<span class="navbar-title">结算</span>
+				</div>
+			</header>
+			<div class="g-scrollview">
+				<div id='address_d1' class="m-navbar">
+					
+						
+				</div>
+				<div id="goods_content">
+					<article class="m-list list-theme4">
+						<!-- <a href="javascript:;" class="list-item">
+							<div class="list-img">
+								<img src="http://img1.shikee.com/try/2016/06/19/09430120929215230041.jpg_180x180.jpg" data-url="http://img1.shikee.com/try/2016/06/19/09430120929215230041.jpg_180x180.jpg">
+							</div>
+							<div class="list-mes">
+								<div class="list-mes-item">
+									<div>
+										<h3 class="list-title">标题标题标题标题标题</h3>
+									</div>
+									<div><span class="list-price"><em>¥</em>34.7</span></div>
+								</div>
+								<div class="list-mes-item">
+									<div>
+
+									</div>
+									<div class="list_num">x12</div>
+								</div>
+								<div class="list-mes-item ">
+									<div class="list_spec_name">
+										白色,L
+									</div>
+									<div></div>
+								</div>
+							</div>
+						</a> -->
+						
+					</article>
+				</div>
+				<div class="m-cell">
+					<div class="cell-item">
+						<div class="cell-left">备注：</div>
+						<div class="cell-right"><input type="text" class="cell-input" placeholder="对本次交易的说明" /></div>
+					</div>
+				</div>
+				<div class="m-cell">
+				<div class="cell-item">
+						<div class="cell-left">商品金额</div>
+						<div class="cell-right" id='goods_price'></div>
+					</div>
+					<div class="cell-item">
+						<div class="cell-left">运费</div>
+						<div class="cell-right" id='shipping_price'></div>
+					</div>
+					<div class="cell-item">
+						<div class="cell-left">总计</div>
+						<div class="cell-right" id='total_amount'></div>
+					</div>
+
+				</div>
+				<div class="m-cell">
+					<div class="cell-item">
+						<div class="cell-left" style="font-family:PingFangSC-Regular,PingFang SC;">可用货款</div>
+						<div class="cell-right" id="goods_payment"></div>
+					</div>
+					<!-- <div class="cell-item">
+						<div class="cell-left">可用余额</div>
+						<div class="cell-right"></div>
+					</div> -->
+					
+				</div>
+			</div>
+
+			<footer class="m-navbar" >
+				<a href="#" id="bottom_num" class="navbar-item">
+					
+				</a>
+				<a href="#" id="bottom_price" class="navbar-center">
+					
+				</a>
+				<a href="#" id='saveOrder' class="navbar-item">
+					结&nbsp;&nbsp;算
+				</a>
+			</footer>
+		</section>
+
+
+
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+
+			var token = userinfo.token;
+			var user_id = userinfo.user_id;
+			var data;
+			var cartid;
+			function initorder() {
+
+				data = JSON.parse($.cookie('orderdata'));
+				if(data.address_data.length==0){
+					$("#address_d1").empty();
+					$("#address_d1").append('<a href="#" class="navbar-item"><img src="img/icon/Oval.png"></a><div id="address_d3" class="navbar-center"><p><a href="Myaddress.html?from=orplace">添加收货地址</a></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')
+				}else{
+					$("#address_d1").empty();
+					$("#address_d1").append('<a href="#" class="navbar-item"><i class="icon-location"></i></a><div id="address_d2" class="navbar-center"><p><em id="address_e1"></em> <em id="address_e2"></em></p><p id="address_p2"></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')
+				}
+				$("#address_e1").text(data.address_data.consignee);
+				$("#address_e2").text(data.address_data.mobile);
+				$("#address_p2").text(data.address_data.areaName);
+				$("#address_d1").attr('name', data.address_data.address_id);
+				if(data.goods_data.length==''||data.goods_data.length==undefined){
+					let goodsdata=data.goods_data;
+					addGoodsContent1(goodsdata);
+				}else{
+					let goodsdata=data.goods_data;
+					addGoodsContent2(goodsdata);
+				}
+				$("#goods_price").text(data.goods_price);
+				$("#shipping_price").text(data.shipping_price);
+				$("#total_amount").text(data.total_amount);
+				$("#goods_payment").text(data.goods_payment);
+				$("#bottom_num").text("共"+data.total_num+"件商品");
+				$("#bottom_price").text("总计:￥"+data.total_amount);
+			}
+			function addGoodsContent1(data){
+				let html="";
+					html+="<a href='javascript:;' class='list-item'>";
+					html+="<div class='list-img'>";
+					html+="<img src='"+data.cover_image+"' data-url='"+data.cover_image+"'>";
+					html+="</div>";
+					html+="<div class='list-mes'>";
+					html+="<div class='list-mes-item'>";
+					html+="<div>";
+					html+="<h3 class='list-title'>"+data.name+"</h3>";
+					html+="</div>";
+					html+="<div><span class='list-price'><em>¥</em>"+data.price+"</span></div>";	
+					html+="</div>";		
+					html+="<div class='list-mes-item'>";	
+					html+="<div></div>";
+					html+="<div class='list_num'>x"+data.num+"</div>";		
+					html+="</div>";	
+					html+="<div class='list-mes-item'>";		
+					html+="<div class='list_spec_name'>"+data.spec_name+"</div>";			
+					html+="<div></div>";			
+					html+="</div>";		
+					html+="</div></a>";									
+				$("#goods_content article").empty();
+				$("#goods_content article").append(html);
+			}
+			
+			function addGoodsContent2(data){
+				let html="";
+				for(let i=0;i<data.length;i++){
+					html+="<a href='javascript:;' class='list-item'>";
+					html+="<div class='list-img'>";
+					html+="<img src='"+data[i].cover_image+"' data-url='"+data[i].cover_image+"'>";
+					html+="</div>";
+					html+="<div class='list-mes'>";
+					html+="<div class='list-mes-item'>";
+					html+="<div>";
+					html+="<h3 class='list-title'>"+data[i].name+"</h3>";
+					html+="</div>";
+					html+="<div><span class='list-price'><em>¥</em>"+data[i].price+"</span></div>";	
+					html+="</div>";		
+					html+="<div class='list-mes-item'>";	
+					html+="<div></div>";
+					html+="<div class='list_num'>x"+data[i].num+"</div>";		
+					html+="</div>";	
+					html+="<div class='list-mes-item'>";		
+					html+="<div class='list_spec_name'>"+data[i].spec_name+"</div>";			
+					html+="<div></div>";			
+					html+="</div>";		
+					html+="</div></a>";									
+				}
+				$("#goods_content article").empty();
+				$("#goods_content article").append(html);
+			}
+			
+			function reGoodsData(data){
+				var res=[];
+				
+				if(data.length==''||data.length==undefined){
+					let goods_data={
+						goods_id:'0',
+						group_id:'0',
+						num:'0',
+						price:'0'
+					}
+					goods_data.goods_id=data.goods_id.toString();
+					goods_data.group_id=data.group_id.toString();
+					goods_data.num=data.num.toString();
+					goods_data.price=data.price.toString();
+					res.push(goods_data);
+				}else{
+					for(let i=0;i<data.length;i++){
+						let goods_data={
+							goods_id:'0',
+							group_id:'0',
+							num:'0',
+							price:'0'
+						}
+						goods_data.goods_id=data[i].goods_id.toString();
+						goods_data.group_id=data[i].group_id.toString();
+						goods_data.num=data[i].num.toString();
+						goods_data.price=data[i].price.toString();
+						res.push(goods_data);
+					}
+				}
+				return res;
+			}
+			
+			function placeOrder(){
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				if($("#address_d1").attr('name')==''||$("#address_d1").attr('name')==undefined){
+					dialog.toast('请选择地址', 'none', 1000);
+					return;
+				}else{
+					formdata.append("address_id", $("#address_d1").attr('name'));
+				}
+				var data = JSON.parse($.cookie('orderdata'));
+				var goods_data=JSON.stringify(reGoodsData(data.goods_data));
+				if(cartid!=null){
+					formdata.append("cart_ids", cartid);
+				}else{
+					formdata.append("goods_data", goods_data);
+				}
+				
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/place_order',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast(res.msg, 'none', 1000);
+							$.cookie('orderdata',"")
+							setTimeout(function(){ location.href='MyOrderList.html' }, 1000);
+							
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('下单失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			
+			
+			$(function() {
+				if ($.cookie('orderdata')!=""||$.cookie('orderdata')!=null) {
+					initorder()
+				}
+				if(getQueryString('cartid')){
+					cartid=getQueryString('cartid')
+				}
+				// }else{
+				// 	location.href='GoodsIndex.html'
+				// }
+				if (getQueryString('aid')) {
+					$("#address_d1").empty();
+					$("#address_d1").append('<a href="#" class="navbar-item"><i class="icon-location"></i></a><div id="address_d2" class="navbar-center"><p><em id="address_e1"></em> <em id="address_e2"></em></p><p id="address_p2"></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')	
+					$("#address_e1").text(decodeUnicode(getQueryString('name')));
+					$("#address_e2").text(getQueryString('mobile'));
+					$("#address_p2").text(decodeUnicode(getQueryString('add')));
+					$("#address_d1").attr('name', getQueryString('aid'));
+				}
+				$("#saveOrder").unbind('click').bind('click',function(){
+					placeOrder();
+				})
+
+			})
+		</script>
+
+
+	</body>
+</html>

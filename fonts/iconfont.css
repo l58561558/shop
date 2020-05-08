@@ -1,0 +1,34 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1580213840743'); /* IE9 */
+  src: url('iconfont.eot?t=1580213840743#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAANkAAsAAAAAB7QAAAMWAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDMgqCQIITATYCJAMUCwwABCAFhG0HWxuyBhEVnFvIfh7YMZ1hLc/GI9ycjMIy0j4HAdlV1Zg9Sy8zIiPIIZRK84ACYHPv/kmuCiEjzJuS8+CnLyXpmJemfxTi+//cz9dVCeS1Z5tbhVUUbbQzwFECDbQDK0U3kH1R/o+xgdrtbocAbAkkHlFeWd8OazRmPwGIYYMH9sY640Cj+bA1AkvFVI1YioG1XCyvAkuC74vXpAprkBgKc2jzgIp+FJuYRWrW/1l081Dwp9MB/CxQQDygQYypNAxDRYF4FLbq32mKAVuskUgT09OMN4v+/9cEpklga/3DA4lAoUFYQC57AIoJajBxEEgwPREIMOMRKDCLBB9mKwMAW8AGaAIGQ2jh+CQGQtVqL433Eq4uXYv65w8YWNBvuJrt1dGx/Spk++joDqs9VRfhRCc5EHvR2zmlw1THbbtmew3ccDxilUf/dRvDV9oOddi6c5Z7p7VHIld7dlm/JWrNiWmnv3y++hlIn69k4+L00n7S5aeh9iGD7H0qC4zOLRU7Hf2/OqWb6d+c7jU+LPYs9tjlvtGT5A+rg3q9Tbhv1//W1rktw2nwpS4Br1xQuX+Lr8Re+9V0c5xdu/R/bQeq7G8zCYD/5G01JuhcbVEuAKpajgRTusz7Mb8hI3vLg55O+V+t7TQAtztUNWPBfxo1Bt6unM7838DvWKY1oak0tFLs8BSTQfgNyKRaYwu8fIsr96dReHROBYE1HglIrAgAhTXhaI2PBwM70sGCNUVgSxxVs+1wYwwKoW2AWOYDCJzZDxJHzoPCmWtojb8HBp68BQvOQoEtHYTbknZECpVXZYxa8Auff/CmFrLVosL0O9qRNKeFAf2N3L0b9mXLh29YkKcY0X/sIUJAXDNcYTdMqULjGtDI4kTaZV2p6kqLqXlSlDFqwS98/sGbWsirLqrw+TvakTQ3lFQ538jdtw/7snVA32SlU8mt7NN/7CFCQFwzXEGHyQpUaNWdAhpZ3ABfu6ykEnWVLcsr8jtuAWwxX2AIKZTQwhAWLAN0ccOfjdOl+UJYEvruxqmvZpR5NDXJ62DHFaljmgAAAA==') format('woff2'),
+  url('iconfont.woff?t=1580213840743') format('woff'),
+  url('iconfont.ttf?t=1580213840743') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1580213840743#iconfont') format('svg'); /* iOS 4.1- */
+  
+}
+
+.aliconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.alicon-fanhui:before {
+  content: "\e616";
+}
+
+.alicon-chanpinfenleishu:before {
+  content: "\e600";
+}
+
+.alicon-caret-up:before {
+  content: "\e62c";
+}
+
+.alicon-xiajiantou:before {
+  content: "\e63f";
+}
+

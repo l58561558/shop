@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<style>
+			body{
+				background-color: white;
+			}
+			.mess_content{
+				width: 96%;
+				margin: auto;
+				margin-top: 10px;
+				line-height: 0.6rem;
+			}
+			.mess_content h1{
+				font-size: 0.38rem;
+				font-family:PingFangSC-Regular,PingFang SC;
+			}
+			.mess_content .det_time{
+				font-size: 0.38rem;
+				color: #CCCCCC;
+				font-family:PingFangSC-Regular,PingFang SC;
+				margin-bottom: 10px;
+			}
+			#msdet_cont{
+				font-size: 0.42rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+		    <a href="MessageList.html" class="navbar-item">
+		        <i class="back-ico"></i>
+		    </a>
+		    <div class="navbar-center">
+		        <span class="navbar-title">消息详情</span>
+		    </div>
+		</header>
+		<div class="mess_content">
+			<h1 id="msdet_title"></h1>
+			<p id="msdet_time" class="det_time"></p>
+			<div id="msdet_cont">
+				
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+			$(function() {
+				var id=getQueryString("Id");
+				var token =userinfo.token;
+				var user_id = userinfo.user_id;
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("id", id)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/message/message_desc',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							$("#msdet_title").text(res.data.message_title);
+							$("#msdet_time").text(timestampToTime(res.data.createtime));
+							$("#msdet_cont").text(res.data.message_content);
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取消息详情失败，服务异常！', 'none', 1000);
+					}
+				})
+			})
+			
+			
+			
+		</script>
+	</body>
+</html>

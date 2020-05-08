@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui2.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			ul,li {
+				/*做时间轴的线*/
+				margin: 0;
+				padding: 0;
+			}
+			li {
+				list-style: none;
+			}
+			/*竖向时间轴*/
+			
+			.layui-timeline {
+				padding-left: .5rem;
+				padding-top:20px
+			}
+			.layui-timeline-item {
+				position: relative;
+				padding-bottom: 20px;
+				margin-top:-12px;
+			}
+			.layui-timeline-item:first-child::before {
+				display: block;
+			}
+			.layui-timeline-item:last-child::before {
+				content: '';
+				position: absolute;
+				left: 5px;
+				top: 0;
+				z-index: 0;
+				width: 0;
+			}
+			.layui-timeline-item::before {
+				content: '';
+				position: absolute;
+				/* left: 5px; */
+				top: 20%;
+				z-index: 0;
+				width: 1px;
+				height: 60%;
+			}
+			.layui-timeline-item::before,
+			hr {
+				background-color: #EBEBEB;
+			}
+			.layui-timeline-axis {
+				position: absolute;
+				left: -5px;
+				top: 5%;
+				z-index: 10;
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				background-color: #fff;
+				color: #5FB878;
+				border-radius: 50%;
+				text-align: center;
+				cursor: pointer;
+			}
+			.layui-icon {
+				font-family: layui-icon !important;
+				font-size: .3rem !important;
+				font-style: normal;
+			}
+			.layui-timeline-content {
+				padding-left: .3rem;
+				padding-right: .3rem;
+			}
+			.layui-text {
+				line-height: 22px;
+				font-size: .32rem !important;
+				color: #666;
+				top:-10px;
+			}
+			.layui-timeline-title {
+				position: relative;
+				margin-bottom: 10px;
+			}
+			.circle {
+				width: .2rem;
+				height: .2rem;
+				border-radius: 50%;
+				background: #EBEBEB;
+			}
+			.div_time_line{
+				width: 100%;
+				height: auto;
+				background:rgba(255,255,255,1);
+				font-size: .3rem !important;
+			}
+			.time_line_datetime{
+				font-size: .29rem;
+				color: #999999;
+			}
+			.circle_activity{
+				background: #C39666 !important;
+			}
+			.activity{
+				color: #C39666 !important;
+			}
+			/*横向时间轴*/
+			.time-horizontal {
+			    list-style-type: none;
+			    border-bottom: 1px solid #CCCCCC;
+				height: .8rem;
+			    width: 90%;
+			    padding-left: 0;
+			    margin-left: 5%;
+				font-size: .3rem;
+			}
+			 
+			.time-horizontal li {
+			    float: left;
+				height: .8rem;
+			    position: relative;
+			    text-align: center;
+			    width: 20%;
+			    padding-top: 10px;
+				color: #CCCCCC;
+			}
+			 
+			.time-horizontal li b:before {
+			    content: '';
+			    position: absolute;
+			    bottom: -.1rem;
+			    left:45%;
+			    width: .2rem;
+			    height: .2rem;
+			    border: 1px solid #CCCCCC;
+			    border-radius: .2rem;
+			    background: #CCCCCC;
+			}
+			.container{
+				height: 1.3rem;
+				background: #FFFFFF;
+				margin-bottom: .2rem;
+			}
+			.li_actity span{
+				padding: .04rem .1rem;
+				border-radius: .25rem;
+				color: #FFFFFF;
+				background: #C39666;
+				font-size: .3rem;
+			}
+			.li_actity b:before{
+				background: #C39666 !important;
+				border: 1px solid #C39666 !important;
+			}
+			
+			.Logistics_company{
+				background: white;
+				height: 1.5rem;
+				margin-bottom: .2rem;
+				text-align: left;
+				padding-left: .4rem;
+				padding-top: .2rem;
+				font-size:.38rem;
+				line-height: .56rem;
+			}
+			.span_gray{
+				color: #999999 !important;
+			}
+			
+			
+			
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="javascript:history.back();" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">查看物流</span>
+			</div>
+		</header>
+		<div class="Logistics_company">
+			<div><span class="span_gray">物流公司：</span><span id="courier_company">顺丰速运</span></div>
+			<div><span class="span_gray">物流单号：</span><span id="express_no">顺丰速运</span></div>
+		</div>
+		<div>
+			<div class="container">
+				<ul class="time-horizontal">
+					<li id='status_0'><b></b><span>未发货</sapn>
+					</li>
+					<li id='status_1'><b></b><span>已发货</sapn>
+					</li>
+					<li id='status_2'><b></b><span>运输中</sapn>
+					</li>
+					<li id='status_3'><b></b><span>派送中</sapn>
+					</li>
+					<li id='status_4'><b></b><span>已签收</sapn>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="div_time_line">
+			<ul class="layui-timeline" id="traces_info">
+				
+			</ul>
+		</div>
+
+
+
+
+		<script type="text/javascript" src="js/ydui2.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+
+			var token = userinfo.token;
+			var user_id = userinfo.user_id;
+
+			function GetLogisticsInfo(id) {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("order_id", id)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/logistics_url',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							var status = res.data.state;
+							$("#status_" + status).addClass('li_actity')
+							$("#courier_company").text(res.data.courier_company);
+							$("#express_no").text(res.data.express_no);
+							LoadTraces(res.data.traces);
+							//location.href=res.data.url;
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('查看物流信息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
+			function LoadTraces(data) {
+				let html = "";
+				for (let i = 0; i < data.length; i++) {
+					if (i == 0) {
+						html += "<li class='layui-timeline-item'>";
+						html += "<i class='layui-icon layui-timeline-axis circle circle_activity'></i>";
+						html += "<div class='layui-timeline-content layui-text'>";
+						html += "<div class='layui-timeline-title activity'>" + data[i].AcceptStation + "</div>";
+						html += "<div class='time_line_datetime activity'>" + data[i].AcceptTime + "</div>";
+						html += "</div></li>";
+					} else {
+						html += "<li class='layui-timeline-item'>";
+						html += "<i class='layui-icon layui-timeline-axis circle'></i>";
+						html += "<div class='layui-timeline-content layui-text'>";
+						html += "<div class='layui-timeline-title'>" + data[i].AcceptStation + "</div>";
+						html += "<div class='time_line_datetime'>" + data[i].AcceptTime + "</div>";
+						html += "</div></li>";
+					}
+				}
+				$("#traces_info").empty();
+				$("#traces_info").append(html);
+			}
+
+
+			$(function() {
+				if (getQueryString('id')) {
+					GetLogisticsInfo(getQueryString('id'));
+				}
+			})
+		</script>
+
+
+	</body>
+</html>

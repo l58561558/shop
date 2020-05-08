@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+
+			}
+			.tab-nav-item:not(:last-child):after{
+				border-right: none;
+			}
+			.tab-nav-item.tab-active:before{
+				background-color: #C39666;
+			}
+			.tab-nav-item a{
+				font-family:PingFangSC-Medium,PingFang SC;
+				color:rgba(51,51,51,1);
+			}
+
+			.tab-panel-item{
+				height: 100%;
+				background-color: #F5F5F5;
+				padding: 0 !important;
+			}
+			.m-cell{
+				margin-bottom: .15rem;
+			}
+			.m-cell:after{
+				border: none;
+			}
+			.cell-item:not(:last-child):after{
+				border: none;
+			}
+			.cell-left{
+				font-size: .25rem;
+			}
+			.cell-right{
+				font-size: .25rem;
+				min-height: .6rem;
+				padding-right: 0;
+			}
+			.list-theme4{
+				background: #F5F5F5;
+				padding: 0;
+			}
+			.cell-item{
+				padding-left: .25rem;
+				padding-right: .25rem;
+			}
+			.list-theme4 .list-item{
+				    padding: 7px 0 0px 0;
+			}
+			.list-item{
+				width: 100%;
+				height: 1.8rem;
+			}
+			
+			.list-theme4 .list-item .list-img{
+				width: 1.6rem;
+				padding: .8rem 0;
+			}
+			.list-img img{
+				width: 1.5rem;
+			}
+			.list-mes-item .list-price{				
+				color: #333333;
+				font-size: .25rem;
+			}
+			.list-speckeyname{
+				background: #F7F7F7;
+				color: #999999;
+				padding-left: .15rem;
+				padding-right: .15rem;
+				padding-top: .05rem;
+				padding-bottom: .05rem;
+			}
+			.border_bottom{
+				border-bottom:1px solid #EEEEEE;
+			}
+			._mr{
+				margin-right: .1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="g-flexview">
+		
+		   <header class="m-navbar">
+		   	<a href="MyLevel.html"  class="navbar-item">
+		   		<i class="back-ico"></i>
+		   	</a>
+		   	<div class="navbar-center">
+		   		<span class="navbar-title">代理订单</span>
+		   	</div>
+		   </header>
+		    <div class="g-scrollview">
+				<section id="O_List">
+				    <div id="O_ListContent">
+						<article class="m-list list-theme4">
+							<ul>
+								
+							</ul>
+
+						</article>
+					</div>
+				</section>
+		    </div>
+		
+		   
+		</section>
+		
+		<script type="text/javascript" src="js/ydui.js"></script>		
+		
+		<script>
+
+			var dialog = window.YDUI.dialog;
+			
+			var token =userinfo.token;
+			var user_id;
+			
+			var page = 1, pageSize = 10;
+			
+			var loadMore = function (callback) {
+				
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				
+				formdata.append("status", 0);
+				formdata.append("page", page);
+				formdata.append("count", pageSize);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/order_list',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function (ret) {
+						$(".list-loading").remove();
+						$(".list-donetip").remove();
+						setTimeout(function () {
+							typeof callback == 'function' && callback(ret.data);
+						}, 500);
+					},
+					error: function(err) {
+						dialog.toast('获取订单列表失败，服务异常！', 'none', 1000);
+					}
+				});
+			};
+			function LoadHtml(data){
+				
+				let html="";
+				for(let i=0;i<data.length;i++){
+					html+="<li>";
+					html+="<a href='AgencyOrderDetail.html?id="+data[i].order_id+"' class='O_Link' data-page='"+data.page+"'>";
+					html+="<div class='m-cell'>";
+					html+="<div class='cell-item'>";
+					html+="<div class='cell-left border_bottom'>编号："+data[i].order_sn+"</div>";
+					if(data[i].status==1){
+						html+="<div class='cell-right border_bottom'>待发货</div>";
+					}else if(data[i].status==2){
+						html+="<div class='cell-right border_bottom'>待收货</div>";
+					}else if(data[i].status==3){
+						html+="<div class='cell-right border_bottom'>已完成</div>";
+					}else if(data[i].status==4){
+						html+="<div class='cell-right border_bottom'>退货</div>";
+					}
+					html+="</div>";
+					for(let j=0;j<data[i].goods_data.length;j++){
+						html+="<div class='cell-item'>";
+						html+="<div class='list-item border_bottom'>";
+						html+="<div class='list-img'>";
+						html+="<img src='"+data[i].goods_data[j].image+"' >";
+						html+="</div>";
+						
+						html+="<div class='list-mes'>";
+						html+="<div class='list-mes-item'>";
+						html+="<div>";
+						html+="<h3 class='list-title'>"+data[i].goods_data[j].goods_name+"</h3>";
+						html+="</div>";
+						html+="<div><span class='list-price'><em>¥</em>"+data[i].goods_data[j].price+"</span></div>";
+						html+="</div>";
+						html+="<div class='list-mes-item'>";
+						html+="<div>";
+						html+="<div class='list-speckeyname'>";
+						html+=data[i].goods_data[j].spec_key_name;
+						html+="</div>";
+						html+="</div>";
+						html+="<div>x"+data[i].goods_data[j].goods_num+"</div>";
+						html+="</div>";
+						html+="</div>";
+						html+="</div>";
+						html+="</div>";
+					}
+					html+="<div class='cell-item'>";
+					html+="<div class='cell-left'>"+timestampToTime(data[i].createtime)+"</div>"
+					html+="<div class='cell-right'>";
+					html+="共"+data[i].goods_num+"件商品 合计:"+data[i].total_amount;
+					html+="</div>";
+					html+="</div>";
+					html+="</a>";
+
+					html+="</div>";
+					html+="</div>";
+					
+					html+="</li>";
+					
+				}
+				return html;
+			}
+			function initData(){
+				
+				$('#O_List').infiniteScroll({
+					binder: '#O_List',
+					pageSize: pageSize,
+					initLoad: true,
+					backposition: true,
+					jumpLink: '.O_Link',
+					loadListFn: function () {
+						var def = $.Deferred();
+						loadMore(function (listArr) {
+							listArr.page = page;
+							var html = LoadHtml(listArr);
+							$('#O_ListContent ul').append(html);
+							def.resolve(listArr, page);
+							++page;
+						});
+						return def.promise();
+					},
+					loadStorageListFn: function (ret, retPage) {
+						var def = $.Deferred();
+						page = retPage;		
+						var html = '';
+						ret.forEach(function (val) {
+							var list = val.list;
+							list.page = val.page;
+							html += LoadHtml(list);
+						});
+						$('#O_ListContent ul').append(html);
+						def.resolve();
+						return def.promise();
+					}
+				});
+			} 
+			
+			$(function() {
+				user_id= getQueryString('userid');
+				//getOrderList(0);
+				initData()
+			})
+		</script>
+
+
+	</body>
+</html>

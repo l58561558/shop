@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			.container{
+				height: 1.3rem;
+				background: #FFFFFF;
+				margin-bottom: .2rem;
+			}
+			/*横向时间轴*/
+			.time-horizontal {
+			    list-style-type: none;
+			    border-bottom: 1px solid #CCCCCC;
+				height: 1rem;
+			    width: 90%;
+			    padding-left: 0;
+			    margin-left: 5%;
+				font-size: .3rem;
+			}
+			 
+			.time-horizontal li {
+			    float: left;
+				height: 1rem;
+			    position: relative;
+			    text-align: center;
+			    width: 20%;
+			    padding-top: 10px;
+				color: #CCCCCC;
+			}
+			 
+			.time-horizontal li b:before {
+			    content: '';
+			    position: absolute;
+			    bottom: -.1rem;
+			    left:45%;
+			    width: .25rem;
+			    height: .25rem;
+			    border: 1px solid #CCCCCC;
+			    border-radius: .2rem;
+			    background: #CCCCCC;
+			}
+			.li_actity span{
+				padding: .02rem .07rem;
+				border-radius: .25rem;
+				color: #FFFFFF;
+				background: #C39666;
+				font-size: .3rem;
+			}
+			.li_actity b:before{
+				background: #C39666 !important;
+				border: 1px solid #C39666 !important;
+			}
+			.list-theme4 .list-item{
+				height: auto;
+			}
+			.list-theme4 .list-item .list-img{
+				width: 1.8rem;
+			}
+			.list-price{
+				color: #C39666;
+			}
+			.list-specketname{
+				font-size: .34rem;
+				background: #F7F7F7 ;
+				color:#999999;
+				padding-left: .15rem;
+				padding-right: .15rem;
+				border-radius: .05rem;
+			}
+			.c1_cell1{
+				height: .7rem;
+			}
+			.c1_cell1 .cell-left{
+				border-bottom: 1px solid #EEEEEE;
+				font-size: .38rem;
+			}
+			.c1_cell1 .cell-right{
+				min-height: .5rem;
+				padding: 0;
+				margin-right:0.24rem;
+				border-bottom: 1px solid #EEEEEE;
+			}
+			#c1_total{
+				color: #333333;
+				font-size: .28rem;
+			}
+			#Content_1 .m-celltitle{
+				height: .8rem;
+				line-height: .6rem;
+				font-size: .43rem;
+				padding-top: .1rem;
+			}
+			#Content_1 .m-celltitle:after{
+				border: none;
+			}
+			#Content_1 .cell-textarea{
+				background: #F7F8F9;
+				margin-bottom: .2rem;
+				padding: .2rem;
+			}
+			#Content_1 .cell-item:not(:last-child):after{
+				border-bottom: none;
+			}
+			#c1_num_pri{
+				background: #F7F8F9;
+				height: .7rem;
+				width: 100%;
+				line-height: .7rem;
+			}
+			#c1_maxpri{
+				margin-left: .2rem;
+			}
+			.upcell{
+				text-align: left;
+				padding: 0.2rem;
+				-webkit-justify-content:flex-start;
+				justify-content:flex-start;
+				-webkit-box-pack:start;
+				flex-wrap: wrap;
+			}
+			.upborder{
+				border: 1px solid #CCCCCC;
+				width: 1.5rem;
+				height: 1.5rem;
+				margin-right: 5px;
+				margin-bottom: 10px;
+				display: flex;
+				align-items: center;         /* 垂直居中 */
+				justify-content: center;    /* 水平居中 */
+				position: relative;
+			}
+			#c1_btn{
+				width: 90%;
+				margin-left: 5%;
+				color: #FFFFFF;
+				font-size: .39rem;
+				height: .9rem;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+				border-radius:.1rem;
+			}
+			#Content_1{
+				display: none;
+			}
+			#Content_2{
+				display: none;
+			}
+			.c2_content{
+				padding: .2rem;
+				font-family:PingFangSC-Regular,PingFang SC;
+				font-size: .38rem;
+				line-height: .5rem;
+			}
+			#c1_name,#c1_price{
+				font-size: .4rem;
+			}
+			#c1_num,#c1_total,#c1_content,#c2_num,#c2_total{
+				font-size: .36rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="#" id="goback" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">申请退货/退款</span>
+			</div>
+		</header>
+		<div style="height: .1rem;background: #FFFFFF;"></div>
+		<div class="container">
+			<ul class="time-horizontal">
+				<li id='status_1'><b></b><span>申请</sapn>
+				</li>
+				<li id='status_2'><b></b><span>等待审核</sapn>
+				</li>
+				<li id='status_3'><b></b><span>寄回商品</sapn>
+				</li>
+				<li id='status_4'><b></b><span>系统审核</sapn>
+				</li>
+				<li id='status_5'><b></b><span>退款完成</sapn>
+				</li>
+			</ul>
+		</div>
+		<div id="Content_1">
+			<div class="m-cell">
+				<div class="cell-item c1_cell1">
+					<div class="cell-left" id="c1_order_sn"></div>
+					<div class="cell-right"></div>
+				</div>
+				<div class="m-list list-theme4">
+					<a href="javascript:;" class="list-item">
+						<div class="list-img">
+							<img id="c1_img" />
+						</div>
+						<div class="list-mes">
+							<div class="list-mes-item">
+								<div>
+									<h3 id="c1_name" class="list-title"></h3>
+								</div>
+								<div><span class="list-price" id='c1_price'></span></div>
+							</div>
+
+							<div class="list-mes-item">
+								<div>
+									<span class="list-specketname" id='c1_spec'></span>
+								</div>
+								<div id="c1_num"></div>
+							</div>
+							<div class="list-mes-item">
+								<div></div>
+								<div id="c1_total"></div>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="m-cell">
+				<div class="m-celltitle">售后类型</div>
+				<div class="cell-item" style="margin-bottom: .2rem;">
+					<label class="cell-right cell-arrow" style="background: #F7F8F9;margin-right: .24rem;">
+					    <select id="c1_type" class="cell-select" style="font-size: .38rem;padding-left: .24rem;">
+							<option value="">请选择售后类型</option>
+					        <option value="1">仅退款</option>
+					        <option value="2">退货退款</option>
+					    </select>
+					</label>
+				</div>
+				<div class="m-celltitle">退货原因</div>
+				<div class="cell-item">
+					<div class="cell-right">
+						<textarea id="c1_content" class="cell-textarea" placeholder="请输入退货原因"></textarea>
+					</div>
+				</div>
+				<div class="m-celltitle">申请数量</div>
+				<div class="cell-item" style="margin-bottom: .2rem;">
+					<span class="m-spinner" id="J_Quantity">
+						<a href="javascript:;" class="J_Del"></a>
+						<input type="text" class="J_Input" value="1" placeholder="" />
+						<a href="javascript:;" class="J_Add"></a>
+					</span>
+
+				</div>
+				<div class="m-celltitle">退款金额<span class="list-price" id="c1_maxpri">最多退款 ¥34.7</span></div>
+				<div class="cell-item">
+					<div class="cell-right">
+						<div id="c1_num_pri"></div>
+					</div>
+				</div>
+				<div class="m-celltitle">上传图片<span class="list-price" style="color:#FF8F00;margin-left: .2rem;">最多8张</span></div>
+				<div class="cell-item">
+
+					<div id="images_cell" class="cell-right upcell" style="">
+						<a class="upborder">
+							<img style="width: 0.5rem;height: 0.5rem;" src="img/upfile.png">
+							<input type="file" name="images" accept='image/*' style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />
+						</a>
+
+					</div>
+
+
+				</div>
+			</div>
+			<div style="width: 100%;">
+				<input id="c1_btn" type="button" class="btn" value="保  存" />
+			</div>
+
+		</div>
+		<div id="Content_2">
+			<div class="m-cell">
+				<div class="cell-item c1_cell1">
+					<div class="cell-left" id="c2_order_sn"></div>
+					<div class="cell-right" id="c2_status" style="font-size: .38rem;"></div>
+				</div>
+				<div class="m-list list-theme4">
+					<a href="javascript:;" class="list-item" style="border-bottom: 1px solid #D9D9D9;">
+						<div class="list-img">
+							<img id="c2_img" />
+						</div>
+						<div class="list-mes">
+							<div class="list-mes-item">
+								<div>
+									<h3 id="c2_name" class="list-title"></h3>
+								</div>
+								<div><span class="list-price" id='c2_price'></span></div>
+							</div>
+
+							<div class="list-mes-item">
+								<div>
+									<span class="list-specketname" id='c2_spec'></span>
+								</div>
+								<div id="c2_num"></div>
+							</div>
+							<div class="list-mes-item">
+								<div></div>
+								<div id="c2_total"></div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="c2_content">
+
+				</div>
+			</div>
+		</div>
+
+		<style>
+			#Content_3{
+				display: none;
+			}
+			#Content_3 .m-cell{
+				padding-top: .2rem;
+				padding-bottom: .2rem;
+			}
+			#Content_3 .cell-item{
+				height: 1rem;
+				font-size: .38rem;
+			}
+			#Content_3 .cell-item:not(:last-child):after{
+				border: none;
+			}
+			#Content_3 .cell-left{
+				font-size: .38rem;
+			}
+			#Content_3 .cell-right{
+				min-height: .6rem;
+				font-size: .38rem;
+			}
+			#Content_3 .cell-select{
+				height: .6rem;
+				color: #333333;
+				font-size: .38rem;
+			}
+			#Content_3 .cell-input{
+				height: .6rem;
+				color: #CCCCCC;
+				font-size: .38rem;
+			}
+			#c3_btn{
+				width: 90%;
+				margin-left: 5%;
+				color: #FFFFFF;
+				font-size: .3rem;
+				height: .7rem;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+				border-radius:.1rem;
+			}
+		</style>
+		<div id="Content_3">
+			<div class="m-cell">
+				<div class="cell-item">
+					寄回地址:（请勿货到付款）
+				</div>
+				<div class="cell-item" id='refund_address'>
+
+				</div>
+				<div class="cell-item">
+					寄回物品:
+				</div>
+				<div class="cell-item" id='refund_order_state'>
+
+				</div>
+				<div class="cell-item">
+					请填写物流信息：(未填写物流信息，会影响您的退款进度)
+				</div>
+				<div style="background:#F7F8F8 ;width: 94%;margin-left: 3%;margin-bottom: .2rem;">
+					<div class="cell-item">
+						<div class="cell-left">快递公司：</div>
+						<label class="cell-right cell-arrow">
+							<select id="c3_courier_company" class="cell-select">
+								<option value="">请选择快递公司</option>
+								<option value="圆通快递">圆通快递</option>
+								<option value="中通快递">中通快递</option>
+								<option value="申通快递">申通快递</option>
+								<option value="韵达快递">韵达快递</option>
+								<option value="顺丰快递">顺丰快递</option>
+								<option value="邮政快递">邮政快递</option>
+								<option value="天天快递">天天快递</option>
+								<option value="百世快递">百世快递</option>
+								<option value="优速快递">优速快递</option>
+							</select>
+						</label>
+					</div>
+				</div>
+				<div style="background:#F7F8F8 ;width: 94%;margin-left: 3%;">
+					<div class="cell-item">
+						<div class="cell-left">快递单号：</div>
+						<div class="cell-right">
+							<input id="c3_courier_no" type="text" class="cell-input" placeholder="请填写快递单号" />
+						</div>
+					</div>
+				</div>
+				<div style="width: 100%;margin-top: .2rem;">
+					<input id='c3_btn' type="button" class="btn" value='提交' />
+				</div>
+			</div>
+		</div>
+		<style>
+			.layui-timeline {
+				padding-left: .5rem;
+				padding-top:20px
+			}
+			.layui-timeline-item {
+				position: relative;
+				padding-bottom: 20px;
+				margin-top:-12px;
+			}
+			.layui-timeline-item:first-child::before {
+				display: block;
+			}
+			.layui-timeline-item:last-child::before {
+				content: '';
+				position: absolute;
+				left: 5px;
+				top: 0;
+				z-index: 0;
+				width: 0;
+			}
+			.layui-timeline-item::before {
+				content: '';
+				position: absolute;
+				/* left: 5px; */
+				top: 20%;
+				z-index: 0;
+				width: 1px;
+				height: 60%;
+			}
+			.layui-timeline-item::before,
+			hr {
+				background-color: #EBEBEB;
+			}
+			.layui-timeline-axis {
+				position: absolute;
+				left: -5px;
+				top: 5%;
+				z-index: 10;
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				background-color: #fff;
+				color: #5FB878;
+				border-radius: 50%;
+				text-align: center;
+				cursor: pointer;
+			}
+			.layui-icon {
+				font-family: layui-icon !important;
+				font-size: .3rem !important;
+				font-style: normal;
+			}
+			.layui-timeline-content {
+				padding-left: .3rem;
+				padding-right: .3rem;
+			}
+			.layui-text {
+				line-height: 22px;
+				font-size: .28rem !important;
+				color: #666;
+				top:-10px;
+			}
+			.layui-timeline-title {
+				position: relative;
+				margin-bottom: 10px;
+				font-size: .36rem;
+			}
+			.circle {
+				width: .2rem;
+				height: .2rem;
+				border-radius: 50%;
+				background: #EBEBEB;
+			}
+			.div_time_line{
+				width: 100%;
+				height: auto;
+				background:rgba(255,255,255,1);
+				font-size: .3rem !important;
+			}
+			.time_line_datetime{
+				font-size: .3rem;
+				color: #999999;
+			}
+			.circle_activity{
+				background: #C39666 !important;
+			}
+			.activity{
+				color: #C39666 !important;
+			}
+			#Content_4{
+				background: white;
+				display: none;
+			}
+			.Content4_head{
+				padding-top: .15rem;
+				padding-left: .2rem;
+				padding-bottom: .15rem;
+				font-size: .38rem !important;
+			}
+		</style>
+		<div id="Content_4">
+			<div class="Content4_head">
+				订单跟踪
+			</div>
+			<ul class="layui-timeline" id="traces_info">
+				
+			</ul>
+		</div>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+
+			var token = userinfo.token;
+			var user_id = userinfo.user_id;
+
+			var order_id = 0;
+			var order_goods_id = 0;
+			var refund_order_id = 0;
+			//上传文件
+			function uploadfile() {
+				let token = userinfo.token;
+				var formData = new FormData();
+				formData.append("file", $("#images_cell").children("a:last-child").find("input[name='images']")[0].files[0]);
+				// formData.append("token", token);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/Common/upload',
+					data: formData,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							var dom = $("#images_cell").children("a:last-child");
+							dom.find('img').attr('src', http_url + res.data.url + '');
+							dom.find('img').css('width', '100%');
+							dom.find('img').css('height', '100%');
+							dom.removeAttr('onclick');
+							$("#images_cell").children("a:last-child").find("input[name='images']").val('');
+
+							if ($("#images_cell").find("a").length >= 8) {
+								return;
+							} else {
+								let html = "<a class='upborder' >";
+								html += "<img  style='width: 0.5rem;height: 0.5rem;'  src='img/upfile.png'>";
+								html +=
+									'<input type="file" name="images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />'
+								html += "</a>";
+								$("#images_cell").append(html);
+
+							}
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					}
+				})
+			}
+			//申请退货
+			function applyrefund_Order() {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("order_id", getQueryString('orderid'));
+				formdata.append("order_goods_id", getQueryString('id'));
+				formdata.append("goods_num", $(".J_Input").val());
+				if($("#c1_type").val()==""){
+					dialog.toast("请选择售后类型", 'none', 1000);
+					return;
+				}
+				formdata.append("refund_type", $("#c1_type").val());
+				formdata.append("content", $("#c1_content").val());
+				let images = $("#images_cell").find('a').eq(0).find("img").attr("src");
+				if (images != "img/upfile.png") {
+					for (let i = 1; i < $("#images_cell").find('a').length - 1; i++) {
+						images += "," + $("#images_cell").find('a').eq(i).find("img").attr("src")
+					}
+					formdata.append("images", images);
+				}
+
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/apply_refund_order',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast('申请成功,等待审核', 'none', 1000);
+							location.href = "RefundOrderList.html";
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('申请退货失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			//申请退货时获取商品信息			
+			function getrefund_Order(id) {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("order_goods_id", id);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/get_refund_order',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							order_id = res.data.goods_id;
+							order_goods_id = res.data.order_goods_id;
+							$("#c1_order_sn").text('编号：' + res.data.order_sn);
+							$("#c1_img").attr('src', res.data.image);
+							$("#c1_name").text(res.data.goods_name);
+							$("#c1_price").text("￥" + res.data.price);
+							$("#c1_spec").text(res.data.spec_key_name);
+							$("#c1_num").text("x" + res.data.goods_num);
+							$("#c1_total").text("共" + res.data.goods_num + "件商品    合计:￥" + res.data.total_amount)
+							$("#c1_maxpri").text("最多退款 ¥" + res.data.total_amount);
+							$('#J_Quantity').spinner({
+								input: '.J_Input',
+								add: '.J_Add',
+								minus: '.J_Del',
+								max: function() {
+									return res.data.goods_num;
+								},
+								callback: function(value, $ele) {
+									$("#c1_num_pri").text(accMul(value, res.data.price));
+								}
+							});
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取退货商品信息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			//获取退货信息详情
+			function getrefund_Detail(id, status) {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("refund_order_id", id);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/refund_order_desc',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							order_id = res.data.goods_id;
+							order_goods_id = res.data.order_goods_id;
+							if (status == -1 || status == 0 || status == 3) {
+								$("#c2_order_sn").text(res.data.order_sn);
+								if (res.data.refund_order_status == -1) {
+									$("#c2_status").text('审核未通过');
+								} else if (res.data.refund_order_status == 0) {
+									$("#c2_status").text('等待审核');
+								} else if (res.data.refund_order_status == 3) {
+									$("#c2_status").text('退款完成');
+								}
+								if(res.data.image!=null){
+									$("#c2_img").attr('src', res.data.image);
+								}
+								if(res.data.goods_name!=null){
+									$("#c2_name").text(res.data.goods_name);
+								}
+								if(res.data.price!=null){
+									$("#c2_price").text(res.data.price);
+								}
+								if(res.data.spec_key_name!=null){
+									$("#c2_spec").text(res.data.spec_key_name);
+								}
+								if(res.data.goods_num!=null){
+									$("#c2_num").text('x' + res.data.goods_num);
+								}
+								if(res.data.total_amount!=null){
+									$("#c2_total").text("共" + res.data.goods_num + "件商品 合计:￥" + res.data.total_amount);
+								}
+								
+								let html = "<p>退回方式:" + res.data.refund_mode + "</p>";
+								html += "<p>联系人:" + res.data.refund_consignee + "；  联系方式:" + res.data.refund_mobile + "</p>"
+								html += "<p>退货原因:" + res.data.content + "</p>";
+								$(".c2_content").html(html);
+							} else if (status == 1) {
+								$("#refund_address").text(res.data.refund_address);
+								$("#refund_order_state").text(res.data.refund_order_state);
+							} else if (status == 2) {
+								LoadTraces(res.data);
+								$("#Content_4").show();
+							}
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取退货商品信息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
+			function LoadTraces(data) {
+				let html = "";
+				for (let i = 0; i < data.length; i++) {
+					if (i == 0) {
+						html += "<li class='layui-timeline-item'>";
+						html += "<i class='layui-icon layui-timeline-axis circle circle_activity'></i>";
+						html += "<div class='layui-timeline-content layui-text'>";
+						html += "<div class='layui-timeline-title activity'>" + data[i].AcceptStation + "</div>";
+						html += "<div class='time_line_datetime activity'>" + data[i].AcceptTime + "</div>";
+						html += "</div></li>";
+					} else {
+						html += "<li class='layui-timeline-item'>";
+						html += "<i class='layui-icon layui-timeline-axis circle'></i>";
+						html += "<div class='layui-timeline-content layui-text'>";
+						html += "<div class='layui-timeline-title'>" + data[i].AcceptStation + "</div>";
+						html += "<div class='time_line_datetime'>" + data[i].AcceptTime + "</div>";
+						html += "</div></li>";
+					}
+				}
+				$("#traces_info").empty();
+				$("#traces_info").append(html);
+			}
+
+
+			function write_courier() {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("refund_order_id", refund_order_id);
+				formdata.append("courier_company", $("#c3_courier_company").val());
+				formdata.append("courier_no", $("#c3_courier_no").val());
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/write_courier',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast(res.msg, 'none', 1000);
+							location.href = "OrderDetail.html?id=" + getQueryString('orderid');
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('填写快递信息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
+
+			$(function() {
+				$("#images_cell").on('change', "input[name='images']", function() {
+					uploadfile()
+				})
+				if(getQueryString('iso')=="1"){
+					$("#status_3").hide()
+					$("#status_4").hide();
+					$(".time-horizontal li").css("width","33%");
+				}else if(getQueryString('iso')=="2"){
+					$(".time-horizontal li").css("width","20%");
+					$("#status_3").show()
+					$("#status_4").show()
+				}
+				if (getQueryString('status') == -2) { //申请退货
+					$("#status_1").addClass('li_actity');
+					getrefund_Order(getQueryString('id'));
+					$("#Content_1").show();
+					$("#Content_2").hide();
+					$("#Content_3").hide();
+				} else if (getQueryString('status') == -1) { //审核未通过
+					$("#status_2").addClass('li_actity');
+					$("#status_2").html("<b></b><span>审核失败</span>");
+					$("#Content_1").hide();
+					$("#Content_2").show();
+					refund_order_id = getQueryString('orderid');
+					getrefund_Detail(refund_order_id, -1);
+					$("#Content_3").hide();
+					$("#Content_4").hide();
+				} else if (getQueryString('status') == 0) { //等待审核
+					$("#status_2").addClass('li_actity');
+					$("#Content_1").hide();
+					$("#Content_2").show();
+					refund_order_id = getQueryString('orderid');
+					getrefund_Detail(refund_order_id, 0);
+					$("#Content_3").hide();
+				} else if (getQueryString('status') == 1) { //寄回商品
+					$("#status_3").addClass('li_actity');
+					$("#Content_1").hide();
+					$("#Content_2").hide();
+					$("#Content_3").show();
+					refund_order_id = getQueryString('orderid');
+					getrefund_Detail(refund_order_id, 1);
+				} else if (getQueryString('status') == 2) { //系统审核
+					$("#status_4").addClass('li_actity');
+					$("#Content_1").hide();
+					$("#Content_2").hide();
+					$("#Content_3").hide();
+					$("#Content_4").show();
+					refund_order_id = getQueryString('orderid');
+					getrefund_Detail(refund_order_id, 2);
+				} else if (getQueryString('status') == 3) { //退款完成
+					$("#status_5").addClass('li_actity');
+					$("#Content_1").hide();
+					$("#Content_2").show();
+					$("#Content_3").hide();
+					refund_order_id = getQueryString('orderid');
+					getrefund_Detail(refund_order_id, 3);
+				}
+				$("#c1_type").change(function(){
+					if($("#c1_type").val()==1){
+						$("#status_3").hide()
+						$("#status_4").hide();
+						$(".time-horizontal li").css("width","33%");
+					}else{
+						$(".time-horizontal li").css("width","20%");
+						$("#status_3").show()
+						$("#status_4").show()
+					}
+				})
+				$("#c1_btn").click(function() {
+					applyrefund_Order();
+				})
+				$("#c3_btn").click(function() {
+					if ($("#c3_courier_company").val() == '' || $("#c3_courier_company").val() == undefined) {
+						dialog.toast('请选择快递公司', 'none', 1000);
+						return;
+					}
+					if ($("#c3_courier_no").val() == '' || $("#c3_courier_no").val() == undefined) {
+						dialog.toast('请填写快递单号', 'none', 1000);
+						return;
+					}
+					write_courier();
+				})
+				$("#goback").click(function() {
+					if(getQueryString('status')>-2){
+						location.href='RefundOrderList.html'
+					}else{
+						location.href = 'OrderDetail.html?id=' + getQueryString('orderid')
+					}
+					
+				})
+			})
+		</script>
+
+
+	</body>
+</html>

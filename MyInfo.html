@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			
+			.m-tabbar{
+				position: fixed;
+				bottom: 0;
+			}
+			.myinfo_content2 table td p{
+				text-align: center;
+				font-size: .25rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+		    <div class="navbar-center">
+		        <span class="navbar-title"></span>
+		    </div>
+		</header>
+		<div class="myinfo_content1">
+		    <div class="myinfo_top_content">
+				<div class="myinfo_c1_item">
+					<div class="myinfo_c1_item1">
+						<div class="myinfo_avatar">
+							<img id="avatar" src="" />
+						</div>
+						<div class="myinfo_item1_base">
+							<h2 id="name"></h2>
+							<p>
+								<span id="level_name" style="font-size: .32rem;"></span>
+								<input id="shengji" type="button" class="btn" value="我要升级" />
+							</p>
+						</div>
+						
+					</div>
+					<div class="myinfo_c1_item2">
+						<p>余额</p>
+						<p><span id="money"></span>元</p>
+						<p><input id="tixian" type="button" class="btn" value="提现"></p>
+					</div>
+				</div>
+				
+			</div>
+			<div class="myinfo_content1_item2">
+				<div class="full_left">
+					我的订单
+				</div>
+				<div class="full_right">
+					<a href='MyOrderList.html'>查看全部订单&nbsp;&nbsp;></a>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		<div class="myinfo_content2">
+		    <table>
+				<tbody>
+					<tr>
+						<td>
+							<a onclick="window.location.href='Mywallet.html'">
+								<img src="img/info/wdqb.png"/>
+								<p>我的钱包</p>
+							</a>
+						</td> 
+						<td>
+							<a onclick="window.location.href='MyLevel.html'"> 
+								<img src="img/info/wddl.png"/>
+								<p>我的代理</p>
+							</a>
+						</td>
+					
+						<td>
+							<a  onclick="window.location.href='MyQrcode.html'">
+								<img src="img/info/wytg.png"/>
+								<p>我要推广</p>
+							</a>
+						</td>
+						<td>
+							<a onclick="window.location.href='RefundOrderList.html'">
+								<img src="img/info/wtfk.png"/>
+								<p>退款售后</p>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a onclick="window.location.href='UserInfo.html'">
+								<img src="img/info/grxx.png"/>
+								<p>个人信息</p>
+							</a>
+						</td>
+						<td>
+							<a onclick="window.location.href='RechargeList.html'">
+								<img src="img/info/dkcz.png"/>
+								<p>货款充值</p>
+							</a>
+						</td>
+						<td>
+							<a onclick="window.location.href='Feedback.html'">
+								<img src="img/info/wtfk.png"/>
+								<!-- <p>问题反馈</p> -->
+								<p>联系客服</p>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="button" id="logout" class="btn" value="退出登录" />
+			
+			
+		</div>
+		<footer class="m-tabbar">
+			<a href="#" onclick="window.location.href='GoodsIndex.html'" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/1_1.png">
+				</span>
+				<span class="tabbar-txt">商品</span>
+			</a>
+			<a href="#" onclick="window.location.href='CartList.html'" class="tabbar-item">
+				<span class="tabbar-icon">
+					<img src="img/icon/2_1.png">
+				</span>
+				<span class="tabbar-txt">购物车</span>
+			</a>
+			<a href="#" onclick="window.location.href='MessageList.html'" id="tabbar_message" style="position: relative;"  class="tabbar-item ">
+				<span class="tabbar-icon">
+					<img src="img/icon/3_1.png">
+				</span>
+				 <span class="badge" style="display: none;" id="badge_message"></span>
+				<span  class="tabbar-txt">消息</span>
+			</a>
+			<a href="#" onclick="window.location.href='MyInfo.html'" class="tabbar-item tabbar-active">
+				<span class="tabbar-icon">
+					<img src="img/icon/4.png">
+				</span>
+				<span class="tabbar-txt">我的</span>
+			</a>
+
+		</footer>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			
+			var dialog = window.YDUI.dialog;
+			
+		
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+
+			function getbasicinfo() {
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/user/get_user_info',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							$("#avatar").attr("src",res.data.avatar);
+							$("#name").text(res.data.nickname);
+							$("#level_name").text(res.data.level_name);
+							$("#money").text(res.data.money);
+							
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取个人信息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			
+			function logout(){
+				let formdata = new FormData();
+				formdata.append("token", token);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/User/logout',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast(res.msg, 'none', 1000);
+							$.cookie('userinfo',null);
+							location.href="LoginIndex.html"
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('登出失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			
+
+			$(function() {
+				getbasicinfo();
+				$("#logout").click(function(){
+					logout()
+				})
+				$("#tixian").click(function(){
+					window.location.href="Applywithdraw.html"
+				})
+				$("#shengji").click(function(){
+					window.location.href="Userupgrade.html"
+				})
+			})
+		</script>
+
+
+	</body>
+</html>

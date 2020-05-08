@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<link href="css/Mdate.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/iScroll.js"></script>
+		<script type="text/javascript" src="js/Mdate.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			.cell-select{
+				color:#333333;
+				font-size: .38rem;
+			}
+			.cell-left{
+				width: 25%;
+				font-size: .39rem;
+			}
+			.upborder{
+				border: 1px solid #CCCCCC;
+				width: 1.5rem;
+				height: 1.5rem;
+				margin-right: 5px;
+				margin-bottom: 10px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;         /* 垂直居中 */
+				justify-content: center;    /* 水平居中 */
+				position: relative;
+			}
+			.upcell{
+				text-align: left;
+				padding: 0.2rem;
+				-webkit-justify-content:flex-start;
+				justify-content:flex-start;
+				-webkit-box-pack:start;
+				flex-wrap: wrap;
+			}
+			.m-cell{
+				margin-bottom: 0;
+			}
+			#paytype_cell {
+				-webkit-box-pack: start;
+				-webkit-justify-content: flex-start;
+				-ms-flex-pack: start;
+				justify-content: flex-start;
+			}
+			#paytype_cell a{
+				width: 40%;
+				text-align: left;
+				display: flex;
+				align-items: center;         /* 垂直居中 */
+			}
+			#paytype_cell a img{
+				float: left;
+				width: 0.45rem;
+				height: 0.45rem;
+				border: 1px solid #FFFFFF;
+				border-radius: 50%;
+			}
+			#certificate_images{
+				cursor: pointer;
+				touch-action: none;		
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="MyInfo.html" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">我要升级</span>
+			</div>
+		</header>
+		<div class="m-cell">
+			<div class="cell-item">
+				<div class="cell-left">现在等级：</div>
+				<div class="cell-right"><input type="text" id="pre_level" class="cell-input"  /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">升级等级：</div>
+				<label class="cell-right cell-arrow">
+					<select class="cell-select" id="level">
+					
+					</select>
+				</label>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">打款方式：</div>
+				<div id="paytype_cell" class="cell-right">
+					<a id="type1" class="paytype_select">
+						<img src="img/icon/cart_selected.png">支付宝
+					</a>
+					<a id="type2">
+						<img src="img/icon/cart_noselect.png">银行转账
+					</a>
+				</div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">打款账号：</div>
+				<div class="cell-right"><input type="text" id="bank_account" class="cell-input" placeholder="请输入打款账号" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">金额：</div>
+				<div class="cell-right"><input type="text" id="money" class="cell-input" placeholder="请输入身份证号" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">日期：</div>
+				<div class="cell-right"><input id="pay_time" type="text" class="cell-input" placeholder="请选择日期" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">备注：</div>
+				<div class="cell-right"><input type="text" id="remark" class="cell-input" placeholder="如有说明可填写备注" /></div>
+			</div>
+			<div class="cell-item">
+				<div class="cell-left">打款凭证：</div>
+				<div id="certificate_cell" class="cell-right upcell" style="">
+					<a class="upborder" >
+						<img style="width: 0.5rem;height: 0.5rem;" src="img/upfile.png">
+						<input type="file" name="certificate_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />
+					</a>
+
+				</div>
+				
+			</div>
+
+		</div>
+		<div class="applayagent_bottom">
+			<p>请打款到：</p>
+			<p>支付宝账号：<span id="ali_account"></span></p>
+			<p>支付宝实名：<span id="ali_name"></span></p>
+			<p>如有问题可联系微信客服：<span id="wx_service"></span></p>
+			<input id="upagent" type="button" class="btn" value="确认升级" />
+		</div>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+			var dialog = window.YDUI.dialog;
+			var now_level_info = {
+				id: '',
+				name: '',
+				nickname: '',
+				total_money: '',
+				goods_payment: '',
+				margin: '',
+				bonus: ''
+			}
+			var pay_info = {
+				ali_account: '',
+				ali_name: '',
+				wx_service: '',
+				bank_account: '',
+				bank_username: ''
+			}
+			var user_id = userinfo.user_id;
+			var token = userinfo.token;
+			//上传文件
+			function uploadfile() {
+				var formData = new FormData();
+				formData.append("file", $("#certificate_cell").children("a:last-child").find("input[name='certificate_images']")[0].files[0]);
+				//formData.append("token", token);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/Common/upload',
+					data: formData,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							var dom = $("#certificate_cell").children("a:last-child");
+							dom.find('img').attr('src', http_url + res.data.url + '');
+							dom.find('img').css('width', '100%');
+							dom.find('img').css('height', '100%');
+							dom.removeAttr('onclick');
+							$("#certificate_cell").children("a:last-child").find("input[name='certificate_images']").val('');
+							let html2 = "<a class='upborder' >";
+							html2 += "<img  style='width: 0.5rem;height: 0.5rem;'  src='img/upfile.png'>";
+							html2+='<input type="file" name="certificate_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />'
+							html2 += "</a>";
+							$("#certificate_cell").append(html2);
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('上传失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
+			function getupgrade_info() {
+				let formData = new FormData();
+				formData.append("token",token);
+				formData.append("user_id",user_id);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/User/upgrade_info',
+					data: formData,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							now_level_info.id = res.data.now_level_info.id;
+							now_level_info.name = res.data.now_level_info.name;
+							now_level_info.nickname = res.data.now_level_info.nickname;
+							now_level_info.total_money = res.data.now_level_info.total_money;
+							now_level_info.goods_payment = res.data.now_level_info.goods_payment;
+							now_level_info.margin = res.data.now_level_info.margin;
+							now_level_info.bonus = res.data.now_level_info.bonus;
+							pay_info.ali_account= res.data.pay_info.ali_account;
+							pay_info.ali_name= res.data.pay_info.ali_name;
+							pay_info.wx_service= res.data.pay_info.wx_service;
+							pay_info.bank_account= res.data.pay_info.bank_account;
+							pay_info.bank_username= res.data.pay_info.bank_username
+							
+							$("#ali_account").text(pay_info.ali_account);
+							$("#ali_name").text(pay_info.ali_name);
+							$("#wx_service").text(pay_info.wx_service);
+							$("#pre_level").val(now_level_info.nickname);
+							$("#pre_level").attr('title',now_level_info.id)
+							let html = "";
+							$("#level").empty();
+							for (let i = 0; i < res.data.level_info.length; i++) {
+								if (i == 0) {
+									html += "<option selected title='" + res.data.level_info[i].total_money + "' value='" + res.data.level_info[
+										i].id + "'>" + res.data.level_info[i].nickname + "</option>"
+									$("#money").val(res.data.level_info[i].total_money)
+								} else {
+									html += "<option title='" + res.data.level_info[i].total_money + "' value='" + res.data.level_info[i].id +
+										"'>" + res.data.level_info[i].nickname + "</option>"
+								}
+							}
+							$("#level").append(html);
+
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取升级代理基本信息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
+			function Upgrade() {
+				var error = checkvalue();
+				if (error == "") {
+					let formData = new FormData();
+					formData.append("token",token);
+					formData.append("user_id",user_id);
+					formData.append("pre_level",$("#pre_level").attr("title"));
+					formData.append("level",$("#level").val());
+					let type=$(".paytype_select").attr("id")=="type1"?1:2
+					formData.append("pay_type",type);
+					formData.append("money",$("#money").val());
+					formData.append("bank_account",$("#bank_account").val());
+					formData.append("remark",$("#remark").val());
+					formData.append("pay_time",$("#pay_time").val());
+					let certificateurl=$("#certificate_cell").find('a').eq(0).find("img").attr("src");
+					for(let i=1;i<$("#certificate_cell").find('a').length-1;i++){
+						certificateurl+=","+$("#certificate_cell").find('a').eq(i).find("img").attr("src")
+					}
+					formData.append("pay_certificate_images",certificateurl);
+					
+					$.ajax({
+						type: "post",
+						url: ajaxUrl + '/User/user_upgrade',
+						data: formData,
+						cache: false,
+						processData: false,
+						contentType: false,
+						dataType: "json",
+						success: function(res) {
+							if (res.code == 1) {
+								dialog.toast(res.msg, 'none', 1000);
+								location.href='MyInfo.html'
+							} else {
+								dialog.toast(res.msg, 'none', 1000);
+							}
+						},
+						error: function(err) {
+							dialog.toast('申请代理失败，服务异常！', 'none', 1000);
+						}
+					})
+					
+				}else{
+					dialog.toast(error, 'none', 1000);
+				}
+
+
+			}
+			function checkvalue(){
+				var message = [];
+				if ($("#level").val() == "" || $("#level").val() == undefined) {
+				            message.push("请选择升级等级");
+				}
+				if ($("#bank_account").val() == "" || $("#bank_account").val() == undefined) {
+				            message.push("请输入支付账号");
+				}
+				if ($("#pay_time").val() == "" || $("#pay_time").val() == undefined) {
+				            message.push("请选择日期");
+				}
+				if($("#certificate_cell").find('a').length==1&&$("#certificate_cell").find('a img').attr("src")=="img/upfile.png"){
+					message.push("请上传打款凭证");
+				}
+				if (message.length > 0)
+				           return message.join("，\n");
+				       else
+				           return message.join("");
+			}
+				
+			$(function() {
+				getupgrade_info();
+				// $("#certificate_images").change(function() {
+				// 	uploadfile()
+				// });
+				$("#level").change(function() {
+					$("#money").val($("#level option:selected").prop("title"))
+				});
+				initTimeSelect("pay_time")
+
+				
+				
+				$("#certificate_cell").on('change',"input[name='certificate_images']",function(){
+					uploadfile()
+				})
+				$("#upagent").click(function(){
+					Upgrade();
+				});
+				$("#type1").unbind('click').bind('click',function(){
+					if($("#type1").hasClass('paytype_select')){
+						$("#type2").removeClass('paytype_select');
+						$("#type1 img").attr("src",'img/icon/cart_selected.png');
+						$("#type2 img").attr("src",'img/icon/cart_noselect.png')
+					}else{
+						$("#type2").removeClass('paytype_select');
+						$("#type1").addClass('paytype_select');
+						$("#type1 img").attr("src",'img/icon/cart_selected.png');
+						$("#type2 img").attr("src",'img/icon/cart_noselect.png')
+					}
+				})
+				$("#type2").unbind('click').bind('click',function(){
+					if($("#type2").hasClass('paytype_select')){
+						$("#type1").removeClass('paytype_select');
+						$("#type2 img").attr("src",'img/icon/cart_selected.png');
+						$("#type1 img").attr("src",'img/icon/cart_noselect.png')
+					}else{
+						$("#type1").removeClass('paytype_select');
+						$("#type2").addClass('paytype_select');
+						$("#type2 img").attr("src",'img/icon/cart_selected.png');
+						$("#type1 img").attr("src",'img/icon/cart_noselect.png')
+					}
+				})
+			})
+		</script>
+
+
+	</body>
+</html>

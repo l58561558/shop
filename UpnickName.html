@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+			}
+			#up_btn{
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+				color: #FFFFFF;
+				height: .6rem;
+				line-height: .6rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="UserInfo.html" class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title">我的消息</span>
+			</div>
+			<a href="#" class="navbar-item">
+				<input id="up_btn" type="button" class="btn" value="完成"/>
+			</a>
+		</header>
+		<div class="m-cell">
+		    <div class="cell-item">
+		        <input type="text" id="nickname" class="cell-input" placeholder="输入您要设置的昵称" />
+		    </div>
+		</div>
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+
+			var dialog = window.YDUI.dialog;
+			
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+			function upuserInfo(){
+				var formData = new FormData();
+				formData.append("token", token);
+				formData.append("nickname", $("#nickname").val());
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/user/profile',
+					data: formData,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast(res.msg, 'none', 1000);
+							location.href='UserInfo.html';
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					}
+				})
+			}
+			
+			$(function() {
+				$("#up_btn").click(function(){
+					if($("#nickname").val()==''||$("#nickname").val()==undefined){
+						dialog.toast('请输入修改后的昵称', 'none', 1000);
+						return;
+					}
+					upuserInfo();
+				})
+			})
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js" charset="utf-8"></script>
+		<script src="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.js"></script>
+		<style>
+			body{
+				height: 100%;
+				background: #FFF;
+			}
+			.cell-textarea{
+				height: 4.6rem;
+				font-size: .38rem;
+			}
+			#subfeedback{
+				color: #FFFFFF;
+				width: 90%;
+				height: 1rem;
+				font-size: .43rem;
+				margin-left: 5%;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.m-cell:after{
+				border: none;
+			}
+			#content{
+				border: none;
+				padding: .3rem .3rem;
+				font-size: .42rem;
+				line-height: .6rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="m-navbar">
+			<a href="MyInfo.html"  class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<!-- <span class="navbar-title">问题反馈</span> -->
+				<span class="navbar-title">联系客服</span>
+			</div>
+		</header>
+		<div id="content" class="m-cell">
+		    <!-- <div class="cell-item">
+		        <div class="cell-right">
+		            <textarea id="content" class="cell-textarea" placeholder="如果您遇到问题、功能、内容方面的错误，或者对我们有任何建议或意见，请在此处向我们提交，期待您的宝贵建议"></textarea>
+		        </div>
+		    </div> -->
+		</div>
+		<!-- <input id="subfeedback" type="button" class="btn" value="提交" /> -->
+		<script type="text/javascript" src="js/ydui.js"></script>
+		<script>
+
+			var dialog = window.YDUI.dialog;
+			
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+			// function submitfeedback(){
+			// 	if($("#content").val() == "" || $("#content").val() == undefined){
+			// 		dialog.toast('反馈内容不能为空', 'none', 1000);
+			// 		return;
+			// 	}
+			// 	var formData = new FormData();
+			// 	formData.append("token", token);
+			// 	formData.append("user_id", user_id);
+			// 	formData.append("content", $("#content").val());
+			// 	$.ajax({
+			// 		type: "post",
+			// 		url: ajaxUrl + '/user/user\_feedback',
+			// 		data: formData,
+			// 		cache: false,
+			// 		processData: false,
+			// 		contentType: false,
+			// 		dataType: "json",
+			// 		success: function(res) {
+			// 			if (res.code == 1) {
+			// 				dialog.toast(res.msg, 'none', 1000);
+			// 				location.href="MyInfo.html"
+			// 			} else {
+			// 				dialog.toast(res.msg, 'none', 1000);
+			// 			}
+			// 		},
+			// 		error: function(err) {
+			// 			dialog.toast('问题反馈失败，服务异常！', 'none', 1000);
+			// 		}
+			// 	})
+			// }
+			function getservice(){
+				$.ajax({
+						type: "get",
+						url: ajaxUrl + '/user/service',
+						// data: formData,
+						// cache: false,
+						// processData: false,
+						// contentType: false,
+						dataType: "json",
+						success: function(res) {
+							if (res.code == 1) {
+								// dialog.toast(res.msg, 'none', 1000);
+								// location.href="MyInfo.html";
+								$("#content").append(res.data)
+							} else {
+								dialog.toast(res.msg, 'none', 1000);
+							}
+						},
+						error: function(err) {
+							dialog.toast('问题反馈失败，服务异常！', 'none', 1000);
+						}
+					})
+			}
+			
+			$(function() {
+				// $("#subfeedback").click(function(){
+				// 	submitfeedback()
+				// })
+				getservice();
+			})
+		</script>
+
+
+	</body>
+</html>
