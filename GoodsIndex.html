@@ -589,6 +589,7 @@
 
 			function initlistclick() {
 				$("div[name='type_child']").on("click", function() {
+					$("div[name='type_child']").removeClass("border_select");
 					if ($(this).hasClass("border_select")) {
 						$(this).removeClass("border_select");
 					} else {

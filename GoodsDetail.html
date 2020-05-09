@@ -357,7 +357,6 @@
 				$("#goods_detail").css('display','block');
 			})
 
-
 			function GetDetail(){
 				let formdata = new FormData();
 				formdata.append("goods_id", goods_id);
@@ -450,8 +449,8 @@
 						$("#group_spec").append(html);	
 					}
 				});
-				
-				var key3=key1+":"+key2;
+				var key3=key2+":"+key1;
+				//var key3=key1+":"+key2;
 				data.group.forEach((e) => {
 					if(e.key==key3){
 						group_id=e.group_id;
@@ -498,7 +497,8 @@
 						key2=$("#group_spec").find('.div_select').attr('name').replace('spec_','');
 					}
 					// var key2=$("#group_spec").find('.div_select').attr('name').replace('spec_','');
-					var key3=key1+","+key2;
+					//var key3=key1+","+key2;
+					var key3=key2+","+key1;
 					group_data.group.forEach((e) => {
 						if(e.key==key3){
 							group_id=e.group_id
