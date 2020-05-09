@@ -184,6 +184,9 @@
 					dataType: "json",
 					success: function(res) {
 						if (res.code == 1) {
+							if(res.data.level_id == 1){
+								$("#shengji").css('display','none');
+							}
 							$("#avatar").attr("src",res.data.avatar);
 							$("#name").text(res.data.nickname);
 							$("#level_name").text(res.data.level_name);
