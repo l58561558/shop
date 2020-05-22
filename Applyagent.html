@@ -198,6 +198,9 @@
 			<p>请打款到：</p>
 			<p>支付宝账号：<span id="ali_account"></span></p>
 			<p>支付宝实名：<span id="ali_name"></span></p>
+			<p>银行账号：<span id="pay_bank_account"></span></p>
+			<p>银行开户行：<span id="pay_bank_account_name"></span></p>
+			<p>银行实名：<span id="pay_bank_username"></span></p>
 			<p>如有问题可联系微信客服：<span id="wx_service"></span></p>
 			<input id="upagent" type="button" class="btn" value="确认" />
 		</div>
@@ -295,10 +298,14 @@
 							pay_info.wx_service = res.data.pay_info.wx_service;
 							pay_info.bank_account = res.data.pay_info.bank_account;
 							pay_info.bank_username = res.data.pay_info.bank_username;
+							pay_info.bank_account_name = res.data.pay_info.bank_account_name;
 							parent_info.nickname = res.data.parent_info.nickname;
 							parent_info.mobile = res.data.parent_info.mobile;
 							$("#ali_account").text(pay_info.ali_account);
 							$("#ali_name").text(pay_info.ali_name);
+							$("#pay_bank_account").text(pay_info.bank_account);
+							$("#pay_bank_username").text(pay_info.bank_username);
+							$("#pay_bank_account_name").text(pay_info.bank_account_name);
 							$("#wx_service").text(pay_info.wx_service);
 							$("#parentname").val(parent_info.nickname);
 							$("#parentmobile").val(parent_info.mobile);

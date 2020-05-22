@@ -131,6 +131,7 @@
 			<p>支付宝账号：<span id="ali_account"></span></p>
 			<p>支付宝实名：<span id="ali_name"></span></p>
 			<p>银行账号：<span id="bank_account"></span></p>
+			<p>银行开户行：<span id="bank_account_name"></span></p>
 			<p>银行实名：<span id="bank_username"></span></p>
 			<p>如有问题可联系微信客服：<span id="wx_service"></span></p>
 			<input id="upagent" type="button" class="btn" value="确认充值" />
@@ -186,6 +187,7 @@
 							$("#ali_account").text(res.data.ali_account);
 							$("#ali_name").text(res.data.ali_name);
 							$("#bank_account").text(res.data.bank_account);
+							$("#bank_account_name").text(res.data.bank_account_name);
 							$("#bank_username").text(res.data.bank_username);
 							$("#wx_service").text(res.data.wx_service);
 						} else {
