@@ -1,0 +1,58 @@
+
+<footer class="m-tabbar">
+	<a href="#" onclick="window.location.href='Index.html'" class="tabbar-item footer-index">
+		<span class="tabbar-icon">
+			<img src="img/icon/0_1.png" class="no_select">
+			<img src="img/icon/0.png" class="select" style="display: none">
+		</span>
+		<span class="tabbar-txt">首页</span>
+	</a>
+	<a href="#" onclick="window.location.href='GoodsIndex.html'" class="tabbar-item footer-goodsindex">
+		<span class="tabbar-icon">
+			<img src="img/icon/1_1.png" class="no_select">
+			<img src="img/icon/1.png" class="select" style="display: none">
+		</span>
+		<span class="tabbar-txt">商品</span>
+	</a>
+	<a href="#" onclick="window.location.href='CartList.html'" class="tabbar-item footer-cartlist">
+		<span class="tabbar-icon">
+			<img src="img/icon/2_1.png" class="no_select">
+			<img src="img/icon/2.png" class="select" style="display: none">
+		</span>
+		<span class="tabbar-txt">购物车</span>
+	</a>
+	<a href="#" onclick="window.location.href='MessageList.html'" id="tabbar_message" style="position: relative;"  class="tabbar-item footer-messagelist">
+		<span class="tabbar-icon">
+			<img src="img/icon/3_1.png" class="no_select">
+			<img src="img/icon/3.png" class="select" style="display: none">
+		</span>
+		 <span class="badge" style="display: none;" id="badge_message"></span>
+		<span  class="tabbar-txt">消息</span>
+	</a>
+	<a href="#" onclick="window.location.href='MyInfo.html'" class="tabbar-item footer-myinfo">
+		<span class="tabbar-icon">
+			<img src="img/icon/4_1.png" class="no_select">
+			<img src="img/icon/4.png" class="select" style="display: none">
+		</span>
+		<span class="tabbar-txt">我的</span>
+	</a>
+
+</footer>
+<style type="text/css">
+	.tabbar-txt {
+	    display: inline-block;
+	    font-size: 0.35rem;
+	}
+</style>
+<!-- tabbar-active -->
+<script type="text/javascript">
+	$(function(){
+ 		var filename = location.href;
+		filename = filename.substr(filename.lastIndexOf('/')+1);  
+		filename = filename.toLowerCase();
+		filename = filename.split('.')[0];
+		$('.footer-'+filename).addClass('tabbar-active')
+		$('.footer-'+filename).find('span').find('.no_select').css('display','none');
+		$('.footer-'+filename).find('span').find('.select').css('display','block');
+ 	})
+</script>

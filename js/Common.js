@@ -170,12 +170,13 @@ function getmessNumCount() {
 }
 
 function isWechat(url) {
-	// var ua = window.navigator.userAgent.toLowerCase();
-	// if (ua.match(/MicroMessenger/i) == 'micromessenger') {
- //        return true;
- //    } else {
- //        location.href = 'NoWechat.html?url=' + url;
- //    }
+	var ua = window.navigator.userAgent.toLowerCase();
+	console.log(ua);
+	if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+        return true;
+    } else {
+        location.href = 'NoWechat.html?url=' + url;
+    }
 	// if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !> 0) {
 	// 	location.href = 'NoWechat.html?url=' + url;
 	// }

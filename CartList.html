@@ -247,33 +247,10 @@
 			</div>
 		</div>
 		</footer>
-		<footer class="m-tabbar">
-			<a href="#" onclick="window.location.href='GoodsIndex.html'" class="tabbar-item">
-				<span class="tabbar-icon">
-					<img src="img/icon/1_1.png">
-				</span>
-				<span class="tabbar-txt">商品</span>
-			</a>
-			<a href="#" onclick="window.location.href='CartList.html'" class="tabbar-item tabbar-active">
-				<span class="tabbar-icon">
-					<img src="img/icon/2.png">
-				</span>
-				<span class="tabbar-txt">购物车</span>
-			</a>
-			<a href="#" id="tabbar_message" onclick="window.location.href='MessageList.html'" style="position: relative;" class="tabbar-item">
-				<span class="tabbar-icon">
-					<img src="img/icon/3_1.png">
-				</span>
-				<span class="badge" style="display: none;" id="badge_message">2</span>
-				<span class="tabbar-txt">消息</span>
-			</a>
-			<a href="#" onclick="window.location.href='MyInfo.html'" class="tabbar-item">
-				<span class="tabbar-icon">
-					<img src="img/icon/4_1.png">
-				</span>
-				<span class="tabbar-txt">我的</span>
-			</a>
-		</footer>
+		<div id="footer"></div>
+		<script type="text/javascript">
+			$("#footer").load("Footer.html");
+		</script>
 		</section>
 		<script type="text/javascript" src="js/ydui.js"></script>
 		<script>
@@ -332,7 +309,7 @@
 					html += "<img src='" + data[i].cover_image + "' data-url='" + data[i].cover_image + "'>";
 					html += "</div>";
 					html += "<div class='full_right l3_content'>";
-					html += "<p>" + data[i].name + "</p>";
+					html += "<p>" + data[i].name.substr(0,16)+'...' + "</p>";
 					html += "<div class='cart_select'>";
 					html += "" + data[i].spec_name + "";
 					

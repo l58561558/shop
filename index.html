@@ -7,11 +7,312 @@
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-title" content="" />
+	<meta name="apple-mobile-web-app-title" content="Amaze UI" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title></title>
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<link rel="stylesheet" href="css/ydui2.css">
+	<link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="fonts/iconfont.css" />
+	<script src="js/ydui.flexible.js"></script>
+	<script type="text/javascript" src="js/Common.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+	<style>
+		body{
+			height: 100%;
+		}
+		.m-slider{
+			width: 100%;
+			height: auto;
+		}
+		.m-slider img{
+			width: 100%;
+			height: 100%;
+		}
+		#J_Tab{
+			height: auto;
+		}
+		.brand-title{
+			font-size: 0.4rem;
+			font-weight: bold;
+		}
+		.g-scrollview{
+			height: auto
+		}
+
+	</style>
 </head>
 <body>
-	<p style="text-align: center;font-size: 30px;">请前往微信内打开</p>
-	<p style="text-align: center;font-size: 30px;">😊</p>
+	<section class="g-flexview">
+		<div class="g-scrollview">
+			<div class="m-slider" id="J_Slider">
+			    <div id="ads_banner" class="slider-wrapper">
+			        
+			    </div>
+			   <div class="slider-pagination"></div><!-- 分页标识 -->
+			</div>
+			
+			<div id="brand">
+
+			</div>
+			
+			<div id="cate">
+				<ul class="tab-nav">
+					<li class="tab-nav-item brand-title">款式推荐</li>
+					</ul>
+				<ul class="tab-nav">
+					<li class="tab-nav-item">
+						<a href="javascript:;">款式推荐1</a>
+					</li>
+					<li class="tab-nav-item">
+						<a href="javascript:;">款式推荐2</a>
+					</li>
+					<li class="tab-nav-item">
+						<a href="javascript:;">款式推荐3</a>
+					</li>
+					<li class="tab-nav-item">
+						<a href="javascript:;">款式推荐4</a>
+					</li>
+				</ul>
+			</div>
+			
+			<section class="g-scrollview" id="J_List">
+				<ul class="tab-nav">
+					<li class="tab-nav-item brand-title">热卖推荐</li>
+				</ul>
+				<div id="J_ListContent" class="m-list list-theme1">
+					
+				</div>
+			</section>
+
+		</div>
+
+
+
+		<div id="footer"></div>
+		<script type="text/javascript">
+			$("#footer").load('Footer.html')
+		</script>
+	</section>
+
+
+
+	
 </body>
+<script type="text/javascript" src="js/ydui2.js"></script>
+<script type="text/javascript">
+	var dialog = window.YDUI.dialog;
+	var token = userinfo.token;
+	var user_id = userinfo.user_id;
+
+	// 获取轮播图
+	function get_ads(){
+		$.ajax({
+			type: "post",
+			url: ajaxUrl + '/index/ads_list',
+			cache: false,
+			processData: false,
+			contentType: false,
+			dataType: "json",
+			success: function(res) {
+				if (res.code == 1) {
+					initBanner(res.data);
+				} else {
+					dialog.toast(res.msg, 'none', 1000);
+				}
+			}
+		})
+	}
+
+	//获取品牌推荐
+	function get_cate_brand(){
+		$.ajax({
+			type: "post",
+			url: ajaxUrl + '/index/cate_brand',
+			cache: false,
+			processData: false,
+			contentType: false,
+			dataType: "json",
+			success: function(res) {
+				if (res.code == 1) {
+					var data = res.data;
+					var html = '';
+					html += '<ul class="tab-nav">';
+					html += '<li class="tab-nav-item brand-title">品牌推荐</li>';
+					html += '</ul>';
+					if(data.length > 0){
+						var page_count = 3;
+						for (var i = 0; i <= Math.ceil(data.length/page_count) - 1; i++) {
+							html += '<ul class="tab-nav">';
+							var start = i * page_count;
+							var count = 0;
+							for (var j = start; j <= start + page_count - 1; j++) {
+								if(data[j]){
+									var id = data[j].id;
+									var name = data[j].name;
+									html += '<li class="tab-nav-item">';
+									html += '<a href="GoodsIndex.html?cate_id='+id+'">'+name+'</a>';
+									html += '</li>';
+									count = count + 1;
+								}else{
+									break;
+								}
+							}
+							if(count < page_count){
+								for (var k = 0; k < page_count - count; k++) {
+									html += '<li class="tab-nav-item"></li>';
+								}
+							}
+							html += '</ul>';
+						}
+					}else{
+						html += '<ul class="tab-nav">';
+						html += '<li class="tab-nav-item">暂无数据</li>';
+						html += '</ul>';
+					}
+					$("#brand").html(html)
+				} else {
+					dialog.toast(res.msg, 'none', 1000);
+				}
+			}
+		})
+	}
+
+	//获取款式推荐
+	function get_cate_list(){
+		$.ajax({
+			type: "post",
+			url: ajaxUrl + '/index/cate_list',
+			cache: false,
+			processData: false,
+			contentType: false,
+			dataType: "json",
+			success: function(res) {
+				if (res.code == 1) {
+					var data = res.data;
+					var html = '';
+					html += '<ul class="tab-nav">';
+					html += '<li class="tab-nav-item brand-title">款式推荐</li>';
+					html += '</ul>';
+					if(data.length > 0){
+						var page_count = 3;
+						for (var i = 0; i <= Math.ceil(data.length/page_count) - 1; i++) {
+							html += '<ul class="tab-nav">';
+							var start = i * page_count;
+							var count = 0;
+							for (var j = start; j <= start + page_count - 1; j++) {
+								if(data[j]){
+									var id = data[j].id;
+									var name = data[j].name;
+									html += '<li class="tab-nav-item">';
+									html += '<a href="GoodsIndex.html?cate_id='+id+'">'+name+'</a>';
+									html += '</li>';
+									count = count + 1;
+								}else{
+									break;
+								}
+							}
+							if(count < page_count){
+								for (var k = 0; k < page_count - count; k++) {
+									html += '<li class="tab-nav-item"></li>';
+								}
+							}
+							html += '</ul>';
+						}
+					}else{
+						html += '<ul class="tab-nav">';
+						html += '<li class="tab-nav-item">暂无数据</li>';
+						html += '</ul>';
+					}
+					$("#cate").html(html)
+				} else {
+					dialog.toast(res.msg, 'none', 1000);
+				}
+			}
+		})
+	}
+
+	//获取款式推荐
+	function get_hot_list(){
+		let formdata = new FormData();
+		formdata.append("token", token);
+		formdata.append("user_id", user_id);
+		$.ajax({
+			type: "post",
+			url: ajaxUrl + '/index/hot_list',
+			data: formdata,
+			cache: false,
+			processData: false,
+			contentType: false,
+			dataType: "json",
+			success: function(res) {
+				if (res.code == 1) {
+					var data = res.data;
+					var html = '';
+					if(data.length > 0){
+						for (let i = 0; i < data.length; i++) {
+							html += "<a href='GoodsDetail.html?Id=" + data[i].goods_id + "'  class='J_Link list-item'>";
+							html += "<div class='list-img'>"
+							html += "<img src='" + data[i].cover_image + "' data-url='" + data[i].cover_image + "'>";
+							html += "</div>";
+							html += "<div class='list-mes'>";
+							html += "<h3 class='list-title'>" + data[i].name + "</h3>";
+							html += "<div class='list-mes-item'>";
+							html += "<div>";
+							html += "<span class='list-price'><em>¥</em>" + data[i].lprice + "</span>";
+							html += "</div>";
+							html += "<div>";
+							html += "<span class='list-del-price'>¥" + data[i].price + "</span>";
+							html += "</div>";
+							html += "</div>";
+							html += "<div class='list-mes-item'>";
+							html += "<div></div>";
+							html += "<div>";
+							html += "<span class='list-del-price1'>¥" + data[i].tag_price + "</span>";
+							html += "</div>";
+							html += "</div>";
+							html += "</div>";
+							html += "</a>";
+						}
+					}else{
+						html += '<ul class="tab-nav">';
+						html += '<li class="tab-nav-item">暂无数据</li>';
+						html += '</ul>';
+					}
+					$('#J_ListContent').append(html);
+				} else {
+					dialog.toast(res.msg, 'none', 1000);
+				}
+			}
+		})
+	}
+
+	function initBanner(data){
+		let html="";
+		for(let i=0;i<data.length;i++){
+			html+="<div class='slider-item'>";
+			html+="<a href='GoodsIndex.html?cate_id="+data[i]['cate_id']+"'>";
+			html+="<img src='"+data[i]['image']+"'>";
+			html+="</a>";
+			html+="</div>";
+		}
+		$("#ads_banner").append(html);
+		$('#J_Slider').slider({
+	        speed: 200,
+	        autoplay: 3000,
+	        lazyLoad: true
+		});
+	}
+
+
+	$(function() {
+		get_ads();
+		get_cate_brand();
+		get_cate_list();
+		get_hot_list();
+	
+	})
+</script>
 </html>
