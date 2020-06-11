@@ -571,9 +571,13 @@
 					html+='<div class="m-gridstitle">'+e.nickname+'</div>';
 					html+='<ul class="m-grids-3">';
 					e.child.forEach((t)=>{
-						html += "<li class='grids-item'>";
+						// html += "<li class='grids-item'>";
+						html += "<ul>";
+						html += "<li>";
 						html += "<div class='grids-txt' name='type_child' title='" + t.id + "' >" + t.nickname + "</div>";
 						html += "</li>";
+						html += "</ul>";
+						// html += "</li>";
 					})
 					html+="</ul>";
 					html+="</div>";
@@ -699,6 +703,16 @@
 				})
 				
 			}()
+			
+
+
+			$(function() {
+				var query = window.location.href;
+		       	if(query.indexOf("more") >= 0 ) { 
+					$("#J_ActionSheet").addClass('actionsheet-toggle');
+         	 	}
+			
+			})
 			
 			
 			

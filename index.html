@@ -59,23 +59,7 @@
 			</div>
 			
 			<div id="cate">
-				<ul class="tab-nav">
-					<li class="tab-nav-item brand-title">款式推荐</li>
-					</ul>
-				<ul class="tab-nav">
-					<li class="tab-nav-item">
-						<a href="javascript:;">款式推荐1</a>
-					</li>
-					<li class="tab-nav-item">
-						<a href="javascript:;">款式推荐2</a>
-					</li>
-					<li class="tab-nav-item">
-						<a href="javascript:;">款式推荐3</a>
-					</li>
-					<li class="tab-nav-item">
-						<a href="javascript:;">款式推荐4</a>
-					</li>
-				</ul>
+
 			</div>
 			
 			<section class="g-scrollview" id="J_List">
@@ -140,7 +124,12 @@
 					var data = res.data;
 					var html = '';
 					html += '<ul class="tab-nav">';
-					html += '<li class="tab-nav-item brand-title">品牌推荐</li>';
+					html += '<li class="tab-nav-item brand-title">';
+					html += '<span style="display:block;float:left;padding-left:11%;width:89%">品牌推荐</span>';
+					html += '<span style="display:block;font-size:10px;color:#b2b2b2;font-weight:normal;">';
+					html += '<a href="GoodsIndex.html#more">更多>><a/>';
+					html += '</span>';
+					html += '</li>';
 					html += '</ul>';
 					if(data.length > 0){
 						var page_count = 3;
@@ -194,7 +183,12 @@
 					var data = res.data;
 					var html = '';
 					html += '<ul class="tab-nav">';
-					html += '<li class="tab-nav-item brand-title">款式推荐</li>';
+					html += '<li class="tab-nav-item brand-title">';
+					html += '<span style="display:block;float:left;padding-left:11%;width:89%">品牌推荐</span>';
+					html += '<span style="display:block;font-size:10px;color:#b2b2b2;font-weight:normal;">';
+					html += '<a href="GoodsIndex.html#more">更多>><a/>';
+					html += '</span>';
+					html += '</li>';
 					html += '</ul>';
 					if(data.length > 0){
 						var page_count = 3;
