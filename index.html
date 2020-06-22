@@ -61,6 +61,10 @@
 			<div id="cate">
 
 			</div>
+
+			<div id="best">
+
+			</div>
 			
 			<section class="g-scrollview" id="J_List">
 				<ul class="tab-nav">
@@ -184,7 +188,7 @@
 					var html = '';
 					html += '<ul class="tab-nav">';
 					html += '<li class="tab-nav-item brand-title">';
-					html += '<span style="display:block;float:left;padding-left:11%;width:89%">品牌推荐</span>';
+					html += '<span style="display:block;float:left;padding-left:11%;width:89%">款式推荐</span>';
 					html += '<span style="display:block;font-size:10px;color:#b2b2b2;font-weight:normal;">';
 					html += '<a href="GoodsIndex.html#more">更多>><a/>';
 					html += '</span>';
@@ -228,7 +232,69 @@
 		})
 	}
 
-	//获取款式推荐
+	//获取新品推荐
+	function get_best_list(){
+		$.ajax({
+			type: "post",
+			url: ajaxUrl + '/index/best_list',
+			cache: false,
+			processData: false,
+			contentType: false,
+			dataType: "json",
+			success: function(res) {
+				var html = '';
+				html += '<ul class="tab-nav">';
+				html += '<li class="tab-nav-item brand-title">';
+				html += '<span style="display:block;float:left;padding-left:11%;width:89%">新品推荐</span>';
+				html += '<span style="display:block;font-size:10px;color:#b2b2b2;font-weight:normal;">';
+				html += '</span>';
+				html += '</li>';
+				html += '</ul>';
+				if (res.code == 1) {
+					var data = res.data;
+					
+					if(data.length > 0){
+						var page_count = 3;
+						for (var i = 0; i <= Math.ceil(data.length/page_count) - 1; i++) {
+							html += '<ul class="tab-nav">';
+							var start = i * page_count;
+							var count = 0;
+							for (var j = start; j <= start + page_count - 1; j++) {
+								if(data[j]){
+									var id = data[j].id;
+									var name = data[j].name;
+									html += '<li class="tab-nav-item">';
+									html += '<a href="GoodsIndex.html?cate_id='+id+'">'+name+'</a>';
+									html += '</li>';
+									count = count + 1;
+								}else{
+									break;
+								}
+							}
+							if(count < page_count){
+								for (var k = 0; k < page_count - count; k++) {
+									html += '<li class="tab-nav-item"></li>';
+								}
+							}
+							html += '</ul>';
+						}
+					}else{
+						html += '<ul class="tab-nav">';
+						html += '<li class="tab-nav-item">暂无数据</li>';
+						html += '</ul>';
+					}
+					
+				}else{
+					html += '<ul class="tab-nav">';
+					html += '<li class="tab-nav-item">暂无数据</li>';
+					html += '</ul>';
+				}
+				$("#best").html(html)
+			}
+		})
+	}
+
+	//获取热卖推荐
 	function get_hot_list(){
 		let formdata = new FormData();
 		formdata.append("token", token);
@@ -306,6 +372,7 @@
 		get_cate_brand();
 		get_cate_list();
 		get_hot_list();
+		get_best_list();
 	
 	})
 </script>
