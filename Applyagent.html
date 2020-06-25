@@ -140,28 +140,39 @@
 				<div class="cell-left">身份证号：</div>
 				<div class="cell-right"><input type="text" id="id_card" class="cell-input" placeholder="请输入身份证号" /></div>
 			</div>
-			<div class="cell-item">
-				<div class="cell-left">打款方式：</div>
-				<div class="cell-right">
-					<label class="cell-right cell-arrow">
-						<select class="cell-select" id="pay_type">
-							<option value="1">支付宝</option>
-							<option value="2">银行卡</option>
-						</select>
-					</label>
+			<div id="pay_info" style="display: none">
+				<div class="cell-item">
+					<div class="cell-left">打款方式：</div>
+					<div class="cell-right">
+						<label class="cell-right cell-arrow">
+							<select class="cell-select" id="pay_type">
+								<option value="1">支付宝</option>
+								<option value="2">银行卡</option>
+							</select>
+						</label>
+					</div>
 				</div>
-			</div>
-			<div class="cell-item">
-				<div class="cell-left">打款金额：</div>
-				<div class="cell-right"><input readonly="readonly" id="pay_money" type="text" class="cell-input" placeholder="请输入打款金额" /></div>
-			</div>
-			<div class="cell-item">
-				<div class="cell-left">打款账号：</div>
-				<div class="cell-right"><input id="bank_account" type="text" class="cell-input" placeholder="请输入打款账号" /></div>
-			</div>
-			<div class="cell-item">
-				<div class="cell-left">打款日期：</div>
-				<div class="cell-right"><input id="pay_time" type="text" class="cell-input" placeholder="请输入打款日期" /></div>
+				<div class="cell-item">
+					<div class="cell-left">打款金额：</div>
+					<div class="cell-right"><input readonly="readonly" id="pay_money" type="text" class="cell-input" placeholder="请输入打款金额" /></div>
+				</div>
+				<div class="cell-item">
+					<div class="cell-left">打款账号：</div>
+					<div class="cell-right"><input id="bank_account" type="text" class="cell-input" placeholder="请输入打款账号" /></div>
+				</div>
+				<div class="cell-item">
+					<div class="cell-left">打款日期：</div>
+					<div class="cell-right"><input id="pay_time" type="text" class="cell-input" placeholder="请输入打款日期" /></div>
+				</div>
+				<div class="cell-item">
+					<div class="cell-left">打款凭证：</div>
+					<div id="certificate_cell" class="cell-right upcell" style="">
+						<a class="upborder" style="position: relative;">
+							<img style="width: 0.5rem;height: 0.5rem;" src="img/upfile.png">
+							<input type="file" name="certificate_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />
+						</a>
+					</div>
+				</div>
 			</div>
 			<div class="cell-item">
 				<div class="cell-left">头像：</div>
@@ -175,18 +186,7 @@
 
 
 			</div>
-			<div class="cell-item">
-				<div class="cell-left">打款凭证：</div>
-				<div id="certificate_cell" class="cell-right upcell" style="">
-					<a class="upborder" style="position: relative;">
-						<img style="width: 0.5rem;height: 0.5rem;" src="img/upfile.png">
-						<input type="file" name="certificate_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />
-					</a>
-
-				</div>
-
-
-			</div>
+			
 			<div class="cell-item">
 				<div class="cell-left">备注：</div>
 				<div class="cell-right">
@@ -219,6 +219,16 @@
 				nickname: '',
 				mobile: ''
 			}
+			
+			$('#level').change(function() {
+			    var option = $(this).val();
+			    console.log(option)
+			    if(option == 5){
+			    	$("#pay_info").css('display','none');
+			    }else{
+			    	$("#pay_info").css('display','block');
+			    }
+			})
 			//上传文件
 			function uploadfile(type) {
 				//let token = userinfo.token;
@@ -414,19 +424,19 @@
 				if ($("#id_card").val() == "" || $("#id_card").val() == undefined) {
 					message.push("请输入身份证号");
 				}
-				if ($("#bank_account").val() == "" || $("#bank_account").val() == undefined) {
-					message.push("请输入支付宝账号");
-				}
-				if ($("#pay_time").val() == "" || $("#pay_time").val() == undefined) {
-					message.push("请输入打款日期");
-				}
-				if ($("#avatar_cell").find('a').length == 1 && $("#avatar_cell").find('a img').attr("src") == "img/upfile.png") {
-					message.push("请上传头像");
-				}
-				if ($("#certificate_cell").find('a').length == 1 && $("#certificate_cell").find('a img').attr("src") ==
-					"img/upfile.png") {
-					message.push("请上传打款凭证");
-				}
+				// if ($("#bank_account").val() == "" || $("#bank_account").val() == undefined) {
+				// 	message.push("请输入支付宝账号");
+				// }
+				// if ($("#pay_time").val() == "" || $("#pay_time").val() == undefined) {
+				// 	message.push("请输入打款日期");
+				// }
+				// if ($("#avatar_cell").find('a').length == 1 && $("#avatar_cell").find('a img').attr("src") == "img/upfile.png") {
+				// 	message.push("请上传头像");
+				// }
+				// if ($("#certificate_cell").find('a').length == 1 && $("#certificate_cell").find('a img').attr("src") ==
+				// 	"img/upfile.png") {
+				// 	message.push("请上传打款凭证");
+				// }
 				if (message.length > 0)
 					return message.join("，\n");
 				else

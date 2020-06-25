@@ -113,7 +113,7 @@
 								<p>个人信息</p>
 							</a>
 						</td>
-						<td>
+						<td id="top-up">
 							<a onclick="window.location.href='RechargeList.html'">
 								<img src="img/info/dkcz.png"/>
 								<p>货款充值</p>
@@ -145,6 +145,10 @@
 		
 			var token =userinfo.token;
 			var user_id = userinfo.user_id;
+
+			if(userinfo.level == 5){
+				$('#top-up').css('display','none');
+			}
 
 			function getbasicinfo() {
 				let formdata = new FormData();

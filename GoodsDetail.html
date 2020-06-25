@@ -309,7 +309,6 @@
 		<script>
 
 			var dialog = window.YDUI.dialog;
-			
 			var token =userinfo.token;
 			var user_id = userinfo.user_id;
 			var goods_id=getQueryString('Id')
@@ -317,6 +316,10 @@
 			var group_id=0;
 			
 			var $as = $('#actionSheet');
+
+			if(userinfo.level == 5){
+				$('.btn_bottom').css('display','none');
+			}
 			
 			    $('.open_typecon').on('click', function () {
 			        $as.actionSheet('open');
