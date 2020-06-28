@@ -228,16 +228,19 @@
 			    }
 			})
 			//上传文件
-			function uploadfile(type) {
+			function uploadfile(type, file) {
 				//let token = userinfo.token;
-				var formData = new FormData();
-				if (type == 1) {
-					formData.append("file", $("#avatar_cell").children("a:last-child").find("input[name='avatar_images']")[0].files[0]);
-				} else if (type == 2) {
-					formData.append("file", $("#certificate_cell").children("a:last-child").find("input[name='certificate_images']")[0]
-						.files[0]);
+				if(file){
+					file.parent().find('img').attr('src', '');
 				}
-				// formData.append("token", token);
+				var formData = new FormData();
+				formData.append("file", file[0].files[0]);
+				// if (type == 1) {
+				// 	formData.append("file", $("#avatar_cell").children("a:last-child").find("input[name='avatar_images']")[0].files[0]);
+				// } else if (type == 2) {
+				// 	formData.append("file", $("#certificate_cell").children("a:last-child").find("input[name='certificate_images']")[0]
+				// 		.files[0]);
+				// }
 				$.ajax({
 					type: "post",
 					url: ajaxUrl + '/Common/upload',
@@ -253,28 +256,35 @@
 								dom.find('img').attr('src', http_url + res.data.url + '');
 								dom.find('img').css('width', '100%');
 								dom.find('img').css('height', '100%');
-								dom.removeAttr('onclick');
-								$("#avatar_cell").children("a:last-child").find("input[name='avatar_images']").val('');
-								let html = "<a class='upborder img_click1'>";
-								html += "<img  style='width: 0.5rem;height: 0.5rem;'  src='img/upfile.png'>";
-								html +=
-									'<input type="file" name="avatar_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />'
+								// dom.removeAttr('onclick');
+								// $("#avatar_cell").children("a:last-child").find("input[name='avatar_images']").val('');
+								// let html = "<a class='upborder img_click1'>";
+								// html += "<img  style='width: 0.5rem;height: 0.5rem;'  src='img/upfile.png'>";
+								// html +=
+								// 	'<input type="file" name="avatar_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />'
 
-								html += "</a>";
-								$("#avatar_cell").append(html);
+								// html += "</a>";
+								// $("#avatar_cell").append(html);
 							} else if (type == 2) {
-								var dom2 = $("#certificate_cell").children("a:last-child");
-								dom2.find('img').attr('src', http_url + res.data.url + '');
-								dom2.find('img').css('width', '100%');
-								dom2.find('img').css('height', '100%');
-								dom2.removeAttr('onclick');
-								$("#certificate_cell").children("a:last-child").find("input[name='certificate_images']").val('');
-								let html2 = "<a class='upborder img_click2' >";
-								html2 += "<img  style='width: 0.5rem;height: 0.5rem;'  src='img/upfile.png'>";
-								html2 +=
-									'<input type="file" name="certificate_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />'
-								html2 += "</a>";
-								$("#certificate_cell").append(html2);
+								var cla = file.attr('class');
+								if(cla){
+									file.parent().find('img').attr('src', http_url + res.data.url + '');
+								}else{
+									var dom2 = $("#certificate_cell").children("a:last-child");
+									dom2.find('input').addClass(res.data.url);
+									dom2.find('img').attr('src', http_url + res.data.url + '');
+									dom2.find('img').css('width', '100%');
+									dom2.find('img').css('height', '100%');
+									dom2.removeAttr('onclick');
+									$("#certificate_cell").children("a:last-child").find("input[name='certificate_images']").val('');
+									let html2 = "<a class='upborder img_click2' >";
+									html2 += "<img  style='width: 0.5rem;height: 0.5rem;'  src='img/upfile.png'>";
+									html2 +=
+										'<input type="file" name="certificate_images" accept="image/*" style="height: 1.5rem;width: 1.5rem; opacity: 0;position: absolute; top: 0;left: 0; z-index: 99;" />'
+									html2 += "</a>";
+									$("#certificate_cell").append(html2);
+								}
+								
 							}
 							// $("#avatar_cell").children("a:last-child").find("input[name='avatar_images']").change(function() {
 							// 	uploadfile(1)
@@ -467,10 +477,10 @@
 
 
 				$("#avatar_cell").on('change', "input[name='avatar_images']", function() {
-					uploadfile(1)
+					uploadfile(1, $(this))
 				})
 				$("#certificate_cell").on('change', "input[name='certificate_images']", function() {
-					uploadfile(2)
+					uploadfile(2, $(this))
 				})
 
 				$("#level").change(function() {
