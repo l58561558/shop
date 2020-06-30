@@ -111,13 +111,13 @@
 				<div class="cell-left">联系电话：</div>
 				<div class="cell-right"><input type="text" id="mobile" class="cell-input" placeholder="请输入联系电话" /></div>
 			</div>
-			<!-- <div class="cell-item">
+			<div class="cell-item">
 				<div class="cell-left">验证码：</div>
 				<div class="cell-right">
 					<input type="text" id="captcha" class="cell-input" placeholder="请输入验证码" />
 					<span class="C39666" id="sendcode">获取验证码</span>
 				</div>
-			</div> -->
+			</div>
 			<div class="cell-item">
 				<div class="cell-left">密码：</div>
 				<div class="cell-right">
@@ -394,19 +394,19 @@
 						dataType: "json",
 						success: function(res) {
 							if (res.code == 1) {
-								dialog.toast(res.msg, 'none', 1000);
+								dialog.toast(res.msg, 'none', 3000);
 								location.href='LoginIndex.html'
 							} else {
-								dialog.toast(res.msg, 'none', 1000);
+								dialog.toast(res.msg, 'none', 3000);
 							}
 						},
 						error: function(err) {
-							dialog.toast('申请代理失败，服务异常！', 'none', 1000);
+							dialog.toast('申请代理失败，服务异常！', 'none', 3000);
 						}
 					})
 
 				} else {
-					dialog.toast(error, 'none', 1000);
+					dialog.toast(error, 'none', 3000);
 				}
 
 
@@ -420,9 +420,9 @@
 				if ($("#mobile").val() == "" || $("#mobile").val() == undefined) {
 					message.push("请输入联系电话");
 				}
-				//if ($("#captcha").val() == "" || $("#captcha").val() == undefined) {
-				//	message.push("请输入验证码");
-				//}
+				if ($("#captcha").val() == "" || $("#captcha").val() == undefined) {
+					message.push("请输入验证码");
+				}
 				if ($("#password").val() == "" || $("#password").val() == undefined) {
 					message.push("请输入密码");
 				}

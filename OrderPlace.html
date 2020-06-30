@@ -175,7 +175,9 @@
 				<div class="m-cell">
 					<div class="cell-item">
 						<div class="cell-left">备注：</div>
-						<div class="cell-right"><input type="text" class="cell-input" placeholder="对本次交易的说明" /></div>
+						<div class="cell-right">
+							<input type="text" id="admin_remark" class="cell-input" placeholder="对本次交易的说明" />
+						</div>
 					</div>
 				</div>
 				<div class="m-cell">
@@ -348,10 +350,12 @@
 				$("#loading").load("loading.html");
 				$("#zhezhao").css('display','block');
 				$("#loading").css('display','block');
+				var admin_remark = $("#admin_remark").val();
 
 				let formdata = new FormData();
 				formdata.append("token", token);
 				formdata.append("user_id", user_id);
+				formdata.append("admin_remark", admin_remark);
 				if($("#address_d1").attr('name')==''||$("#address_d1").attr('name')==undefined){
 					dialog.toast('请选择地址', 'none', 2000);
 					return;

@@ -242,10 +242,11 @@
 			    </div>				
 		</div>
 		<div style="width: 100%;">
-			<div class="navbar-center">
+			<!-- <div class="navbar-center">
 		        <span id='show_goods_detail' class="navbar-title">点击查看详情</span>
-		    </div>
-			<div id="goods_detail" style="display: none;" data="">
+		    </div> -->
+			<!-- <div id="goods_detail" style="display: none;" data=""> -->
+			<div id="goods_detail" data="">
 				
 			</div>
 		</div>
@@ -375,7 +376,7 @@
 					success: function(res) {
 						if (res.code == 1) {
 							initBanner(res.data.goods.goods_images);
-							// $("#goods_detail").html(res.data.goods.goods_content)
+							$("#goods_detail").html(res.data.goods.goods_content)
 							$("#goods_detail").attr('data',res.data.goods.goods_content)
 							$("#goods_num").text(res.data.goods.store_count+'件');
 							$("#goods_name").text(res.data.goods.name)
