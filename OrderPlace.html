@@ -405,6 +405,9 @@
 			
 			
 			$(function() {
+				$("#address_d1").click(function(){
+					location.href = 'Myaddress.html?from=orplace';
+				})
 				if ($.cookie('orderdata')!=""||$.cookie('orderdata')!=null) {
 					initorder()
 				}
