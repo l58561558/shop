@@ -52,6 +52,14 @@
 			.cell-left{
 				font-size: .38rem;
 			}
+			.cell-input{
+				color: #797474;
+				font-size: 0.35rem;
+			}
+			#address{
+				color: #797474;
+				font-size: 0.35rem;
+			}
 		</style>
 	</head>
 	<body>
@@ -79,7 +87,10 @@
 			    </div>
 				<div class="cell-item">
 				    <div class="cell-left">详细地址：</div>
-				    <div class="cell-right"><input id="address" type="text" class="cell-input" placeholder="请输入您的详细地址" /></div>
+				    <div class="cell-right">
+				    	<!-- <input id="address" type="text" class="cell-input" placeholder="请输入您的详细地址" /> -->
+				    	<textarea id="address" rows="2" placeholder="请输入您的详细地址" style="width: 100%;border: 0;"></textarea>
+				    </div>
 				</div>
 				<div class="cell-item">
 				        <div class="cell-left">
@@ -87,10 +98,10 @@
 						</div>
 				        <div class="cell-right" style="-webkit-justify-content: flex-start;-ms-flex-pack: start;justify-content: flex-start;font-size: .34rem;">设为默认地址</div>
 				</div>
-			    <!-- <div class="cell-right" style="background-color: #f9f9f9">
-			    	<textarea id="copy" rows="5" style="width: 200%;border: 0;background-color: #f9f9f9;padding: 5px;    border-right: 1px solid #bbb6b6" placeholder="粘贴地址信息，可自动识别&#10;例：小明 18812345678 浙江省 杭州市 XX区 XX街道"></textarea>
+			    <div class="cell-right" style="background-color: #f9f9f9">
+			    	<textarea id="copy" rows="6" style="width: 200%;border: 0;background-color: #f9f9f9;padding: 5px;border-right: 1px solid #bbb6b6" placeholder="将地址信息粘贴到此处，可自动识别&#10;例：阿里巴巴   18812345678   浙江省杭州市西湖区古荡街道西斗门路3号天堂软件园a幢&#10;&#10;***重要提示(不分先后顺序)***&#10;***姓名 手机号 地址之间一定要用空格隔开***"></textarea>
 			    	<font id="paste" style="color: #f98004;font-weight: bold;width: 45%">点击生成</font>
-			    </div> -->
+			    </div>
 			</div>
 		</div>
 		<div style="width: 100%;position: fixed;bottom: .4rem;">
@@ -223,7 +234,31 @@
 			$(function() {
 			    $("#paste").click(function(){
 			    	var text = $("#copy").val();
-			    	console.log(text);
+			    	$.ajax({
+						type: "get",
+						url: ajaxUrl + '/user/get_address_info',
+						data: {address:text},
+						dataType: "json",
+						success: function(res) {
+							if (res.code == 1) {
+								var consignee = res.data.name;
+								var mobile = res.data.mobile;
+								var J_Address_name = res.data.province.name+' '+res.data.city.name+' '+res.data.district.name;
+								var J_Address_val = res.data.province.id+','+res.data.city.id+','+res.data.district.id;
+								var address = res.data.info;
+								$("#consignee").val(consignee);
+								$("#mobile").val(mobile);
+								$("#J_Address").val(J_Address_name);
+								$("#J_Address").attr('title',J_Address_val);
+								$("#address").val(address);
+							} else {
+								dialog.toast(res.msg, 'none', 1000);
+							}
+						},
+						error: function(err) {
+							dialog.toast('修改失败，服务异常！', 'none', 1000);
+						}
+					})
 				})
 				GetAddress();
 				$(".is_default").unbind("click").bind("click", function(){
