@@ -298,6 +298,19 @@
 			function LoadHtml(data) {
 				var listatus = $('#J_Tab').find('.tab-active').attr('name').replace('status_', '')
 				let html = "";
+				var refund_status = [{
+					'-3':'失效',
+					'-2':'取消',
+					'-1':'审核未通过',
+					'0':'等待审核',
+					'1':'寄回商品',
+					'2':'系统审核',
+					'3':'退款完成'
+				}];
+				var refund_type = [{
+					'1':'仅退款',
+					'2':'退货退款',
+				}];
 				for (let i = 0; i < data.length; i++) {
 					html += "<li>";
 					html += "<a href='OrderDetail.html?id=" + data[i].order_id + "' class='O_Link' data-page='" + data.page + "'>";
@@ -305,11 +318,12 @@
 					html += "<div class='cell-item'>";
 					html += "<div class='cell-left border_bottom'>编号：" + data[i].order_sn + "</div>";
 					if (data[i].is_refund > 0) {
-						if (data[i].refund_type == 1) {
-							html += "<div class='cell-right border_bottom C39666'>仅退款</div>";
-						} else if (data[i].refund_type == 2) {
-							html += "<div class='cell-right border_bottom C39666'>退货退款</div>";
-						}
+						html += "<div style='color:red !important' class='cell-right border_bottom C39666'>"+refund_type[0][data[i].refund_type]+"["+refund_status[0][data[i].refund_status]+"]</div>";
+						// if (data[i].refund_type == 1) {
+						// 	html += "<div class='cell-right border_bottom C39666'>仅退款</div>";
+						// } else if (data[i].refund_type == 2) {
+						// 	html += "<div class='cell-right border_bottom C39666'>退货退款</div>";
+						// }
 					} else {
 						if (data[i].status == 1) {
 							html += "<div class='cell-right border_bottom C39666'>待发货</div>";
@@ -401,6 +415,19 @@
 			function LoadHtml1(data) {
 				var listatus = $('#J_Tab').find('.tab-active').attr('name').replace('status_', '')
 				let html = "";
+				var refund_status = [{
+					'-3':'失效',
+					'-2':'取消',
+					'-1':'审核未通过',
+					'0':'等待审核',
+					'1':'寄回商品',
+					'2':'系统审核',
+					'3':'退款完成'
+				}];
+				var refund_type = [{
+					'1':'仅退款',
+					'2':'退货退款',
+				}];
 				for (let i = 0; i < data.length; i++) {
 					html += "<li>";
 					html += "<a href='OrderDetail.html?id=" + data[i].order_id + "' class='O_Link' data-page='" + page + "'>";
@@ -408,11 +435,12 @@
 					html += "<div class='cell-item'>";
 					html += "<div class='cell-left border_bottom'>编号：" + data[i].order_sn + "</div>";
 					if (data[i].is_refund > 0) {
-						if (data[i].refund_type == 1) {
-							html += "<div class='cell-right border_bottom C39666'>仅退款</div>";
-						} else if (data[i].refund_type == 2) {
-							html += "<div class='cell-right border_bottom C39666'>退货退款</div>";
-						}
+						html += "<div style='color:red !important' class='cell-right border_bottom C39666'>"+refund_type[0][data[i].refund_type]+"["+refund_status[0][data[i].refund_status]+"]</div>";
+						// if (data[i].refund_type == 1) {
+						// 	html += "<div class='cell-right border_bottom C39666'>仅退款</div>";
+						// } else if (data[i].refund_type == 2) {
+						// 	html += "<div class='cell-right border_bottom C39666'>退货退款</div>";
+						// }
 					} else {
 						if (data[i].status == 1) {
 							html += "<div class='cell-right border_bottom C39666'>待发货</div>";
