@@ -68,6 +68,18 @@
 			.img_click1,.img_click2{
 				cursor: pointer
 			}
+			#captcha {
+				width: 100%;
+			}
+			#sendcode {
+				font-weight: bold;
+			    border-radius: 30px;
+		        text-align: center;
+		        padding: 3%;
+		        border: 1px solid;
+		        width: 40%;
+		        font-size: 0.32rem;
+			}
 		</style>
 	</head>
 	<body>
@@ -111,9 +123,9 @@
 				<div class="cell-left">联系电话：</div>
 				<div class="cell-right"><input type="text" id="mobile" class="cell-input" placeholder="请输入联系电话" /></div>
 			</div>
-			<div class="cell-item">
+			<div class="cell-item" style="width: 100%; height: 100%;">
 				<div class="cell-left">验证码：</div>
-				<div class="cell-right">
+				<div class="cell-right" style="width: 100%; height: 100%;">
 					<input type="text" id="captcha" class="cell-input" placeholder="请输入验证码" />
 					<span class="C39666" id="sendcode">获取验证码</span>
 				</div>
