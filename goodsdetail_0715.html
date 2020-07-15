@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>台湾名品女装</title>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<link rel="stylesheet" href="css/ydui2.css">
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="fonts/iconfont.css" />
+		<script src="js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="js/Common.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1626290_fexhyvwyls5.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css">
+		<style>
+			body{
+				height: 100%;
+			}
+			.m-slider{
+				width: 100%;
+				height: auto;
+			}
+			.m-slider img{
+				width: 100%;
+				height: 100%;
+			}
+			.m-tabbar{
+				height: 1rem;
+			}
+			.m-tabbar:after{
+				border-top: none;
+			}
+			#basicinfo{
+				background: #FFFFFF;
+				padding-top: 0.2rem;
+				height: auto;
+				padding-left: .2rem
+			}
+			#basicinfo span>em{
+				font-size: 0.56rem 
+			}
+			
+			.m-actionsheet{
+				bottom: 0;
+			}
+			#select_type .navbar-center .navbar-title{
+				text-align: left;
+				font-size: 0.38rem;
+			}
+			#goods_count .navbar-center .navbar-title{
+				text-align: left;
+				font-size: 0.34rem;
+			}
+			#actionSheet{
+				background: #FFFFFF;
+				border-radius: 0.3rem;
+				border: 1px solid transparent;
+			}
+			.action_basicinfo{
+				width: 100%;
+				padding-top: 0.2rem;
+				padding-bottom: 0.2rem;
+			}
+			.basic-img{
+				width: 30%;
+				float: left;
+			}
+			.basic-img img{
+				width: 1.8rem;
+			    height: 1.8rem;
+				margin: auto;
+			}
+			.basic-mes{
+				float: right;
+				width: 70%;
+				text-align: left;
+				padding-top: 0.4rem;
+				line-height: 0.45rem;
+				font-size: 0.32rem;
+			}
+			.basic-mes span{
+				font-size: 0.49rem;
+			}
+			.m-gridstitle:after{
+				border: none;
+			}
+			.m-gridstitle{
+				background: #FFFFFF;
+			}
+			.m-grids-3:before{
+				border: none;
+			}
+			.m-grids-3 .grids-item:not(:nth-child(3n)):before{
+				border: none;
+			}
+			.grids-item:after{
+				border: none;
+			}
+			.grids-item{
+				padding: 0.1rem 0.3rem;
+			}
+			.grids-txt{
+				padding:0.12rem 0.2rem ;
+				border-radius: 0.16rem;
+				background: #F6F7FA;
+				font-size: .38rem;
+			}
+			.goods_num{
+				text-align: left;
+			}
+			.goods_num span{
+				margin-top: 0.2rem;
+				margin-left: 0.24rem;
+			}
+			#type_sub{
+				height: 1rem;
+				font-size: 0.49rem;
+				color: #FFFFFF;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			.div_select{
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+				color: #FFFFFF;
+			}
+			.basic-mes .list-del-price{
+				font-size: 0.3rem;
+				padding-left: 0;
+			}
+			#group_title{
+				font-size: 0.4rem;
+			}
+			#group_storecount{
+				color: #999999;
+				font-size: 0.38rem;
+			}
+			#select_type:after{
+				border: 1px solid #F7F8F8;
+			}
+			#goods_count:after{
+				border: 1px solid #F7F8F8;
+			}
+			.btn_bottom{
+				height: 1rem;
+				width: 100%;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+			}
+			.btn_bottom a{
+				width: 50%;
+				height: 1rem;
+				float: left;
+				border-radius: 0;
+				font-size: 0.4rem;
+				display: flex;
+				align-items: center;         /* 垂直居中 */
+					justify-content: center;    /* 水平居中 */
+			}
+			#join_cart{
+				background-color: #FFFFFF;
+			}
+			#place_order{
+				color: #FFFFFF;
+				background:linear-gradient(180deg,rgba(211,187,160,1) 0%,rgba(138,101,66,1) 100%);
+			}
+			#goods_detail{
+				font-size: 0.35rem !important;
+				height: 100%;
+				display:inline-block
+			}
+			#goods_detail img{
+				width: 100%;
+				height:auto;
+			}
+			#goods_detail p,ul,li{
+				padding-top: .1rem;
+				padding-left: .2rem;
+			}
+			#tag_price{
+				font-size: .38rem;
+			}
+			#group_tagprice{
+				font-size: .37rem;
+			}
+			.m-grids-3 .grids-item {
+			    width: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="g-flexview">
+		<header class="m-navbar">
+			<a href="javascript:history.back();"  class="navbar-item">
+				<i class="back-ico"></i>
+			</a>
+			<div class="navbar-center">
+				<span class="navbar-title"></span>
+			</div>
+		</header>
+		<div class="g-scrollview">
+		<div class="m-slider" id="J_Slider">
+		    <div id="goods_banner" class="slider-wrapper">
+		        
+		    </div>
+		   <div class="slider-pagination"></div><!-- 分页标识 -->
+		</div>
+		<div id="basicinfo">
+			<div style="float: left;"><span class="list-price C39666"><em>¥</em><em id='lprice'></em></span></div>
+			<div style="float: left;padding-left: .2rem;">
+				<div>¥<span  id="price"></span></div>
+				<div><span  id="tag_price"></span></div>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<div style="background: #FFFFFF;
+    padding-bottom: 0.2rem;padding-left: .2rem;
+    height: auto;
+    margin-bottom: 0.2rem;font-size: .38rem;"><h3 id='goods_name' class="list-title"></h3></div>
+		<div id="select_type" class="m-navbar">
+				<a href="#" class="navbar-item">
+			        选择
+			    </a>
+			    <div class="navbar-center open_typecon">
+			        <span id='key_name' class="navbar-title">请选择样式</span>
+			    </div>
+				<a href="#" class="navbar-item open_typecon">
+					<i class="next-ico"></i>
+				</a>
+								
+		</div>
+
+		<div id="goods_count" class="m-navbar">
+				<a href="#" class="navbar-item">
+			        库存
+			    </a>
+			    <div class="navbar-center">
+			        <span id='goods_num' class="navbar-title"></span>
+			    </div>				
+		</div>
+		<div style="width: 100%;">
+			<!-- <div class="navbar-center">
+		        <span id='show_goods_detail' class="navbar-title">点击查看详情</span>
+		    </div> -->
+			<!-- <div id="goods_detail" style="display: none;" data=""> -->
+			<div id="goods_detail" data="">
+				
+			</div>
+		</div>
+		
+		</div>
+		<footer class="m-tabbar">
+		<div class="btn_bottom">
+			<a href="javascript:;" id="join_cart" class="btn">加入购物车</a>
+			<a href="javascript:;" id="place_order" class="btn">立即购买</a>
+		
+		</div>
+		</footer>
+		</section>
+		<div class="m-actionsheet" id="actionSheet">
+			<div class="action_basicinfo">
+				<div class="basic-img">
+				   <img id="group_img" src="" data-url="">
+				</div>
+				<div class="basic-mes">
+					<div>
+						<div style="float: left;">
+							<span class="C39666" style="font-size: .5rem;line-height: .75rem;"><em>¥</em><em id="group_lprice"></em></span>
+						</div>
+						<div style="float: left;margin-left: .2rem;">
+							<p><em id="group_price"></em></p>
+							<p><em id="group_tagprice"></em></p>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					
+					<p id="group_storecount">库存：<em id="group_kc"></em></p>
+					<p>
+						<span id="group_title"></span>
+					</p>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			
+		   <div class="m-gridstitle">颜色</div>
+		   <div class="m-grids-3" id="group_color">
+		    
+			</div>
+			<div class="m-gridstitle">尺码</div>
+			<div class="m-grids-3" id="group_spec">
+			    
+			</div>
+			<div class="goods_num">
+				<div class="m-gridstitle">购买数量</div>
+				<div>
+					<span class="m-spinner" data-ydui-spinner="{input: '.J_Input', add: '.J_Add', minus: '.J_Del'}"><!-- 添加data-ydui-spinner属性并添加参数即可 -->
+					    <a href="javascript:;" class="J_Del"></a>
+					    <input id="group_num" type="text" class="J_Input" placeholder=""/>
+					    <a href="javascript:;" class="J_Add"></a>
+					</span>
+				</div>
+			</div>
+			
+		    <a href="javascript:;" class="actionsheet-action" id="type_sub">确&nbsp;&nbsp;&nbsp;&nbsp;定</a>
+		</div>
+		<script type="text/javascript" src="js/ydui2.js"></script>
+		<script>
+
+			var dialog = window.YDUI.dialog;
+			var token =userinfo.token;
+			var user_id = userinfo.user_id;
+			var goods_id=getQueryString('Id')
+			var group_data=[];
+			var group_id=0;
+			
+			var $as = $('#actionSheet');
+
+			if(userinfo.level == 5){
+				$('.btn_bottom').css('display','none');
+			}
+			
+			    $('.open_typecon').on('click', function () {
+			        $as.actionSheet('open');
+			    });
+			
+			    $('#type_sub').on('click', function () {
+			        $as.actionSheet('close');
+					let color=$("#group_color").find('.div_select').text();
+					let spec=$("#group_spec").find('.div_select').text();
+					let num=$("#group_num").val();
+					$("#key_name").text(color+","+spec+","+num+"件")
+					group_data.group.forEach((e1,i1) => {
+						if(e1.key_name==color+","+spec){
+							group_id=e1.group_id;
+							$("#lprice").text(e1.lprice);
+							$("#price").text(e1.price);
+							$("#tag_price").text("¥"+e1.tag_price);
+							$("#group_lprice").text(e1.lprice);
+							$("#group_price").text("¥"+e1.price);
+							$("#group_tagprice").text("¥"+e1.tag_price);
+							
+						}
+
+					})
+			    });
+			
+			    /* 自定义事件 */
+			    $as.on('open.ydui.actionsheet', function () {
+			        console.log('打开了');
+			    }).on('close.ydui.actionsheet', function () {
+			        console.log('关闭了');
+			    });
+			
+			$('#show_goods_detail').click(function(){
+				var goods_content = $("#goods_detail").attr('data');
+				$("#goods_detail").html(goods_content);
+				$(this).parent().css('display','none');
+				$("#goods_detail").css('display','block');
+			})
+
+			function GetDetail(){
+				let formdata = new FormData();
+				formdata.append("goods_id", goods_id);
+				formdata.append("user_id", user_id)
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/goods/goods_desc',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							initBanner(res.data.goods.goods_images);
+							$("#goods_detail").html(res.data.goods.goods_content)
+							$("#goods_detail").attr('data',res.data.goods.goods_content)
+							$("#goods_num").text(res.data.goods.store_count+'件');
+							$("#goods_name").text(res.data.goods.name)
+							$("#lprice").text(res.data.goods.lprice);
+							$("#price").text(res.data.goods.price);
+							$("#tag_price").text("¥"+res.data.goods.tag_price);
+							$("#group_title").text(res.data.goods.name);
+							$("#group_img").attr('src',res.data.goods.goods_images[0])
+							group_data=res.data.goods_spec_data;
+							initGroup(res.data.goods_spec_data);
+							
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('获取商品信息失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+			
+			function initBanner(data){
+				let html="";
+				for(let i=0;i<data.length;i++){
+					html+="<div class='slider-item'>";
+					html+="<a href='#'>";
+					html+="<img src='"+data[i]+"'>";
+					html+="</a>";
+					html+="</div>";
+				}
+				$("#goods_banner").append(html);
+				 $('#J_Slider').slider({
+				        speed: 200,
+				        autoplay: 10000,
+				        lazyLoad: true
+				});
+			}
+			function initGroup(data){
+				var key1=0,key2=0;
+				data.spec.forEach((item) => {
+					if(item.spec_name=='颜色'){
+						let html="";
+						item.spec_data.forEach((e1,i1) => {
+							if(i1==0){
+								key1=e1.id;
+								html+="<a href='#' class='grids-item'>";
+								html+="<div class='grids-txt' name='color_"+e1.id+"'><span>"+e1.item+"</span></div>";
+								html+="</a>";
+							}else{
+								html+="<a href='#' class='grids-item'>";
+								html+="<div class='grids-txt' name='color_"+e1.id+"'><span>"+e1.item+"</span></div>";
+								html+="</a>";
+							}
+							
+						})
+						$("#group_color").empty();
+						$("#group_color").append(html);	
+					}
+					if(item.spec_name=='尺码'){
+						let html="";
+						item.spec_data.forEach((e2,i2) => {
+							if(i2==0){
+								key2=e2.id;
+								html+="<a href='#' class='grids-item'>";
+								html+="<div class='grids-txt' name='spec_"+e2.id+"'><span>"+e2.item+"</span></div>";
+								html+="</a>";
+							}else{
+								html+="<a href='#' class='grids-item'>";
+								html+="<div class='grids-txt' name='spec_"+e2.id+"'><span>"+e2.item+"</span></div>";
+								html+="</a>";
+							}
+						})
+						$("#group_spec").empty();
+						$("#group_spec").append(html);	
+					}
+				});
+				var key3=key2+":"+key1;
+				//var key3=key1+":"+key2;
+				data.group.forEach((e) => {
+					if(e.key==key3){
+						group_id=e.group_id;
+						$("#group_lprice").text(e.lprice);
+						$("#lprice").text(e.lprice);
+						$("#price").text(e.price);	
+						$("#tag_price").text("¥"+e.tag_price);
+						$("#group_price").text("¥"+e.price);
+						$("#group_tagprice").text("¥"+e.tag_price);
+						$("#group_kc").text(e.store_count);
+						$("#group_img").attr("src",e.spec_image);
+						$("#goods_num").text(e.store_count);
+						let num=$("#group_num").val();
+						$("#key_name").text(e.key_name+","+num+"件");
+						
+						let html="<div name='beforebanner' class='slider-item'>";
+							html+="<a href='#'>";
+							html+="<img src='"+e.spec_image+"'>";
+							html+="</a>";
+							html+="</div>";
+
+						$("#goods_banner").find('div').eq(0).before(html);
+						 $('#J_Slider').slider({
+						        speed: 200,
+						        autoplay: 2000,
+						        lazyLoad: true
+						    });
+					}
+				})
+				select_action();
+			}
+			function select_action(){
+				$(".m-grids-3 a div").unbind("click").click(function() {
+					$(this).addClass("div_select");
+					$(this).parent().siblings().each(function() {
+						$(this).find("div").removeClass("div_select");
+					});
+					//var key1=$("#group_color").find('.div_select').attr('name').replace('color_','');
+					var key1,key2;
+					if($("#group_color").find('.div_select').attr('name')!=null){
+						key1=$("#group_color").find('.div_select').attr('name').replace('color_','');
+					}
+					if($("#group_spec").find('.div_select').attr('name')!=null){
+						key2=$("#group_spec").find('.div_select').attr('name').replace('spec_','');
+					}
+					// var key2=$("#group_spec").find('.div_select').attr('name').replace('spec_','');
+					//var key3=key1+","+key2;
+					var key3=key2+","+key1;
+					group_data.group.forEach((e) => {
+						if(e.key==key3){
+							group_id=e.group_id
+							$("#group_lprice").text(e.lprice);
+							$("#lprice").text(e.lprice);
+							$("#price").text(e.price);
+							$("#tag_price").text("¥"+e.tag_price);
+							$("#group_price").text("¥"+e.price);
+							$("#group_tagprice").text("¥"+e.tag_price);
+							$("#group_kc").text(e.store_count);
+							$("#group_img").attr("src",e.spec_image);
+							$("div[name='beforebanner']").remove();
+							let html="<div name='beforebanner' class='slider-item'>";
+								html+="<a href='#'>";
+								html+="<img src='"+e.spec_image+"'>";
+								html+="</a>";
+								html+="</div>";
+							
+							$("#goods_banner").find('div').eq(0).before(html);
+							 $('#J_Slider').slider({
+							        speed: 200,
+							        autoplay: 2000,
+							        lazyLoad: true
+							    });
+						}
+					})
+				})
+			}
+			function goodsToCart(){
+				if(group_id==0){
+					$as.actionSheet('open');
+					// dialog.toast('请选择样式', 'none', 1000);
+					return;
+				}
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("goods_id", goods_id);
+				formdata.append("group_id", group_id);
+				formdata.append("num", $("#group_num").val());
+				formdata.append("price", $("#price").text());
+				formdata.append("lprice", $("#lprice").text());
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/cart/join_cart',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							dialog.toast('加入购物车成功！在购物车等亲哦！', 'none', 1000);
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('加入购物车失败，服务异常！', 'none', 1000);
+					},
+				})
+			}
+			function confirm_order(){
+				if(group_id==0){
+					$as.actionSheet('open');
+					// dialog.toast('请选择样式', 'none', 1000);
+					return;
+				}
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("goods_id", goods_id);
+				formdata.append("group_id", group_id);
+				formdata.append("num", $("#group_num").val());
+				formdata.append("lprice", $("#lprice").text());
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/confirm_order',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							$.cookie('orderdata',JSON.stringify(res.data));
+							location.href='OrderPlace.html?from=gd';
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('下单失败，服务异常！', 'none', 1000);
+					},
+				})
+			}
+			
+			
+			$(function() {
+				if(goods_id){
+					GetDetail();
+				}
+			
+				$("#join_cart").click(function(){
+					goodsToCart()
+				})
+				$("#place_order").unbind("click").bind("click", function() {
+					confirm_order();	
+				})
+			})
+		</script>
+
+
+	</body>
+</html>
+0
