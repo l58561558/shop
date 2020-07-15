@@ -440,6 +440,7 @@
 					$("#group_price").text(' ');
 					$("#group_tagprice").text(' ');
 					$("#group_kc").text(' ');
+					$("div[name='beforebanner']").remove();
 
 					var spec_arr = [];
 					$(this).addClass("div_select");
@@ -474,11 +475,11 @@
 								html+="</div>";
 							
 							$("#goods_banner").find('div').eq(0).before(html);
-							 $('#J_Slider').slider({
-							        speed: 200,
-							        autoplay: 2000,
-							        lazyLoad: true
-							    });
+							$('#J_Slider').slider({
+						        speed: 200,
+						        autoplay: 2000,
+						        lazyLoad: true
+						    });
 						}
 					})
 				})
