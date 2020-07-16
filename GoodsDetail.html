@@ -319,9 +319,9 @@
 			
 			var $as = $('#actionSheet');
 
-			if(userinfo.level == 5){
-				$('.btn_bottom').css('display','none');
-			}
+			// if(userinfo.level == 5){
+			// 	$('.btn_bottom').css('display','none');
+			// }
 			
 			    $('.open_typecon').on('click', function () {
 			        $as.actionSheet('open');
@@ -329,23 +329,23 @@
 			
 			    $('#type_sub').on('click', function () {
 			        $as.actionSheet('close');
-					let color=$("#group_color").find('.div_select').text();
-					let spec=$("#group_spec").find('.div_select').text();
-					let num=$("#group_num").val();
-					$("#key_name").text(color+","+spec+","+num+"件")
-					group_data.group.forEach((e1,i1) => {
-						if(e1.key_name==color+","+spec){
-							group_id=e1.group_id;
-							$("#lprice").text(e1.lprice);
-							$("#price").text(e1.price);
-							$("#tag_price").text("¥"+e1.tag_price);
-							$("#group_lprice").text(e1.lprice);
-							$("#group_price").text("¥"+e1.price);
-							$("#group_tagprice").text("¥"+e1.tag_price);
+					// let color=$("#group_color").find('.div_select').text();
+					// let spec=$("#group_spec").find('.div_select').text();
+					// let num=$("#group_num").val();
+					// $("#key_name").text(color+","+spec+","+num+"件")
+					// group_data.group.forEach((e1,i1) => {
+					// 	if(e1.key_name==color+","+spec){
+					// 		group_id=e1.group_id;
+					// 		$("#lprice").text(e1.lprice);
+					// 		$("#price").text(e1.price);
+					// 		$("#tag_price").text("¥"+e1.tag_price);
+					// 		$("#group_lprice").text(e1.lprice);
+					// 		$("#group_price").text("¥"+e1.price);
+					// 		$("#group_tagprice").text("¥"+e1.tag_price);
 							
-						}
+					// 	}
 
-					})
+					// })
 			    });
 			
 			    /* 自定义事件 */
@@ -443,6 +443,7 @@
 					$("div[name='beforebanner']").remove();
 
 					var spec_arr = [];
+					var spec_arr_names = [];
 					$(this).addClass("div_select");
 					$(this).parent().siblings().each(function() {
 						$(this).find("div").removeClass("div_select");
@@ -450,14 +451,24 @@
 					var cla_div_select = $("#group").children().find('.div_select');
 					$(cla_div_select).each(function(index){
 						var name = $(this).attr('name');
+						var nickname = $(this).find('span').text();
 						spec_arr.push(name);
+						spec_arr_names.push(nickname);
 					})
 					spec_arr = spec_arr.sort(function(a,b){
 						return a-b;
 					});
+					var num = $("#group_num").val();
+					spec_arr_names.push(num)
+					spec_arr_names = spec_arr_names.sort(function(a,b){
+						return a-b;
+					});
 					var key = spec_arr.join(',');
+					var nick_key = spec_arr_names.join(',');
+
 					group_data.group.forEach((e) => {
 						if(e.key==key){
+							$("#key_name").text(nick_key+"件")
 							group_id=e.group_id
 							$("#group_lprice").text(e.lprice);
 							$("#lprice").text(e.lprice);
