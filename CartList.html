@@ -61,7 +61,8 @@
 				float: left;
 			}
 			.cart_l3 img{
-				padding-top: 0.4rem;
+				/*padding-top: 0.4rem;*/
+				margin-top: 0.4rem;
 				width:1.8rem;
 				height: 1.8rem;
 			}
@@ -75,9 +76,10 @@
 				padding-bottom: 0.3rem;
 			}
 			.l3_content{
-				font-size: 0.32rem;
-				padding-top:0.4rem;
-				padding-left: 0.05rem;
+				font-size: 0.25rem;
+				/*padding-top:0.4rem;*/
+				padding-top: 5%;
+				/*padding-left: 0.05rem;*/
 				white-space: normal;
 				word-break: break-all;
 				word-wrap: break-word;
@@ -304,12 +306,13 @@
 					html += "<img  src='img/icon/cart_noselect.png' />";
 					html += "</div>";
 					html += "<div class='cart_l2'>";
-					html += "<div class='cart_l3'>";
+					html += `<div class='cart_l3' onclick="window.location.href='GoodsDetail.html?id=`+data[i].goods_id+`'">`;
 					html += "<div class='full_left'>";
 					html += "<img src='" + data[i].cover_image + "' data-url='" + data[i].cover_image + "'>";
 					html += "</div>";
 					html += "<div class='full_right l3_content'>";
-					html += "<p>" + data[i].name.substr(0,16)+'...' + "</p>";
+					// html += "<p>" + data[i].name.substr(0,16)+'...' + "</p>";
+					html += "<p>" + data[i].name + "</p>";
 					html += "<div class='cart_select'>";
 					html += "" + data[i].spec_name + "";
 					
@@ -339,7 +342,7 @@
 					callback: function (value, $ele) {
 						let cartId=$ele.parent().parent().parent().parent().attr('name').replace('cart_','')
 						UpCartAmount(value,cartId)
-						checkCount();
+						// checkCount();
 					}
 				});
 			}
@@ -362,6 +365,7 @@
 						if (res.code == 1) {
 							
 						} else {
+							$(".J_Input").val(--va)
 							dialog.toast(res.msg, 'none', 1000);
 						}
 					},
@@ -483,6 +487,17 @@
 					checkCount();
 				})
 			}
+			// function subChart(){
+			// 	var cart_id=''
+			// 	for(let i=0;i<$("#cart_ul").find('li').length;i++){
+			// 		if($("#cart_ul").find('li').eq(i).find('.cart_l1 img').hasClass('s1')){
+			// 			cart_id+=','+$("#cart_ul").find('li').eq(i).attr('name').replace('cart_','')
+			// 		}
+			// 	}
+			// 	if (cart_id.substr(0,1)==',') cart_id=cart_id.substr(1);
+
+			// 	location.href='OrderPlace.html?cartid='+cart_id;
+			// }
 			function subChart(){
 				let formdata = new FormData();
 				formdata.append("token", token);

@@ -56,26 +56,32 @@
 			#goods_content{
 				margin-top: .2rem;
 			}
+			.list-theme4 .list-item{
+				border-top: 1px solid #F5F5F5;
+			}
 			.list-theme4 .list-item .list-img{
-				width: 1.6rem;
-				padding: .9rem 0;
+				/*width: 1.6rem;
+				padding: .9rem 0;*/
+				margin-top: 5%;
 			}
 			.list-theme4 .list-item .list-mes{
 				padding-top: .1rem;
 			}
 			.list-theme4 .list-item .list-mes .list-title{
-				font-size: .4rem;
+				font-size: 0.33rem;
+				font-weight: bold;
 			}
 			.list-price{
 				color: #000000;
 				font-size: .4rem;
 			}
 			.list_spec_name{
-				margin-top: .2rem;
+				/*margin-top: .2rem;*/
 				line-height: .4rem;
-				padding:0 .25rem ;
-				height: .4rem;
+				padding: 0.1rem ;
+				/*height: .4rem;*/
 				background: #F7F7F7;
+				font-size: 0.25rem;
 			}
 			.m-cell{
 				margin-top: .1rem;
@@ -233,7 +239,12 @@
 			var cartid;
 			function initorder() {
 
-				data = JSON.parse($.cookie('orderdata'));
+				if(getQueryString('data')){
+					data = JSON.parse(getQueryString('data'));
+					console.log(data);
+				}else{
+					data = JSON.parse($.cookie('orderdata'));
+				}
 				if(data.address_data.length==0){
 					$("#address_d1").empty();
 					$("#address_d1").append('<a href="#" class="navbar-item"><img src="img/icon/Oval.png"></a><div id="address_d3" class="navbar-center"><p><a href="Myaddress.html?from=orplace">添加收货地址</a></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')
@@ -256,7 +267,7 @@
 				$("#shipping_price").text(data.shipping_price);
 				$("#total_amount").text(data.total_amount);
 				$("#goods_payment").text(data.goods_payment);
-				$("#bottom_num").text("共"+data.total_num+"件商品");
+				$("#bottom_num").text("共"+data.total_num+"件");
 				$("#bottom_price").text("总计:￥"+data.total_amount);
 			}
 			function addGoodsContent1(data){
@@ -270,15 +281,13 @@
 					html+="<div>";
 					html+="<h3 class='list-title'>"+data.name+"</h3>";
 					html+="</div>";
-					html+="<div><span class='list-price'><em>¥</em>"+data.price+"</span></div>";	
+					// html+="<div><span class='list-price'><em>¥</em>"+data.price+"</span></div>";	
 					html+="</div>";		
-					html+="<div class='list-mes-item'>";	
-					html+="<div></div>";
-					html+="<div class='list_num'>x"+data.num+"</div>";		
-					html+="</div>";	
+					// html+="<div class='list-mes-item'>";
+					// html+="<div class='list_num'>x"+data.num+"</div>";		
+					// html+="</div>";	
 					html+="<div class='list-mes-item'>";		
-					html+="<div class='list_spec_name'>"+data.spec_name+"</div>";			
-					html+="<div></div>";			
+					html+="<div class='list_spec_name'>"+data.spec_name+"</div>";		
 					html+="</div>";		
 					html+="</div></a>";									
 				$("#goods_content article").empty();
@@ -297,16 +306,14 @@
 					html+="<div>";
 					html+="<h3 class='list-title'>"+data[i].name+"</h3>";
 					html+="</div>";
-					html+="<div><span class='list-price'><em>¥</em>"+data[i].price+"</span></div>";	
 					html+="</div>";		
-					html+="<div class='list-mes-item'>";	
-					html+="<div></div>";
-					html+="<div class='list_num'>x"+data[i].num+"</div>";		
-					html+="</div>";	
 					html+="<div class='list-mes-item'>";		
-					html+="<div class='list_spec_name'>"+data[i].spec_name+"</div>";			
-					html+="<div></div>";			
-					html+="</div>";		
+					html+="<div class='list_spec_name'>"+data[i].spec_name+"</div>";
+					html+="</div>";	
+					html+="<div class='list-mes-item'><span class='list-price'><em>¥</em>"+data[i].price+"</span><div class='list_num'>x"+data[i].num+"</div></div>";	
+					// html+="<div class='list-mes-item'>";	
+					// html+="<div class='list_num'>x"+data[i].num+"</div>";		
+					// html+="</div>";		
 					html+="</div></a>";									
 				}
 				$("#goods_content article").empty();
