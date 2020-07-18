@@ -365,7 +365,7 @@
 						if (res.code == 1) {
 							
 						} else {
-							$(".J_Input").val(--va)
+							$(".J_Input").val(res.data);
 							dialog.toast(res.msg, 'none', 1000);
 						}
 					},
