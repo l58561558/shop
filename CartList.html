@@ -341,12 +341,12 @@
 					minus: '.J_Del',
 					callback: function (value, $ele) {
 						let cartId=$ele.parent().parent().parent().parent().attr('name').replace('cart_','')
-						UpCartAmount(value,cartId)
+						UpCartAmount(value,cartId, $ele)
 						// checkCount();
 					}
 				});
 			}
-			function UpCartAmount(va,cartId){
+			function UpCartAmount(va,cartId, $ele){
 				
 				let formdata = new FormData();
 				formdata.append("token", token);
@@ -363,9 +363,9 @@
 					dataType: "json",
 					success: function(res) {
 						if (res.code == 1) {
-							
+							checkCount();
 						} else {
-							$(".J_Input").val(res.data);
+							$ele.val(res.data);
 							dialog.toast(res.msg, 'none', 1000);
 						}
 					},
