@@ -66,7 +66,7 @@
 			.action_basicinfo{
 				width: 100%;
 				padding-top: 0.2rem;
-				padding-bottom: 0.2rem;
+				/*padding-bottom: 0.2rem;*/
 			}
 			.basic-img{
 				width: 30%;
@@ -81,7 +81,7 @@
 				float: right;
 				width: 70%;
 				text-align: left;
-				padding-top: 0.4rem;
+				/*padding-top: 0.4rem;*/
 				line-height: 0.45rem;
 				font-size: 0.32rem;
 			}
@@ -134,11 +134,11 @@
 				padding-left: 0;
 			}
 			#group_title{
-				font-size: 0.4rem;
+				font-size: 0.3rem;
 			}
 			#group_storecount{
 				color: #999999;
-				font-size: 0.38rem;
+				font-size: 0.3rem;
 			}
 			#select_type:after{
 				border: 1px solid #F7F8F8;
@@ -187,7 +187,7 @@
 				font-size: .38rem;
 			}
 			#group_tagprice{
-				font-size: .37rem;
+				font-size: .28rem;
 			}
 			.m-grids-3 .grids-item {
 			    width: auto;
@@ -196,6 +196,15 @@
 				background: #cacaca;
     			color: #969090;
     			pointer-events: none;
+			}
+			.m-gridstitle {
+			    padding: 0.1rem 0.2rem 0.1rem;
+			    font-size: 0.35rem;
+			    text-align: left;
+			    color: #888;
+			    position: relative;
+			    z-index: 1;
+			    /*background-color: #F5F5F5;*/
 			}
 		</style>
 	</head>
@@ -278,9 +287,9 @@
 						<div style="float: left;">
 							<span class="C39666" style="font-size: .5rem;line-height: .75rem;"><em>¥</em><em id="group_lprice"></em></span>
 						</div>
-						<div style="float: left;margin-left: .2rem;">
-							<p><em id="group_price"></em></p>
-							<p><em id="group_tagprice"></em></p>
+						<div style="float: left;margin-left: .2rem;margin-top: 9px;">
+							<p><em id="group_price"></em>&nbsp;<em id="group_tagprice"></em></p>
+							<!-- <p></p> -->
 						</div>
 						<div style="clear: both;"></div>
 					</div>
@@ -297,7 +306,7 @@
 		   <div class="m-grids-3" id="group_color"></div>
 			<div class="m-gridstitle">尺码</div>
 			<div class="m-grids-3" id="group_spec"></div> -->
-			<div id="group"></div>
+			<div id="group" class="g-scrollview"></div>
 
 			<div class="goods_num">
 				<div class="m-gridstitle">购买数量</div>
@@ -448,7 +457,7 @@
 					html+="</div>";
 				}
 				$("#goods_banner").append(html);
-				 $('#J_Slider').slider({
+				$('#J_Slider').slider({
 				        speed: 200,
 				        autoplay: 10000,
 				        lazyLoad: true
