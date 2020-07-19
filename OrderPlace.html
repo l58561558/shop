@@ -238,13 +238,7 @@
 			var data;
 			var cartid;
 			function initorder() {
-
-				if(getQueryString('data')){
-					data = JSON.parse(getQueryString('data'));
-					console.log(data);
-				}else{
-					data = JSON.parse($.cookie('orderdata'));
-				}
+				data = JSON.parse($.cookie('orderdata'));
 				if(data.address_data.length==0){
 					$("#address_d1").empty();
 					$("#address_d1").append('<a href="#" class="navbar-item"><img src="img/icon/Oval.png"></a><div id="address_d3" class="navbar-center"><p><a href="Myaddress.html?from=orplace">添加收货地址</a></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')
@@ -259,10 +253,12 @@
 				if(data.goods_data.length==''||data.goods_data.length==undefined){
 					let goodsdata=data.goods_data;
 					addGoodsContent1(goodsdata);
-				}else{
-					let goodsdata=data.goods_data;
-					addGoodsContent2(goodsdata);
 				}
+				// else{
+				// 	console.log(11)
+				// 	let goodsdata=data.goods_data;
+				// 	addGoodsContent2(goodsdata);
+				// }
 				$("#goods_price").text(data.goods_price);
 				$("#shipping_price").text(data.shipping_price);
 				$("#total_amount").text(data.total_amount);
@@ -270,6 +266,40 @@
 				$("#bottom_num").text("共"+data.total_num+"件");
 				$("#bottom_price").text("总计:￥"+data.total_amount);
 			}
+
+			function subChart(){
+				console.log(222)
+				let formdata = new FormData();
+				formdata.append("token", token);
+				formdata.append("user_id", user_id);
+				formdata.append("cart_id", cartid);
+				$.ajax({
+					type: "post",
+					url: ajaxUrl + '/order/cart_confirm_order',
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					dataType: "json",
+					success: function(res) {
+						if (res.code == 1) {
+							$("#goods_price").text(res.data.goods_price);
+							$("#shipping_price").text(res.data.shipping_price);
+							$("#total_amount").text(res.data.total_amount);
+							$("#goods_payment").text(res.data.goods_payment);
+							$("#bottom_num").text("共"+res.data.total_num+"件");
+							$("#bottom_price").text("总计:￥"+res.data.total_amount);
+							addGoodsContent2(res.data.goods_data)
+						} else {
+							dialog.toast(res.msg, 'none', 1000);
+						}
+					},
+					error: function(err) {
+						dialog.toast('购物车下单失败，服务异常！', 'none', 1000);
+					}
+				})
+			}
+
 			function addGoodsContent1(data){
 				let html="";
 					html+="<a href='javascript:;' class='list-item'>";
@@ -419,7 +449,8 @@
 					initorder()
 				}
 				if(getQueryString('cartid')){
-					cartid=getQueryString('cartid')
+					cartid=getQueryString('cartid');
+					subChart();
 				}
 				// }else{
 				// 	location.href='GoodsIndex.html'

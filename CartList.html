@@ -487,21 +487,7 @@
 					checkCount();
 				})
 			}
-			// function subChart(){
-			// 	var cart_id=''
-			// 	for(let i=0;i<$("#cart_ul").find('li').length;i++){
-			// 		if($("#cart_ul").find('li').eq(i).find('.cart_l1 img').hasClass('s1')){
-			// 			cart_id+=','+$("#cart_ul").find('li').eq(i).attr('name').replace('cart_','')
-			// 		}
-			// 	}
-			// 	if (cart_id.substr(0,1)==',') cart_id=cart_id.substr(1);
-
-			// 	location.href='OrderPlace.html?cartid='+cart_id;
-			// }
 			function subChart(){
-				let formdata = new FormData();
-				formdata.append("token", token);
-				formdata.append("user_id", user_id);
 				var cart_id=''
 				for(let i=0;i<$("#cart_ul").find('li').length;i++){
 					if($("#cart_ul").find('li').eq(i).find('.cart_l1 img').hasClass('s1')){
@@ -509,29 +495,43 @@
 					}
 				}
 				if (cart_id.substr(0,1)==',') cart_id=cart_id.substr(1);
-				
-				formdata.append("cart_id", cart_id);
-				$.ajax({
-					type: "post",
-					url: ajaxUrl + '/order/cart_confirm_order',
-					data: formdata,
-					cache: false,
-					processData: false,
-					contentType: false,
-					dataType: "json",
-					success: function(res) {
-						if (res.code == 1) {
-							$.cookie('orderdata',JSON.stringify(res.data));
-							location.href='OrderPlace.html?cartid='+cart_id;
-						} else {
-							dialog.toast(res.msg, 'none', 1000);
-						}
-					},
-					error: function(err) {
-						dialog.toast('购物车下单失败，服务异常！', 'none', 1000);
-					}
-				})
+
+				location.href='OrderPlace.html?cartid='+cart_id;
 			}
+			// function subChart(){
+			// 	let formdata = new FormData();
+			// 	formdata.append("token", token);
+			// 	formdata.append("user_id", user_id);
+			// 	var cart_id=''
+			// 	for(let i=0;i<$("#cart_ul").find('li').length;i++){
+			// 		if($("#cart_ul").find('li').eq(i).find('.cart_l1 img').hasClass('s1')){
+			// 			cart_id+=','+$("#cart_ul").find('li').eq(i).attr('name').replace('cart_','')
+			// 		}
+			// 	}
+			// 	if (cart_id.substr(0,1)==',') cart_id=cart_id.substr(1);
+				
+			// 	formdata.append("cart_id", cart_id);
+			// 	$.ajax({
+			// 		type: "post",
+			// 		url: ajaxUrl + '/order/cart_confirm_order',
+			// 		data: formdata,
+			// 		cache: false,
+			// 		processData: false,
+			// 		contentType: false,
+			// 		dataType: "json",
+			// 		success: function(res) {
+			// 			if (res.code == 1) {
+			// 				$.cookie('orderdata',JSON.stringify(res.data));
+			// 				location.href='OrderPlace.html?cartid='+cart_id;
+			// 			} else {
+			// 				dialog.toast(res.msg, 'none', 1000);
+			// 			}
+			// 		},
+			// 		error: function(err) {
+			// 			dialog.toast('购物车下单失败，服务异常！', 'none', 1000);
+			// 		}
+			// 	})
+			// }
 			
 			
 			
