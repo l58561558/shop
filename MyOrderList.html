@@ -178,6 +178,17 @@
 				border: 1px solid #F5F5F5;
 				border-radius: .1rem;
 			}
+			#search_div .cell-left{
+				width: 90%;
+			}
+			#search_div .cell-right{
+				min-height: 0.75rem;
+				padding: 0;
+			}
+			#search_div .cell-right a{
+				margin: auto;
+				font-size: 0.4rem;
+			}
 		</style>
 	</head>
 	<body>
@@ -192,6 +203,13 @@
 				</div>
 			</header>
 		<div id="J_Tab" class="m-tab">
+			<div class="m-cell" style="margin-bottom: 0;background-color: #f1f1f1">
+			    <div id="search_div" class="cell-item">
+			       
+			        <div class="cell-left" ><input style="height: 0.5rem;" id="search" type="text"  class="cell-input" placeholder="搜索商品" autocomplete="off" /></div>
+					 <div class="cell-right"> <a id="search_btn"  class="icon-search"></a></div>
+				</div>
+			</div>
 				<ul class="tab-nav">
 					<li name='status_0' class="tab-nav-item tab-active"><a href="javascript:;">全部</a></li>
 					<li name='status_1' class="tab-nav-item"><a href="javascript:;">待发货</a></li>
@@ -233,6 +251,7 @@
 			var token = userinfo.token;
 			var user_id = userinfo.user_id;
 			var $tab = $('#J_Tab');
+			var search = '';
 
 			$tab.tab({
 				nav: '.tab-nav-item',
@@ -265,6 +284,7 @@
 				formdata.append("page", page);
 				formdata.append("count", pageSize);
 				//formdata.append("date", date);
+				formdata.append("search", search);
 				$.ajax({
 					type: "post",
 					url: ajaxUrl + '/order/order_list',
@@ -602,6 +622,16 @@
 			!function (){
 
 				initData();
+
+				$("#search_btn").click(function(){
+					$("#O_ListContent ul").empty();
+					$(".J_InfiniteScrollTag").remove();
+					$(".list-loading").remove();
+					$(".list-donetip").remove();
+					page = 1, pageSize = 5;
+					search = $("#search").val();
+					initData();
+				})
 				
 			}()
 		</script>
