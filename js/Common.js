@@ -212,7 +212,7 @@ function initTimeSelect(el) {
 
 
 $(function() {
-	// isWechat(window.location.href)
+	isWechat(window.location.href);
 	if (window.location.href.indexOf('Applyagent') < 0) {
 		getmessNumCount();
 	}
