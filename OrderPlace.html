@@ -412,8 +412,7 @@
 					formdata.append("address_id", $("#address_d1").attr('name'));
 				}
 				// var data = JSON.parse($.cookie('orderdata'));
-				// var goods_data=JSON.stringify(reGoodsData(data.goods_data));
-				goods_data = data.goods_data;
+				var goods_data=JSON.stringify(reGoodsData(data.goods_data));
 				if(cartid!=null){
 					formdata.append("cart_ids", cartid);
 				}else{
