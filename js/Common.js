@@ -212,7 +212,14 @@ function initTimeSelect(el) {
 
 
 $(function() {
-	isWechat(window.location.href);
+	var white_list = ['115.205.172.51','125.122.209.79'];
+	$.getScript("http://pv.sohu.com/cityjson", function() {
+		var cip = returnCitySN["cip"];
+		if(white_list.indexOf(cip) < 0){
+			isWechat(window.location.href);
+		}
+	});
+	// isWechat(window.location.href);
 	if (window.location.href.indexOf('Applyagent') < 0) {
 		getmessNumCount();
 	}
