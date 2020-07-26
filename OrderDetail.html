@@ -34,7 +34,7 @@
 				padding-top: .1rem;
 			}
 			.list-theme4 .list-item .list-mes .list-title{
-				font-size: .4rem;
+				font-size: .35rem;
 			}
 			.list-price{
 				color: #000000;
@@ -44,7 +44,7 @@
 				margin-top: .2rem;
 				line-height: .6rem;
 				padding:0 .25rem ;
-				width: 50%;
+				/*width: 50%;*/
 				background: #F7F7F7;
 				font-size: .35rem;
 			}
@@ -158,6 +158,14 @@
 						<div class="cell-left">订单金额</div>
 						<div class="cell-right" id='total_amount'></div>
 					</div>
+					<div class="cell-item">
+						<div class="cell-left">地址</div>
+						<div class="cell-right" id='user_address'></div>
+					</div>
+					<div class="cell-item">
+						<div class="cell-left">备注</div>
+						<div class="cell-right" id='user_remark'></div>
+					</div>
 				</div>
 				
 				<div id="confirm_div" style="width: 100%;">
@@ -213,6 +221,8 @@
 							addGoodsContent(res.data.goods_data[0]);
 							$('#goods_num').text(res.data.goods_num);
 							$('#total_amount').text(res.data.total_amount);
+							$('#user_address').text(res.data.user_address);
+							$('#user_remark').text(res.data.user_remark);
 							
 						} else {
 							dialog.toast(res.msg, 'none', 1000);
@@ -235,19 +245,21 @@
 				html+="<div>";
 				html+="<h3 class='list-title'>"+data.goods_name+"</h3>";
 				html+="</div>";
-				html+="<div><span class='list-price'><em>¥</em>"+data.price+"</span></div>";	
-				html+="</div>";		
-				html+="<div class='list-mes-item'>";	
-				html+="<div></div>";
-				html+="<div class='list_num'>x"+data.goods_num+"</div>";		
-				html+="</div>";	
+				html+="</div>";
 				html+="<div class='list-mes-item'>";		
 				html+="<div class='list_spec_name'>"+data.spec_key_name+"</div>";
+				html+="</div>";		
+				html+="<div class='list-mes-item'>";	
+				html+="<div><span class='list-price'><em>¥</em>"+data.price+"</span></div>";
+				html+="<div class='list_num'>x"+data.goods_num+"</div>";		
+				html+="</div>";	
+				html+="<div class='list-mes-item' style='float: right;'>";
 				if(!isrefund){
 					html+="<div><div class='refund' title='?id="+data.order_goods_id+"&orderid="+getQueryString('id')+"&status=-2'>申请退货/退款</div></div>";
 				}
+				html+="</div>";
 				html+="</div>";		
-				html+="</div>";		
+
 				html+="</a>";
 				$("#goods_content article").empty();
 				$("#goods_content article").append(html);
