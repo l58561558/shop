@@ -336,8 +336,9 @@
 				padding-bottom: .2rem;
 			}
 			#Content_3 .cell-item{
-				height: 1rem;
+				/*height: 1rem;*/
 				font-size: .38rem;
+				margin-bottom: 15px;
 			}
 			#Content_3 .cell-item:not(:last-child):after{
 				border: none;
@@ -372,7 +373,7 @@
 		<div id="Content_3">
 			<div class="m-cell">
 				<div class="cell-item">
-					寄回地址:（请勿货到付款）
+					寄回地址:（请勿平邮到付，保证衣服未经穿洗修改，不影响二次销售）
 				</div>
 				<div class="cell-item" id='refund_address'>
 
@@ -717,7 +718,7 @@
 								html += "<p>退货原因:" + res.data.content + "</p>";
 								$(".c2_content").html(html);
 							} else if (status == 1) {
-								$("#refund_address").text(res.data.refund_address);
+								$("#refund_address").text(res.data.refund_address+' '+res.data.refund_consignee+' '+res.data.refund_mobile);
 								$("#refund_order_state").text(res.data.refund_order_state);
 							} else if (status == 2) {
 								LoadTraces(res.data);
