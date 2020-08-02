@@ -441,6 +441,9 @@
 							$("#loading").css('display','none');
 
 							dialog.toast(res.msg, 'none', 3000);
+							if(res.code == -3) {
+								setTimeout(function(){ location.href='CartList.html' }, 2000);
+							}
 						}
 					},
 					error: function(err) {
