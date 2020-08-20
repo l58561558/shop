@@ -243,10 +243,10 @@
 
 				if(data.address_data.length==0){
 					$("#address_d1").empty();
-					$("#address_d1").append('<a href="#" class="navbar-item"><img src="img/icon/Oval.png"></a><div id="address_d3" class="navbar-center"><p><a href="Myaddress.html?from=orplace">添加收货地址</a></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')
+					$("#address_d1").append('<a href="#" class="navbar-item"><img src="img/icon/Oval.png"></a><div id="address_d3" class="navbar-center"><p><a href="Myaddress.html?from=orplace">添加收货地址</a></p></div><a href="javascript:;" class="navbar-item"><i class="next-ico"></i></a>')
 				}else{
 					$("#address_d1").empty();
-					$("#address_d1").append('<a href="#" class="navbar-item"><i class="icon-location"></i></a><div id="address_d2" class="navbar-center"><p><em id="address_e1"></em> <em id="address_e2"></em></p><p id="address_p2"></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')
+					$("#address_d1").append('<a href="#" class="navbar-item"><i class="icon-location"></i></a><div id="address_d2" class="navbar-center"><p><em id="address_e1"></em> <em id="address_e2"></em></p><p id="address_p2"></p></div><a href="javascript:;" class="navbar-item"><i class="next-ico"></i></a>')
 				}
 				$("#address_e1").text(data.address_data.consignee);
 				$("#address_e2").text(data.address_data.mobile);
@@ -285,15 +285,24 @@
 							data = res.data;
 							if(data.address_data.length==0){
 								$("#address_d1").empty();
-								$("#address_d1").append('<a href="#" class="navbar-item"><img src="img/icon/Oval.png"></a><div id="address_d3" class="navbar-center"><p><a href="Myaddress.html?from=orplace">添加收货地址</a></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')
+								$("#address_d1").append('<a href="#" class="navbar-item"><img src="img/icon/Oval.png"></a><div id="address_d3" class="navbar-center"><p><a href="Myaddress.html?from=orplace">添加收货地址</a></p></div><a href="javascript:;" class="navbar-item"><i class="next-ico"></i></a>')
 							}else{
 								$("#address_d1").empty();
-								$("#address_d1").append('<a href="#" class="navbar-item"><i class="icon-location"></i></a><div id="address_d2" class="navbar-center"><p><em id="address_e1"></em> <em id="address_e2"></em></p><p id="address_p2"></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')
+								$("#address_d1").append('<a href="#" class="navbar-item"><i class="icon-location"></i></a><div id="address_d2" class="navbar-center"><p><em id="address_e1"></em> <em id="address_e2"></em></p><p id="address_p2"></p></div><a href="javascript:;" class="navbar-item"><i class="next-ico"></i></a>')
 							}
-							$("#address_e1").text(data.address_data.consignee);
-							$("#address_e2").text(data.address_data.mobile);
-							$("#address_p2").text(data.address_data.areaName);
-							$("#address_d1").attr('name', data.address_data.address_id);
+							if (getQueryString('aid')) {
+								$("#address_d1").empty();
+								$("#address_d1").append('<a href="#" class="navbar-item"><i class="icon-location"></i></a><div id="address_d2" class="navbar-center"><p><em id="address_e1"></em> <em id="address_e2"></em></p><p id="address_p2"></p></div><a href="javascript:;" class="navbar-item"><i class="next-ico"></i></a>')	
+								$("#address_e1").text(decodeUnicode(getQueryString('name')));
+								$("#address_e2").text(getQueryString('mobile'));
+								$("#address_p2").text(decodeUnicode(getQueryString('add')));
+								$("#address_d1").attr('name', getQueryString('aid'));
+							}else{
+								$("#address_e1").text(data.address_data.consignee);
+								$("#address_e2").text(data.address_data.mobile);
+								$("#address_p2").text(data.address_data.areaName);
+								$("#address_d1").attr('name', data.address_data.address_id);
+							}
 
 							$("#goods_price").text(data.goods_price);
 							$("#shipping_price").text(data.shipping_price);
@@ -458,7 +467,11 @@
 			
 			$(function() {
 				$("#address_d1").click(function(){
-					location.href = 'Myaddress.html?from=orplace';
+					if(getQueryString('cartid')){
+						location.href = 'Myaddress.html?from=orplace&cartid='+getQueryString('cartid');
+					}else{
+						location.href = 'Myaddress.html?from=orplace';
+					}
 				})
 				if(getQueryString('cartid')){
 					cartid=getQueryString('cartid');
@@ -473,7 +486,7 @@
 				// }
 				if (getQueryString('aid')) {
 					$("#address_d1").empty();
-					$("#address_d1").append('<a href="#" class="navbar-item"><i class="icon-location"></i></a><div id="address_d2" class="navbar-center"><p><em id="address_e1"></em> <em id="address_e2"></em></p><p id="address_p2"></p></div><a href="Myaddress.html?from=orplace" class="navbar-item"><i class="next-ico"></i></a>')	
+					$("#address_d1").append('<a href="#" class="navbar-item"><i class="icon-location"></i></a><div id="address_d2" class="navbar-center"><p><em id="address_e1"></em> <em id="address_e2"></em></p><p id="address_p2"></p></div><a href="javascript:;" class="navbar-item"><i class="next-ico"></i></a>')	
 					$("#address_e1").text(decodeUnicode(getQueryString('name')));
 					$("#address_e2").text(getQueryString('mobile'));
 					$("#address_p2").text(decodeUnicode(getQueryString('add')));

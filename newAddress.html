@@ -218,7 +218,11 @@
 						if (res.code == 1) {
 							dialog.toast(res.msg, 'none', 1000);
 							if(getQueryString('from')=='orplace'){
-								location.href='Myaddress.html?from=orplace';
+								if(getQueryString('cartid')){
+									location.href='Myaddress.html?from=orplace&cartid='+getQueryString('cartid');
+								}else{
+									location.href='Myaddress.html?from=orplace'
+								}
 							}else{
 								window.location.href = document.referrer;
 							}
@@ -273,10 +277,19 @@
 				});
 				$("#back").unbind("click").bind("click",function(){
 					if(getQueryString('from')=='orplace'){
-						location.href='Myaddress.html?from=orplace';
+						if(getQueryString('cartid')){
+							location.href='Myaddress.html?from=orplace&cartid='+getQueryString('cartid');
+						}else{
+							location.href='Myaddress.html?from=orplace'
+						}
+						
 					}else{
 						if(getQueryString('type')=='case'){
-							location.href='Myaddress.html?type=case';
+							if(getQueryString('cartid')){
+								location.href='Myaddress.html?from=case&cartid='+getQueryString('cartid');
+							}else{
+								location.href='Myaddress.html?from=case'
+							}
 						}
 						window.location.href = document.referrer;
 					}

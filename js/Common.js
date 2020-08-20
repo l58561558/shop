@@ -212,11 +212,9 @@ function initTimeSelect(el) {
 
 
 $(function() {
-	var white_list = ['115.205.172.51','125.122.209.79','183.157.76.77'];
+	var white_list = ['115.205.172.51','218.74.52.140'];
 	$.getScript("http://pv.sohu.com/cityjson", function() {
 		var cip = returnCitySN["cip"];
-		// console.log(cip);
-		// return false;
 		if(white_list.indexOf(cip) < 0){
 			isWechat(window.location.href);
 		}

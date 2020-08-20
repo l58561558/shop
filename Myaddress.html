@@ -24,13 +24,13 @@
 				height: 100%;
 			}
 			.address_li{
-				height: 2.3rem;
+				/*height: 2.3rem;*/
 				background: #FFFFFF;
 				margin-bottom: .1rem;
 			}
 			.address_d1{
 				width: 95%;
-				height: 1.48rem;
+				/*height: 1.48rem;*/
 				margin: auto;
 				border-bottom: 1px solid #EEEEEE;
 				text-align: left;
@@ -114,7 +114,7 @@
 				确定
 			</a>
 		</header>
-		<div>
+		<div style="margin-bottom: 25%;">
 			<ul class="address_ul">
 				
 			</ul>
@@ -131,13 +131,18 @@
 			var token =userinfo.token;
 			var user_id = userinfo.user_id;
 			$("#new_sub").click(function(){
+				var url;
 				if(getQueryString('from')=='orplace'){
-					location.href='newAddress.html?from=orplace';
+					url='newAddress.html?from=orplace';
+					if(getQueryString('cartid')) url += '&cartid='+getQueryString('cartid');
 				}else if(getQueryString('type')=='case'){
-					location.href='newAddress.html?type=case';
+					url='newAddress.html?type=case';
+					if(getQueryString('cartid')) url += '&cartid='+getQueryString('cartid');
 				}else{
-					location.href='newAddress.html';
+					url='newAddress.html';
+					if(getQueryString('cartid')) url += '&cartid='+getQueryString('cartid');
 				}
+				location.href=url
 			})
 			
 			function getAddress(){
@@ -199,7 +204,11 @@
 				initaction();
 			}
 			function edit(id){
-				location.href="editAddress.html?id="+id;
+				var url = "editAddress.html?id="+id;
+				if(getQueryString('cartid')){
+					url='editAddress.html?id='+id+'&cartid='+getQueryString('cartid');
+				}
+				location.href=url;
 			}
 			function initaction(){
 				$(".address_e5").unbind('click').bind('click',function(){
@@ -242,7 +251,12 @@
 					var address=$(".case_select").parent().find('.address_p2').text();
 					var add_id=$(".case_select").parent().parent().attr('name').replace('address_','');
 					console.log(name+","+mobile+","+address+","+add_id);
-					location.href='OrderPlace.html?name='+encodeUnicode(name)+'&mobile='+mobile+'&add='+encodeUnicode(address)+'&aid='+add_id;
+					if(getQueryString('cartid')){
+						location.href='OrderPlace.html?name='+encodeUnicode(name)+'&mobile='+mobile+'&add='+encodeUnicode(address)+'&aid='+add_id+'&cartid='+getQueryString('cartid');
+					}else{
+						location.href='OrderPlace.html?name='+encodeUnicode(name)+'&mobile='+mobile+'&add='+encodeUnicode(address)+'&aid='+add_id;
+					}
+					
 				})
 			}
 			function delAddress(id){
