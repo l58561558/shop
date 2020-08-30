@@ -60,6 +60,24 @@
 				background: white;
 				margin-bottom: .1rem;
 			}
+			.margin{
+			    height: 0.5rem;
+			    line-height: 0.1rem;
+			    width: auto;
+			    border-radius: 0.3rem;
+			    padding: 10px;
+			    /*background: linear-gradient(180deg, rgba(152, 120, 85, 1) 0%, rgba(197, 169, 124, 1) 49%, rgba(240, 219, 168, 1) 100%);*/
+			    font-size: .32rem;
+			    border: 0;
+			}
+			.margin-on{
+				color: #FFFFFF;
+				background-color: #c39666;
+			}
+			.margin-off{
+				color: #cccccc;
+				background-color: #f5f5f5;
+			}
 		</style>
 	</head>
 	<body>
@@ -74,24 +92,25 @@
 			</header>
 			<div class="mywallet_top">
 				<div class="m-grids-3">
-					<a href="#" class="grids-item">
+					<a href="javascript:;" class="grids-item">
 						<div class="grids-txt">
 							<p id="money"></p>
 							<p>余额</p>
 						</div>
 					</a>
 
-					<a href="#" class="grids-item">
+					<a href="javascript:;" class="grids-item">
 						<div class="grids-txt">
 							<p id="goods_payment">0</p>
 							<p>货款</p>
 						</div>
 					</a>
 
-					<a href="#" class="grids-item">
+					<a href="javascript:;" class="grids-item">
 						<div class="grids-txt">
-							<p id="margin"></p>
+							<p id="margin" style="margin-bottom:0"></p>
 							<p>保证金</p>
+							<p><input type="button" class="margin margin-off" value="解冻保证金"></p>
 						</div>
 					</a>
 
@@ -208,6 +227,11 @@
 							$("#money").text(ret.data.money_info.money);
 							$("#goods_payment").text(ret.data.money_info.goods_payment);
 							$("#margin").text(ret.data.money_info.margin);
+							$(".margin").val(ret.data.money_info.margin_status_name)
+							if(ret.data.money_info.margin_status == 1){
+								$(".margin").removeClass('margin-off');
+								$(".margin").addClass('margin-on');
+							}
 							setTimeout(function() {
 								typeof callback == 'function' && callback(ret.data.money_log);
 							}, 500);
@@ -269,6 +293,11 @@
 								$("#money").text(res.data.money_info.money);
 								$("#goods_payment").text(res.data.money_info.goods_payment);
 								$("#margin").text(res.data.money_info.margin);
+								$(".margin").val(ret.data.money_info.margin_status_name)
+								if(ret.data.money_info.margin_status == 1){
+									$(".margin").removeClass('margin-off');
+									$(".margin").addClass('margin-on');
+								}
 								let html = "";
 								for (let i = 0; i < res.data.money_log.length; i++) {
 									let des = res.data.money_log[i].desc == null ? '' : res.data.money_log[i].desc;
@@ -339,6 +368,35 @@
 			}
 
 			$(function() {
+				$(".margin").click(function(){
+					var bool = $(this).hasClass('margin-on');
+					if(!bool) return false;
+					var formdata = new FormData();
+					formdata.append("token", token);
+					formdata.append("user_id", user_id);
+					$.ajax({
+						type: "post",
+						url: ajaxUrl + '/user/thaw_margin',
+						data: formdata,
+						cache: false,
+						processData: false,
+						contentType: false,
+						dataType: "json",
+						success: function(ret) {
+							if (ret.code == 1) {
+								dialog.toast(ret.msg, 'none', 2000);
+								setTimeout(function() {
+									location.reload();
+								}, 2000);
+							}else{
+								dialog.toast(ret.msg, 'none', 2000);
+							}
+						},
+						error: function(err) {
+							dialog.toast('解冻保证金申请失败，服务异常！', 'none', 2000);
+						}
+					});
+				})
 				//getWalletInfo(1);
 				getWalletList(1)
 			})
